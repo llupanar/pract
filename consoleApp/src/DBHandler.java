@@ -35,7 +35,7 @@ public class DBHandler {
         try{
             Statement statement=connection.createStatement();
             ResultSet output=null;
-            output =statement.executeQuery("select * from "+table_name);
+            output =statement.executeQuery("SELECT * FROM "+table_name);
             ConsoleIO temp=new ConsoleIO();
             if (output==null){
                 System.out.println("Empty");
