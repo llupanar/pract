@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 public class DBHandler {
     public Connection connectToDb(String DB_URL, String USER, String PASS) {
@@ -31,11 +32,11 @@ public class DBHandler {
         }
         return connection;
     }
-    public void showData(Connection connection, String table_name){
+    public void showData(Connection connection, String tableName){
         try{
             Statement statement=connection.createStatement();
             ResultSet output=null;
-            output =statement.executeQuery("SELECT * FROM "+table_name);
+            output =statement.executeQuery("SELECT * FROM "+tableName);
             ConsoleIO temp=new ConsoleIO();
             if (output==null){
                 System.out.println("Empty");
@@ -46,30 +47,29 @@ public class DBHandler {
         System.out.println("Connection failed");
         }
     }
-    public void addRow(Connection connection, String table_name, String values){
+    public void addRow(Connection connection, String tableName, String values){
         try{
             Statement statement=connection.createStatement();
-            ResultSet output=null;
-            System.out.println("INSERT INTO "+table_name+" VALUES "+values);
-            statement.executeUpdate("INSERT INTO "+table_name+" VALUES "+values);
+            System.out.println("INSERT INTO "+tableName+" VALUES "+values);
+            statement.executeUpdate("INSERT INTO "+tableName+" VALUES "+values);
         } catch (Exception e) {
             System.out.println("add row failed");
         }
     }
-    public void removeRow(Connection connection, String table_name, String key){
+    public void removeRow(Connection connection, String tableName, String key){
         try{
             Statement statement=connection.createStatement();
-            ResultSet output=null;
-            statement.executeUpdate("DELETE FROM "+table_name+" WHERE "+key);
+            statement.executeUpdate("DELETE FROM "+tableName+" WHERE "+key);
         } catch (Exception e) {
             System.out.println("remove row failed");
         }
     }
-    public void editRow(Connection connection, String table_name, String edit_rq){
+    public void editRow(Connection connection, String table_name, List<String> requests){
         try{
             Statement statement=connection.createStatement();
-            ResultSet output=null;
-            statement.executeUpdate(edit_rq);
+            for (String request : requests) {
+                statement.executeUpdate(request);
+            }
         } catch (Exception e) {
             System.out.println("edit row failed");
         }

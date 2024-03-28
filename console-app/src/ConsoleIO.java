@@ -3,25 +3,26 @@ import java.sql.*;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleIO {
     public void tablePrint(ResultSet resultSet){
         try {
             ResultSetMetaData data = resultSet.getMetaData();
-            int column_count = data.getColumnCount();
-            String[] headers = new String[column_count];
+            int columnCount = data.getColumnCount();
+            String[] headers = new String[columnCount];
 
-            for (int i = 1; i <= column_count; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 System.out.print(data.getColumnName(i) + "\t");
             }
             System.out.println();
-            for (int i = 1; i <= column_count; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 System.out.print("-----------\t");
             }
             System.out.println();
             while (resultSet.next()) {
-                for (int i = 1; i <= column_count; i++) {
+                for (int i = 1; i <= columnCount; i++) {
                     System.out.print("|"+resultSet.getString(i) + "|\t");
                 }
                 System.out.println();
@@ -31,18 +32,18 @@ public class ConsoleIO {
         }
     }
     public ArrayList<String> dbTablePrint(Connection connection){
-        ArrayList<String> table_name_list = new ArrayList<String>();
+        ArrayList<String> tableNameList = new ArrayList<String>();
         try {
-            DatabaseMetaData meta_data = connection.getMetaData();
-            ResultSet tables = meta_data.getTables(null, null, "%", new String[]{"TABLE"});
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet tables = metaData.getTables(null, null, "%", new String[]{"TABLE"});
             System.out.println("\t\tTable list:");
             Integer i = 0;
             while (tables.next()) {
                 String tableName = tables.getString("TABLE_NAME");
-                table_name_list.add(tableName);
+                tableNameList.add(tableName);
 
                 //tableName.add(tables.getString("TABLE_NAME"));
-                System.out.println("["+(i+1)+"] "+table_name_list.get(i));
+                System.out.println("["+(i+1)+"] "+tableNameList.get(i));
                 i++;
             }
         } catch (Exception e) {
@@ -50,7 +51,7 @@ public class ConsoleIO {
             e.printStackTrace();
         }
         System.out.println("Press 0 to exit");
-        return table_name_list;
+        return tableNameList;
     }
     public void printMenu(String table_name){
         System.out.println("\t\t"+table_name);
@@ -69,7 +70,6 @@ public class ConsoleIO {
         }
         char input;
         boolean isValidInput = false;
-
         do {
             input = console.readPassword("> ")[0];
             if (Character.isDigit(input)) {
@@ -88,7 +88,7 @@ public class ConsoleIO {
 
         return number;
     }
-    public String string_input(){
+    public String stringInput(){
         Scanner scanner = new Scanner(System.in);
         String input=null;
         while(input==null){
@@ -97,10 +97,29 @@ public class ConsoleIO {
         return input;
     }
 
+    public List<String> stringsInput(){
+        Console console = System.console();
+        if (console == null) {
+            System.err.println("console error");
+            System.exit(1);
+        }
+        List<String> sentences = new ArrayList<>();
+        String input;
+        do {
+            input = console.readLine("Enter request: ");
+            if (!input.isEmpty()) {
+                sentences.add(input);
+            }
+        } while (!input.isEmpty());
+        System.out.println("Введенные предложения:");
+        for (String sentence : sentences) {
+            System.out.println(sentence);
+        }
+        return sentences;
+    }
     public String addRowInput(Connection connection, String tableName){
-        String add_row="(";
+        String addRow="(";
         try {
-            DatabaseMetaData meta_data = connection.getMetaData();
             String sql = "SELECT * FROM " + tableName;
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet res = statement.executeQuery();
@@ -108,22 +127,22 @@ public class ConsoleIO {
             for (int i=1; i<=res.getMetaData().getColumnCount();i++){
                 System.out.println("Column "+res.getMetaData().getColumnName(i)+" Type "+res.getMetaData().getColumnTypeName(i));
                 if (res.getMetaData().getColumnTypeName(i)=="text"){
-                    add_row+=" '"+string_input()+"'";
+                    addRow+=" '"+ stringInput()+"'";
                 }
                 else{
-                    add_row+=" "+string_input();
+                    addRow+=" "+ stringInput();
                 }
                 if(i==res.getMetaData().getColumnCount()){
-                    add_row+=")";
+                    addRow+=")";
                 }
                 else{
-                    add_row+=",";
+                    addRow+=",";
                 }
             }
         } catch (Exception e) {
             System.out.println("Table names read failed");
             e.printStackTrace();
         }
-        return add_row;
+        return addRow;
     }
 }
