@@ -37,10 +37,14 @@ public class VisitController {
 
     @PostMapping("visit/{id}")
     public ResponseEntity<Visit> updateVisit(@PathVariable(value = "id") Integer visitId,
-                                                 @RequestBody Visit swGroupDetails) throws ResourceNotFoundException {
+                                                 @RequestBody Visit visitDetails) throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
                 .orElseThrow(() -> new ResourceNotFoundException ("Not found visit for this position: "+visitId));
-
+        visit.setAttended(visitDetails.getAttended());
+        visit.setDateTime(visitDetails.getDateTime());
+        visit.setClient(visitDetails.getClient());
+        visit.setEmployee(visitDetails.getEmployee());
+        visit.setLesson(visitDetails.getLesson());
         Visit updateVisit = visitRepositoty.save(visit);
         return  ResponseEntity.ok((this.visitRepositoty.save(visit)));
     }
