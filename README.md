@@ -28,11 +28,11 @@
 - Консольное приложение CRUD с JDBC
 - Названия классов соотв. назначению (например, ConsoleIO содержит все, связанное с вводом/выводом в консоли)
 
-### backend-crudo
+### backend-crud
 
 - Backend на SpringBoot + Hibernate
 - Data JPA
-- Все разбито по соотв. packages
+- Все разбито на соотв. packages (controller, exception, model, repository)
 
 ### .github
 
