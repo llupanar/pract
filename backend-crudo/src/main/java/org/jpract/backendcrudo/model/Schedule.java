@@ -14,4 +14,71 @@ public class Schedule {
     private String time;
     @Column(name="track")
     private Integer track;
+    @ManyToOne
+    @JoinColumn(name = "lesson_id")
+    private Lesson lesson;
+    @ManyToOne
+    @JoinColumn(name = "swgroup_id")
+    private SwGroup swGroup;
+
+    public Schedule(){
+        super();
+    }
+
+    public Schedule(String dayOfWeek, String time, Integer track,
+                    Lesson lesson, SwGroup swGroup) {
+        this.dayOfWeek = dayOfWeek;
+        this.time = time;
+        this.track = track;
+        this.lesson = lesson;
+        this.swGroup = swGroup;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Integer getTrack() {
+        return track;
+    }
+
+    public void setTrack(Integer track) {
+        this.track = track;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
+
+    public SwGroup getSwGroup() {
+        return swGroup;
+    }
+
+    public void setSwGroup(SwGroup swGroup) {
+        this.swGroup = swGroup;
+    }
 }
