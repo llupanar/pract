@@ -1,7 +1,5 @@
 package org.jpract.backendcrudo.model;
-
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +19,6 @@ public class Visit {
     @ManyToOne
     @JoinColumn(name = "employee_passport_number")
     private Employee employee;
-
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;

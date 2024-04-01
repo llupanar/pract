@@ -17,12 +17,12 @@ public class SwGroupController {
     @Autowired
     private SwGroupRepositoty swGroupRepository;
 
-    @GetMapping("pool_subscription")
+    @GetMapping("swgroup")
     private List<SwGroup> getSwGroup(){
         return this.swGroupRepository.findAll();
     }
 
-    @GetMapping("/pool_subscription/{id}")
+    @GetMapping("/swgroup/{id}")
     public ResponseEntity<SwGroup> getSwGroupByPosition (@PathVariable(value="id")Integer swGroupId)
             throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
@@ -30,11 +30,11 @@ public class SwGroupController {
         return  ResponseEntity.ok().body(swGroup);
     }
 
-    @PostMapping("pool_subscription")
+    @PostMapping("swgroup")
     public SwGroup createSwGroup(@RequestBody SwGroup swGroup){
         return this.swGroupRepository.save(swGroup);
     }
-    @PostMapping("pool_subscription/{id}")
+    @PostMapping("swgroup/{id}")
     public ResponseEntity<SwGroup> updateSwGroup(@PathVariable(value = "id") Integer swGroupId,
                                                    @RequestBody SwGroup swGroupDetails) throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
@@ -45,7 +45,7 @@ public class SwGroupController {
         SwGroup updateSwGroup = swGroupRepository.save(swGroup);
         return  ResponseEntity.ok((this.swGroupRepository.save(swGroup)));
     }
-    @DeleteMapping("pool_subscription/{id}")
+    @DeleteMapping("swgroup/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteSwGroup(@PathVariable Integer swGroupId)throws ResourceNotFoundException{
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + swGroupId));
