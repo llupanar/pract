@@ -11,8 +11,9 @@ public class Visit {
     private Integer id;
     @Column(name="attended")
     private Boolean attended;
-    @Column(name="datetime")
+    @Column(name = "datetime", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE USING datetime::timestamp without time zone")
     private LocalDateTime dateTime;
+
     @ManyToOne
     @JoinColumn(name = "client_passport_number")
     private Client client;

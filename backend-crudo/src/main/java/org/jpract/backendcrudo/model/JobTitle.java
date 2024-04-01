@@ -17,7 +17,6 @@ public class JobTitle {
         this.salary = salary;
         this.bonus = bonus;
     }
-
     public JobTitle(){
         super();
     }

@@ -52,7 +52,6 @@ public class VisitController {
     public ResponseEntity<Map<String, Boolean>> deleteVisit(@PathVariable Integer visitId)throws ResourceNotFoundException{
         Visit visit = visitRepositoty.findById(visitId)
                 .orElseThrow(() -> new ResourceNotFoundException("visit not exist with id :" + visitId));
-
         visitRepositoty.delete(visit);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
