@@ -1,0 +1,17 @@
+<h2>Job title list</h2>
+<table class = "table table-striped">
+  <thead>
+  <tr>
+    <th>Position</th>
+    <th>Salary</th>
+    <th>Bonus</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let jobTitle of jobTitles">
+    <td>{{jobTitle.position}}</td>
+    <td>{{jobTitle.salary}}</td>
+    <td>{{jobTitle.bonus}}</td>
+  </tr>
+  </tbody>
+</table>
