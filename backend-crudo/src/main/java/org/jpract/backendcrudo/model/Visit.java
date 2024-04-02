@@ -35,10 +35,6 @@ public class Visit {
     public String getClientPassNum() {
         return client.getPassportNumber();
     }
-    @JsonProperty("lesson_id")
-    public Integer getLessonId() {
-        return lesson.getId();
-    }
     public Visit() {super();}
 
     public Visit(Boolean attended, LocalDateTime dateTime, Client client, Employee employee, Lesson lesson) {
