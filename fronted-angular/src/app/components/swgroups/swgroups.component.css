@@ -1,0 +1,24 @@
+.table-dark {
+  color: #fff;
+  background-color: #333;
+  border-color: #ccc;
+}
+
+.table-dark th,
+.table-dark td {
+  border-color: #ccc;
+}
+
+.table-dark thead th {
+  background-color: #555;
+}
+
+.table-dark tbody tr:nth-child(odd) {
+  background-color: #444;
+}
+.action-icon {
+  margin-right: 15px;
+}
+.table-dark tbody tr:hover {
+  background-color: #555;
+}

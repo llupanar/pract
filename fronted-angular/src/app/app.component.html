@@ -1,4 +1,22 @@
-<h1 class="text-center">{{title}}</h1>>
-<div class="container">
-<app-clients></app-clients>
-</div>
+<header class="header">
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">Swimming-pool</div>
+      <ul class="nav-links">
+        <li class="nav-item" routerLink="/job-titles" routerLinkActive="active">Job Titles</li>
+        <li class="nav-item" routerLink="/clients" routerLinkActive="active">Clients</li>
+        <li class="nav-item" routerLink="/employees" routerLinkActive="active">Employees</li>
+        <li class="nav-item" routerLink="/visits" routerLinkActive="active">Visits</li>
+        <li class="nav-item" routerLink="/pool-subscriptions" routerLinkActive="active">Pool Subscriptions</li>
+        <li class="nav-item" routerLink="/schedules" routerLinkActive="active">Schedules</li>
+        <li class="nav-item" routerLink="/lessons" routerLinkActive="active">Lessons</li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main class="main">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>

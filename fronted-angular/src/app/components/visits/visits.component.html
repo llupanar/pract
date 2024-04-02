@@ -1,0 +1,28 @@
+<h2>Visit</h2>
+<table class="table table-dark table-striped">
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>Data/Time</th>
+    <th>Attended</th>
+    <th>Client</th>
+    <th>Employee</th>
+    <th>Lesson ID</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let visit of visits">
+    <td>{{visit.id}}</td>
+    <td>{{visit.dateTime}}</td>
+    <td>{{visit.attended}}</td>
+    <td>{{visit.client_passport_number}}</td>
+    <td>{{visit.employee_passport_number}}</td>
+    <td>{{visit.lesson_id}}</td>
+    <td>
+      <span class="action-icon">&#9998;</span>
+      <span class="action-icon">&#10060;</span>
+    </td>
+  </tr>
+  </tbody>
+</table>

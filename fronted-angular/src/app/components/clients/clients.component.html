@@ -1,5 +1,5 @@
-<h2>Clients list</h2>
-<table class = "table table-striped">
+<h2>Clients</h2>
+<table class="table table-dark table-striped">
   <thead>
   <tr>
     <th>Passport</th>
@@ -7,6 +7,7 @@
     <th>Med. cert</th>
     <th>Employee</th>
     <th>Subscription</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -16,6 +17,10 @@
     <td>{{client.medicalCertificate}}</td>
     <td>{{client.employee_passport_number}}</td>
     <td>{{client.subscription_id}}</td>
+    <td>
+      <span class="action-icon">&#9998;</span>
+      <span class="action-icon">&#10060;</span>
+    </td>
   </tr>
   </tbody>
 </table>

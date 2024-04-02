@@ -1,0 +1,23 @@
+<h2>Lesson</h2>
+<table class="table table-dark table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Category</th>
+    <th>Duration</th>
+    <th>Employee Passport</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let lesson of lessons">
+    <td>{{lesson.id}}</td>
+    <td>{{lesson.category}}</td>
+    <td>{{lesson.duration}}</td>
+    <td>{{lesson.employee_passport_number}}</td>
+    <td>
+      <span class="action-icon">&#9998;</span>
+      <span class="action-icon">&#10060;</span>
+    </td>
+  </tr>
+  </tbody>
+</table>

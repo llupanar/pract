@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Swimming-pool';
+  activeTab = 'lessons'; // Идентификатор активной вкладки
+  changeTab(tab: string) {
+    this.activeTab = tab; // Обновляем активную вкладку
+  }
 }
+

@@ -25,14 +25,14 @@ export class ClientsComponent implements OnInit{
     subscription_id:0
   };
 
-  constructor(private jobTitleService: ClientService){}
+  constructor(private clientService: ClientService){}
 
   ngOnInit() {
     this.getClients();
   }
 
   public getClients(): void {
-    this.jobTitleService.getClients().subscribe(
+    this.clientService.getClients().subscribe(
       (response: Client[]) => {
         this.clients = response;
         console.log(this.clients);

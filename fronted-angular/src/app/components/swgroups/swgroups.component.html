@@ -1,11 +1,12 @@
-<h2>Swimming-group  list</h2>
-<table class = "table table-striped">
+<h2>Swimming-group</h2>
+<table class="table table-dark table-striped">
   <thead>
   <tr>
     <th>ID</th>
     <th>Level</th>
     <th>Memb. count</th>
     <th>Age Category</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -14,6 +15,10 @@
     <td>{{swGroup.level}}</td>
     <td>{{swGroup.memberCount}}</td>
     <td>{{swGroup.ageCategory}}</td>
+    <td>
+      <span class="action-icon">&#9998;</span>
+      <span class="action-icon">&#10060;</span>
+    </td>
   </tr>
   </tbody>
 </table>
