@@ -1,0 +1,19 @@
+<h2>Swimming-group  list</h2>
+<table class = "table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Level</th>
+    <th>Memb. count</th>
+    <th>Age Category</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let swGroup of swGroups">
+    <td>{{swGroup.id}}</td>
+    <td>{{swGroup.level}}</td>
+    <td>{{swGroup.memberCount}}</td>
+    <td>{{swGroup.ageCategory}}</td>
+  </tr>
+  </tbody>
+</table>

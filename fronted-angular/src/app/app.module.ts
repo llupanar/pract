@@ -3,13 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JobTitleListComponent } from './job-title-list/job-title-list.component';
+import { JobTitlesComponent } from './components/job-titles/job-titles.component';
 import {HttpClientModule} from "@angular/common/http";
-
+import { SwgroupsComponent } from './components/swgroups/swgroups.component';
+import { ClientsComponent } from './components/clients/clients.component';
 @NgModule({
   declarations: [
     AppComponent,
-    JobTitleListComponent
+    JobTitlesComponent,
+    SwgroupsComponent,
+    ClientsComponent,
   ],
   imports: [
     BrowserModule,

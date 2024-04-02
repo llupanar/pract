@@ -1,0 +1,21 @@
+<h2>Clients list</h2>
+<table class = "table table-striped">
+  <thead>
+  <tr>
+    <th>Passport</th>
+    <th>Name</th>
+    <th>Med. cert</th>
+    <th>Employee</th>
+    <th>Subscription</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let client of clients">
+    <td>{{client.passportNumber}}</td>
+    <td>{{client.fullName}}</td>
+    <td>{{client.medicalCertificate}}</td>
+    <td>{{client.employee_passport_number}}</td>
+    <td>{{client.subscription_id}}</td>
+  </tr>
+  </tbody>
+</table>
