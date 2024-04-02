@@ -19,7 +19,7 @@ public class VisitController {
     private final String notFoundMessage="Not found visit for this id: ";
 
     @GetMapping("visit")
-    private List<Visit> getVisit(){
+    public List<Visit> getVisit(){
         return this.visitRepositoty.findAll();
     }
 
@@ -46,11 +46,11 @@ public class VisitController {
         visit.setClient(visitDetails.getClient());
         visit.setEmployee(visitDetails.getEmployee());
         visit.setLesson(visitDetails.getLesson());
-        Visit updateVisit = visitRepositoty.save(visit);
+        visitRepositoty.save(visit);
         return  ResponseEntity.ok((this.visitRepositoty.save(visit)));
     }
     @DeleteMapping("visit/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteVisit(@PathVariable Integer visitId)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deleteVisit(@PathVariable(value = "id") Integer visitId)throws ResourceNotFoundException{
         Visit visit = visitRepositoty.findById(visitId)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage+visitId));
         visitRepositoty.delete(visit);

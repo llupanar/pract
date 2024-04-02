@@ -19,7 +19,7 @@ public class LessonController {
     private final String notFoundMessage="Not found lesson for this id: ";
 
     @GetMapping("lesson")
-    private List<Lesson> getLesson(){
+    public List<Lesson> getLesson(){
         return this.lessonRepository.findAll();
     }
 
@@ -44,11 +44,11 @@ public class LessonController {
         lesson.setCategory(lessonDetails.getCategory());
         lesson.setDuration(lessonDetails.getDuration());
         lesson.setEmployee(lessonDetails.getEmployee());
-        Lesson updateLesson = lessonRepository.save(lesson);
+        lessonRepository.save(lesson);
         return  ResponseEntity.ok((this.lessonRepository.save(lesson)));
     }
     @DeleteMapping("lesson/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteLesson(@PathVariable Integer lessonId)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deleteLesson(@PathVariable(value = "id") Integer lessonId)throws ResourceNotFoundException{
         Lesson swGroup = lessonRepository.findById(lessonId)
                 .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+lessonId));
 

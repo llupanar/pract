@@ -19,7 +19,7 @@ public class SwGroupController {
     private final String notFoundMessage="Not found sqgroup for this id: ";
 
     @GetMapping("swgroup")
-    private List<SwGroup> getSwGroup(){
+    public List<SwGroup> getSwGroup(){
         return this.swGroupRepository.findAll();
     }
 
@@ -43,11 +43,11 @@ public class SwGroupController {
         swGroup.setAgeCategory(swGroupDetails.getAgeCategory());
         swGroup.setLevel(swGroupDetails.getLevel());
         swGroup.setMemberCount(swGroupDetails.getMemberCount());
-        SwGroup updateSwGroup = swGroupRepository.save(swGroup);
+        swGroupRepository.save(swGroup);
         return  ResponseEntity.ok((this.swGroupRepository.save(swGroup)));
     }
     @DeleteMapping("swgroup/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteSwGroup(@PathVariable Integer swGroupId)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deleteSwGroup(@PathVariable(value = "id") Integer swGroupId)throws ResourceNotFoundException{
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage + swGroupId));
 

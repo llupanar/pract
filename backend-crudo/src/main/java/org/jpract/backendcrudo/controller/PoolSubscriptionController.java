@@ -19,7 +19,7 @@ public class PoolSubscriptionController {
     private final String notFoundMessage="Not found subscription for this id: ";
 
     @GetMapping("pool_subscription")
-    private List<PoolSubscription> getPoolSubscription(){
+    public List<PoolSubscription> getPoolSubscription(){
         return this.poolSubscriptionRepository.findAll();
     }
 
@@ -44,11 +44,11 @@ public class PoolSubscriptionController {
         poolSubscription.setCost(poolSubscriptionDetails.getCost());
         poolSubscription.setEndDate(poolSubscriptionDetails.getEndDate());
         poolSubscription.setSwGroup(poolSubscriptionDetails.getSwGroup());
-        PoolSubscription updatePoolSubscription = poolSubscriptionRepository.save(poolSubscription);
+       poolSubscriptionRepository.save(poolSubscription);
         return  ResponseEntity.ok((this.poolSubscriptionRepository.save(poolSubscription)));
     }
     @DeleteMapping("pool_subscription/{id}")
-    public ResponseEntity<Map<String, Boolean>> deletePoolSubscription(@PathVariable Integer poolSubscriptionId)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deletePoolSubscription(@PathVariable(value = "id") Integer poolSubscriptionId)throws ResourceNotFoundException{
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)
                 .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+poolSubscriptionId));
 

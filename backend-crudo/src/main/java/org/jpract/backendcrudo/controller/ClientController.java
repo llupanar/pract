@@ -19,7 +19,7 @@ public class ClientController {
     private final String notFoundMessage="Not found client for this passport number: ";
 
     @GetMapping("client")
-    private List<Client> getClient(){
+    public List<Client> getClient(){
         return this.clientRepository.findAll();
     }
 
@@ -44,12 +44,12 @@ public class ClientController {
         client.setMedicalCertificate(clientDetails.getMedicalCertificate());
         client.setEmployee(clientDetails.getEmployee());
         client.setSubscription(clientDetails.getSubscription());
-        Client updateClient = clientRepository.save(client);
+        clientRepository.save(client);
         return  ResponseEntity.ok((this.clientRepository.save(client)));
     }
 
     @DeleteMapping("client/{passport_number}")
-    public ResponseEntity<Map<String, Boolean>> deleteClient(@PathVariable String clientPasNum)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deleteClient(@PathVariable(value = "passport_number") String clientPasNum)throws ResourceNotFoundException{
         Client client = clientRepository.findById(clientPasNum)
             .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage+ clientPasNum));
 

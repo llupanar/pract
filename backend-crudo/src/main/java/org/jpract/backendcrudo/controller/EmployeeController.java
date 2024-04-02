@@ -19,7 +19,7 @@ public class EmployeeController {
     private final String notFoundMessage="Not found employee for this passport number: ";
 
     @GetMapping("employee")
-    private List<Employee> getEmployee(){
+    public List<Employee> getEmployee(){
         return this.employeeRepository.findAll();
     }
 
@@ -43,12 +43,12 @@ public class EmployeeController {
         employee.setFullName(employeeDetails.getFullName());
         employee.setExperience(employeeDetails.getExperience());
         employee.setJobTitle(employeeDetails.getJobTitle());
-        Employee updateEmployee = employeeRepository.save(employee);
+        employeeRepository.save(employee);
         return  ResponseEntity.ok((this.employeeRepository.save(employee)));
     }
 
     @DeleteMapping("employee/{passport_number}")
-    public ResponseEntity<Map<String, Boolean>> deleteJobTitle(@PathVariable String employeePassNum)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deleteJobTitle(@PathVariable(value = "passport_number") String employeePassNum)throws ResourceNotFoundException{
         Employee employee = employeeRepository.findById(employeePassNum)
                 .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+employeePassNum));
         employeeRepository.delete(employee);

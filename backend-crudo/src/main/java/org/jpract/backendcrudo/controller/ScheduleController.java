@@ -19,7 +19,7 @@ public class ScheduleController {
     private final String notFoundMessage="Not found schedule for this id: ";
 
     @GetMapping("schedule")
-    private List<Schedule> getSchedule(){
+    public List<Schedule> getSchedule(){
         return this.scheduleRepositoty.findAll();
     }
 
@@ -46,11 +46,11 @@ public class ScheduleController {
         schedule.setTrack(scheduleDetails.getTrack());
         schedule.setSwGroup(scheduleDetails.getSwGroup());
         schedule.setLesson(scheduleDetails.getLesson());
-        Schedule updateSchedule = scheduleRepositoty.save(schedule);
+        scheduleRepositoty.save(schedule);
         return  ResponseEntity.ok((this.scheduleRepositoty.save(schedule)));
     }
     @DeleteMapping("schedule/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteSchedule(@PathVariable Integer scheduleId)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deleteSchedule(@PathVariable(value = "id") Integer scheduleId)throws ResourceNotFoundException{
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
                 .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+scheduleId));
 

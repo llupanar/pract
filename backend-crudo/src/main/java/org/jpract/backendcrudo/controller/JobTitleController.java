@@ -19,7 +19,7 @@ public class JobTitleController {
     private final String notFoundMessage="Not found job title for this position: ";
 
     @GetMapping("job_title")
-    private List<JobTitle> getJobTitle(){
+    public List<JobTitle> getJobTitle(){
         return this.jobTitleRepository.findAll();
     }
 
@@ -43,13 +43,13 @@ public class JobTitleController {
                 .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+jobTitlePos));
         jobTitle.setBonus(jobTitleDetails.getBonus());
         jobTitle.setSalary(jobTitleDetails.getSalary());
-        JobTitle updateJobTitle = jobTitleRepository.save(jobTitle);
+        jobTitleRepository.save(jobTitle);
 
         return  ResponseEntity.ok((this.jobTitleRepository.save(jobTitle)));
     }
 
     @DeleteMapping("job_title/{position}")
-    public ResponseEntity<Map<String, Boolean>> deleteJobTitle(@PathVariable String jobTitlePos)throws ResourceNotFoundException{
+    public ResponseEntity<Map<String, Boolean>> deleteJobTitle(@PathVariable(value = "position") String jobTitlePos)throws ResourceNotFoundException{
         JobTitle jobTitle = jobTitleRepository.findById(jobTitlePos)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage+ jobTitlePos));
 
