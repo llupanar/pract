@@ -16,6 +16,7 @@ import java.util.Map;
 public class PoolSubscriptionController {
     @Autowired
     private PoolSubscriptionRepository poolSubscriptionRepository;
+    private final String notFoundMessage="Not found subscription for this id: ";
 
     @GetMapping("pool_subscription")
     private List<PoolSubscription> getPoolSubscription(){
@@ -26,7 +27,7 @@ public class PoolSubscriptionController {
     public ResponseEntity<PoolSubscription> getPoolSubscriptionById (@PathVariable(value="id")Integer poolSubscriptionId)
             throws ResourceNotFoundException {
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found PoolSubscription for this id: "+poolSubscriptionId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+poolSubscriptionId));
         return  ResponseEntity.ok().body(poolSubscription);
     }
 
@@ -38,7 +39,7 @@ public class PoolSubscriptionController {
     public ResponseEntity<PoolSubscription> updatePoolSubscription(@PathVariable(value = "id") Integer poolSubscriptionId,
                                                  @RequestBody PoolSubscription poolSubscriptionDetails) throws ResourceNotFoundException {
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found PoolSubscription for this id: "+poolSubscriptionId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+poolSubscriptionId));
         poolSubscription.setType(poolSubscriptionDetails.getType());
         poolSubscription.setCost(poolSubscriptionDetails.getCost());
         poolSubscription.setEndDate(poolSubscriptionDetails.getEndDate());
@@ -49,7 +50,7 @@ public class PoolSubscriptionController {
     @DeleteMapping("pool_subscription/{id}")
     public ResponseEntity<Map<String, Boolean>> deletePoolSubscription(@PathVariable Integer poolSubscriptionId)throws ResourceNotFoundException{
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found PoolSubscription for this id: "+poolSubscriptionId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+poolSubscriptionId));
 
         poolSubscriptionRepository.delete(poolSubscription);
         Map<String, Boolean> response = new HashMap<>();

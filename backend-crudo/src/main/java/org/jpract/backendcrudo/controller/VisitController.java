@@ -16,6 +16,7 @@ import java.util.Map;
 public class VisitController {
     @Autowired
     private VisitRepositoty visitRepositoty;
+    private final String notFoundMessage="Not found visit for this id: ";
 
     @GetMapping("visit")
     private List<Visit> getVisit(){
@@ -26,7 +27,7 @@ public class VisitController {
     public ResponseEntity<Visit> getVisitById (@PathVariable(value="id")Integer visitId)
             throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found visit for this position: "+visitId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+visitId));
         return  ResponseEntity.ok().body(visit);
     }
 
@@ -39,7 +40,7 @@ public class VisitController {
     public ResponseEntity<Visit> updateVisit(@PathVariable(value = "id") Integer visitId,
                                                  @RequestBody Visit visitDetails) throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found visit for this position: "+visitId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+visitId));
         visit.setAttended(visitDetails.getAttended());
         visit.setDateTime(visitDetails.getDateTime());
         visit.setClient(visitDetails.getClient());
@@ -51,7 +52,7 @@ public class VisitController {
     @DeleteMapping("visit/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteVisit(@PathVariable Integer visitId)throws ResourceNotFoundException{
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException("visit not exist with id :" + visitId));
+                .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage+visitId));
         visitRepositoty.delete(visit);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

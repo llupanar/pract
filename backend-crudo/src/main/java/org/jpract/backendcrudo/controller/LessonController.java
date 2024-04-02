@@ -16,6 +16,7 @@ import java.util.Map;
 public class LessonController {
     @Autowired
     private LessonRepositoty lessonRepository;
+    private final String notFoundMessage="Not found lesson for this id: ";
 
     @GetMapping("lesson")
     private List<Lesson> getLesson(){
@@ -26,7 +27,7 @@ public class LessonController {
     public ResponseEntity<Lesson> getLessonById(@PathVariable(value="id")Integer lessonId)
             throws ResourceNotFoundException {
         Lesson lesson = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found lesson for this id: "+lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+lessonId));
         return  ResponseEntity.ok().body(lesson);
     }
 
@@ -39,7 +40,7 @@ public class LessonController {
     public ResponseEntity<Lesson> updateLesson(@PathVariable(value = "id") Integer lessonId,
                                                  @RequestBody Lesson lessonDetails) throws ResourceNotFoundException {
         Lesson lesson = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found lesson for this id: "+lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+lessonId));
         lesson.setCategory(lessonDetails.getCategory());
         lesson.setDuration(lessonDetails.getDuration());
         lesson.setEmployee(lessonDetails.getEmployee());
@@ -49,7 +50,7 @@ public class LessonController {
     @DeleteMapping("lesson/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteLesson(@PathVariable Integer lessonId)throws ResourceNotFoundException{
         Lesson swGroup = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found lesson for this id: "+lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+lessonId));
 
         lessonRepository.delete(swGroup);
         Map<String, Boolean> response = new HashMap<>();

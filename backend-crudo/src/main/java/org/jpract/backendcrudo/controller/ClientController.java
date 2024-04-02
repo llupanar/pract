@@ -16,6 +16,7 @@ import java.util.Map;
 public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
+    private final String notFoundMessage="Not found client for this passport number: ";
 
     @GetMapping("client")
     private List<Client> getClient(){
@@ -26,7 +27,7 @@ public class ClientController {
     public ResponseEntity<Client> getClientByPassNum (@PathVariable(value="passport_number")String clientPasNum)
             throws ResourceNotFoundException {
         Client client = clientRepository.findById(clientPasNum)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found client for this passport number: "+clientPasNum));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+clientPasNum));
         return  ResponseEntity.ok().body(client);
     }
 
@@ -38,7 +39,7 @@ public class ClientController {
     public ResponseEntity<Client> updateClient(@PathVariable(value = "passport_number") String clientPasNum,
                                                    @RequestBody Client clientDetails) throws ResourceNotFoundException {
         Client client = clientRepository.findById(clientPasNum)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found client for this position: "+clientPasNum));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+clientPasNum));
         client.setFullName(clientDetails.getFullName());
         client.setMedicalCertificate(clientDetails.getMedicalCertificate());
         client.setEmployee(clientDetails.getEmployee());
@@ -50,7 +51,7 @@ public class ClientController {
     @DeleteMapping("client/{passport_number}")
     public ResponseEntity<Map<String, Boolean>> deleteClient(@PathVariable String clientPasNum)throws ResourceNotFoundException{
         Client client = clientRepository.findById(clientPasNum)
-            .orElseThrow(() -> new ResourceNotFoundException("Client not exist with id :" + clientPasNum));
+            .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage+ clientPasNum));
 
         clientRepository.delete(client);
         Map<String, Boolean> response = new HashMap<>();

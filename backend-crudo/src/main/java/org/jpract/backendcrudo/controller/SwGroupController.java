@@ -16,6 +16,7 @@ import java.util.Map;
 public class SwGroupController {
     @Autowired
     private SwGroupRepositoty swGroupRepository;
+    private final String notFoundMessage="Not found sqgroup for this id: ";
 
     @GetMapping("swgroup")
     private List<SwGroup> getSwGroup(){
@@ -26,7 +27,7 @@ public class SwGroupController {
     public ResponseEntity<SwGroup> getSwGroupByPosition (@PathVariable(value="id")Integer swGroupId)
             throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found swimming-group for this position: "+swGroupId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+swGroupId));
         return  ResponseEntity.ok().body(swGroup);
     }
 
@@ -38,7 +39,7 @@ public class SwGroupController {
     public ResponseEntity<SwGroup> updateSwGroup(@PathVariable(value = "id") Integer swGroupId,
                                                    @RequestBody SwGroup swGroupDetails) throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found job title for this position: "+swGroupId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+swGroupId));
         swGroup.setAgeCategory(swGroupDetails.getAgeCategory());
         swGroup.setLevel(swGroupDetails.getLevel());
         swGroup.setMemberCount(swGroupDetails.getMemberCount());
@@ -48,7 +49,7 @@ public class SwGroupController {
     @DeleteMapping("swgroup/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteSwGroup(@PathVariable Integer swGroupId)throws ResourceNotFoundException{
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + swGroupId));
+                .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage + swGroupId));
 
         swGroupRepository.delete(swGroup);
         Map<String, Boolean> response = new HashMap<>();

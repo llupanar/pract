@@ -16,6 +16,7 @@ import java.util.Map;
 public class ScheduleController {
     @Autowired
     private ScheduleRepositoty scheduleRepositoty;
+    private final String notFoundMessage="Not found schedule for this id: ";
 
     @GetMapping("schedule")
     private List<Schedule> getSchedule(){
@@ -26,7 +27,7 @@ public class ScheduleController {
     public ResponseEntity<Schedule> getSScheduleByPosition (@PathVariable(value="id")Integer scheduleId)
             throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found schedule for this id: "+scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+scheduleId));
         return  ResponseEntity.ok().body(schedule);
     }
 
@@ -39,7 +40,7 @@ public class ScheduleController {
     public ResponseEntity<Schedule> updateSchedule(@PathVariable(value = "id") Integer scheduleId,
                                                  @RequestBody Schedule scheduleDetails) throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found schedule for this id: "+scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+scheduleId));
         schedule.setDayOfWeek(scheduleDetails.getDayOfWeek());
         schedule.setTime(scheduleDetails.getTime());
         schedule.setTrack(scheduleDetails.getTrack());
@@ -51,7 +52,7 @@ public class ScheduleController {
     @DeleteMapping("schedule/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteSchedule(@PathVariable Integer scheduleId)throws ResourceNotFoundException{
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Not found schedule for this id: "+scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+scheduleId));
 
         scheduleRepositoty.delete(schedule);
         Map<String, Boolean> response = new HashMap<>();
