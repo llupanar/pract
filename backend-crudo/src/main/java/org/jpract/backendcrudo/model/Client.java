@@ -1,5 +1,7 @@
 package org.jpract.backendcrudo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,10 +16,18 @@ public class Client {
     @ManyToOne
     @JoinColumn(name = "employee_passport_number")
     private Employee employee;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "subscription_id")
     private PoolSubscription subscription;
-
+    @JsonProperty("subscription_id")
+    public Integer getSubscriptionId() {
+        return subscription.getId();
+    }
+    @JsonProperty("employee_passport_number")
+    public String getEmpPassNum() {
+        return employee.getPassportNumber();
+    }
     public Client(){super();}
 
     public Client(String passportNumber, String fullName, Boolean medicalCertificate,

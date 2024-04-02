@@ -1,5 +1,7 @@
 package org.jpract.backendcrudo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,29 +12,28 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="category")
+    @Column(name = "category")
     private String category;
-    @Column(name="duration")
+    @Column(name = "duration")
     private Integer duration;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "employee_passport_number", referencedColumnName = "passportNumber")
     private Employee employee;
-    @OneToMany(mappedBy = "lesson")
-    private List<Visit> visits;
-    @ManyToOne
-    @JoinColumn(name = "swgroup_id")
-    private SwGroup swGroup;
-    public Lesson(){
+
+    @JsonProperty("employee_passport_number")
+    public String getEmpPassNum() {
+        return employee.getPassportNumber();
+    }
+
+    public Lesson() {
         super();
     }
 
-    public Lesson(String category, Integer duration, Employee employee,
-                  List<Visit> visits, SwGroup swGroup) {
+    public Lesson(String category, Integer duration, Employee employee) {
         this.category = category;
         this.duration = duration;
         this.employee = employee;
-        this.visits = visits;
-        this.swGroup = swGroup;
     }
 
     public Integer getId() {
@@ -65,21 +66,5 @@ public class Lesson {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
-    }
-
-    public List<Visit> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(List<Visit> visits) {
-        this.visits = visits;
-    }
-
-    public SwGroup getSwGroup() {
-        return swGroup;
-    }
-
-    public void setSwGroup(SwGroup swGroup) {
-        this.swGroup = swGroup;
     }
 }

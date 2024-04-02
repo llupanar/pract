@@ -1,5 +1,7 @@
 package org.jpract.backendcrudo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,29 +15,23 @@ public class Employee {
     private String fullName;
     @Column(name="experience")
     private Integer experience;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "position")
     private JobTitle jobTitle;
-    @OneToMany(mappedBy = "employee")
-    private List<Client> clients;
-    @OneToMany(mappedBy = "employee")
-    private List<Visit> visits;
-    @OneToMany(mappedBy = "employee")
-    private List<Lesson> lessons;
-
+    @JsonProperty("position")
+    public String getJobTitilePosition() {
+        return jobTitle.getPosition();
+    }
     public Employee(){
         super();
     }
 
-    public Employee(String passportNumber, String fullName, Integer experience, JobTitle jobTitle, List<Client> clients,
-                    List<Visit> visits, List<Lesson> lessons) {
+    public Employee(String passportNumber, String fullName, Integer experience, JobTitle jobTitle) {
         this.passportNumber = passportNumber;
         this.fullName = fullName;
         this.experience = experience;
         this.jobTitle = jobTitle;
-        this.clients = clients;
-        this.visits = visits;
-        this.lessons = lessons;
     }
 
     public String getPassportNumber() {
@@ -68,29 +64,5 @@ public class Employee {
 
     public void setJobTitle(JobTitle jobTitle) {
         this.jobTitle = jobTitle;
-    }
-
-    public List<Client> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
-
-    public List<Visit> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(List<Visit> visits) {
-        this.visits = visits;
-    }
-
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
     }
 }

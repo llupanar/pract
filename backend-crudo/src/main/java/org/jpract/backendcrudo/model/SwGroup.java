@@ -16,9 +16,6 @@ public class SwGroup {
     private Integer memberCount;
     @Column(name="age_category")
     private String ageCategory;
-    @OneToMany(mappedBy = "swGroup")
-    private List<PoolSubscription> poolSubscriptions;
-
     public SwGroup(){
         super();
     }

@@ -1,5 +1,7 @@
 package org.jpract.backendcrudo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,13 +16,22 @@ public class Schedule {
     private String time;
     @Column(name="track")
     private Integer track;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "swgroup_id")
     private SwGroup swGroup;
-
+    @JsonProperty("swgroup_id")
+    public Integer getSwGroupId() {
+        return swGroup.getId();
+    }
+    @JsonProperty("lesson_id")
+    public Integer getLessonId() {
+        return lesson.getId();
+    }
     public Schedule(){
         super();
     }
