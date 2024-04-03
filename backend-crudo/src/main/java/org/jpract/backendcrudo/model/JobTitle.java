@@ -1,6 +1,9 @@
 package org.jpract.backendcrudo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="job_title")
@@ -11,6 +14,9 @@ public class JobTitle {
     private Integer salary;
     @Column(name="bonus")
     private Boolean bonus;
+    @JsonIgnore
+    @OneToMany(mappedBy = "jobTitle", cascade = CascadeType.REMOVE)
+    private List<Employee> employees;
 
     public JobTitle(String position, Integer salary, Boolean bonus) {
         this.position = position;

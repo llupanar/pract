@@ -1,5 +1,6 @@
 package org.jpract.backendcrudo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class SwGroup {
     private Integer memberCount;
     @Column(name="age_category")
     private String ageCategory;
+    @JsonIgnore
+    @OneToMany(mappedBy = "swGroup", cascade = CascadeType.REMOVE)
+    private List<PoolSubscription> subscriptions;
     public SwGroup(){
         super();
     }

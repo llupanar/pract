@@ -17,11 +17,11 @@ public class Schedule {
     @Column(name="track")
     private Integer track;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "swgroup_id")
     private SwGroup swGroup;
     @JsonProperty("swgroup_id")

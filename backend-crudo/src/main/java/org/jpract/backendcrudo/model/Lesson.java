@@ -3,6 +3,7 @@ package org.jpract.backendcrudo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="lesson")
@@ -15,10 +16,13 @@ public class Lesson {
     @Column(name = "duration")
     private Integer duration;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "employee_passport_number", referencedColumnName = "passportNumber")
     private Employee employee;
-
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.REMOVE)
+    private List<Visit> visits;
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.REMOVE)
+    private List<Schedule> schedules;
     @JsonProperty("employee_passport_number")
     public String getEmpPassNum() {
         return employee.getPassportNumber();

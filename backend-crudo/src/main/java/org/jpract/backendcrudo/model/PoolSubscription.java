@@ -16,9 +16,8 @@ public class PoolSubscription {
     private String endDate;
     @Column(name="cost")
     private Integer cost;
-
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "swgroup_id")
     private SwGroup swGroup;
 

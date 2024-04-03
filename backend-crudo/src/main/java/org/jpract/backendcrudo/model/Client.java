@@ -13,11 +13,11 @@ public class Client {
     private String fullName;
     @Column(name="medical_certificate")
     private Boolean medicalCertificate;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "employee_passport_number")
     private Employee employee;
     @JsonIgnore
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "subscription_id")
     private PoolSubscription subscription;
     @JsonProperty("subscription_id")

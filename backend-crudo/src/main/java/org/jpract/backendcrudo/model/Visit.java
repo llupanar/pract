@@ -15,15 +15,15 @@ public class Visit {
     @Column(name = "datetime", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE USING datetime::timestamp without time zone")
     private LocalDateTime dateTime;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "client_passport_number")
     private Client client;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "employee_passport_number")
     private Employee employee;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
     @JsonProperty("employee_passport_number")
