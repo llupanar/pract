@@ -1,5 +1,5 @@
 <form class="search" action="">
-  <input type="search" placeholder="Enter id..." required>
+  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter position...">
 </form>
 <table class="table table-dark table-striped">
   <thead>
@@ -12,7 +12,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let swGroup of swGroups">
+  <tr *ngFor="let swGroup of swGroups | swgroupFilter:searchText">
     <td>{{swGroup.id}}</td>
     <td>{{swGroup.level}}</td>
     <td>{{swGroup.memberCount}}</td>

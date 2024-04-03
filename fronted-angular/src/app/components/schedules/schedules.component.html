@@ -1,5 +1,5 @@
 <form class="search" action="">
-  <input type="search" placeholder="Enter id..." required>
+  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter position...">
 </form>
 <table class="table table-dark table-striped">
   <thead>
@@ -14,7 +14,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let schedule of schedules">
+  <tr *ngFor="let schedule of schedules | scheduleFilter:searchText">
     <td>{{schedule.id}}</td>
     <td>{{schedule.dayOfWeek}}</td>
     <td>{{schedule.time}}</td>
