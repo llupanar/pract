@@ -13,6 +13,15 @@ import { SchedulesComponent } from './components/schedules/schedules.component';
 import { PoolSubscriptionsComponent } from './components/pool-subscriptions/pool-subscriptions.component';
 import { LessonsComponent } from './components/lessons/lessons.component';
 import {RouterModule, Routes} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import { ClientFilterPipe } from './components/clients/client-filter.pipe';
+import { EmployeeFilterPipe } from './components/employees/employee-filter.pipe';
+import { JobTitleFilterPipe } from './components/job-titles/job-title-filter.pipe';
+import { SubscriptionFilterPipe } from './components/pool-subscriptions/subscription-filter.pipe';
+import { ScheduleFilterPipe } from './components/schedules/schedule-filter.pipe';
+import { VisitsFilterPipe } from './components/visits/visits-filter.pipe';
+import { SwgroupFilterPipe } from './components/swgroups/swgroup-filter.pipe';
+import { LessonFilterPipe } from './components/lessons/lesson-filter.pipe';
 const routes: Routes = [
   { path: 'job-titles', component: JobTitlesComponent },
   { path: 'clients', component: ClientsComponent },
@@ -20,7 +29,9 @@ const routes: Routes = [
   { path: 'visits', component: VisitsComponent },
   { path: 'pool-subscriptions', component: PoolSubscriptionsComponent },
   { path: 'schedules', component: SchedulesComponent },
-  { path: 'lessons', component: LessonsComponent }
+  { path: 'lessons', component: LessonsComponent },
+  { path: 'swgroup', component: SwgroupsComponent }
+
 ];
 @NgModule({
   declarations: [
@@ -33,12 +44,21 @@ const routes: Routes = [
     SchedulesComponent,
     PoolSubscriptionsComponent,
     LessonsComponent,
+    ClientFilterPipe,
+    EmployeeFilterPipe,
+    JobTitleFilterPipe,
+    SubscriptionFilterPipe,
+    ScheduleFilterPipe,
+    VisitsFilterPipe,
+    SwgroupFilterPipe,
+    LessonFilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -25,4 +25,8 @@ export class SwgroupService {
   public deleteSwGroup(swgroupId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/delete/${swgroupId}`);
   }
+
+  public searchSwGroup(swgroupId: string): Observable<void> {
+    return this.http.get<void>(`${this.apiServerUrl}/${swgroupId}`);
+  }
 }

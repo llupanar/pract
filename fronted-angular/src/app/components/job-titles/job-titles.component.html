@@ -1,22 +1,21 @@
-<h2>Job title</h2>
+<form class="search" action="">
+  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter position...">
+</form>
 <table class="table table-dark table-striped">
   <thead>
   <tr>
     <th>Position</th>
     <th>Salary</th>
     <th>Bonus</th>
-    <th>Actions</th>
+    <th> <span id="showFormButton">➕</span></th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let jobTitle of jobTitles">
+  <tr *ngFor="let jobTitle of jobTitles |jobTitleFilter:searchText">
     <td>{{jobTitle.position}}</td>
     <td>{{jobTitle.salary}}</td>
     <td>{{jobTitle.bonus}}</td>
-    <td>
-      <span class="action-icon">&#9998;</span>
-      <span class="action-icon">&#10060;</span>
-    </td>
+    <td> <span class="action-icon">&#9998;</span> <span (click)="deleteJobTitleItem(jobTitle)">&#10060;</span> </td>
   </tr>
   </tbody>
 </table>

@@ -22,7 +22,12 @@ export class JobTitleService {
     return this.http.put<JobTitle>(`${this.apiServerUrl}/delete`, jobTitle);
   }
 
-  public deleteJobTitle(jobTitleId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/employee/delete/${jobTitleId}`);
+  public deleteJobTitle(jobTitleId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/${jobTitleId}`);
   }
+
+  public searchJobTitle(jobTitleId: string): Observable<JobTitle> {
+    return this.http.get<JobTitle>(`${this.apiServerUrl}/${jobTitleId}`);
+  }
+
 }

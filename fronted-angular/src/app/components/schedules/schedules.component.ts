@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {Schedule} from "../../models/schedule";
 import {ScheduleService} from "../../services/schedule.service";
+import {ScheduleFilterPipe} from "./schedule-filter.pipe";
 
 @Component({
   selector: 'app-schedules',
   templateUrl: './schedules.component.html',
-  styleUrl: './schedules.component.css'
+  styleUrl: './schedules.component.css',
+  providers:[ScheduleFilterPipe]
 })
 export class SchedulesComponent implements OnInit{
   public schedules: Schedule[]=[];
@@ -26,6 +28,8 @@ export class SchedulesComponent implements OnInit{
     lesson_id:0,
     swgroup_id:0
   };
+  public searchText:string='';
+
 
   constructor(private scheduleService: ScheduleService){}
 
@@ -44,4 +48,22 @@ export class SchedulesComponent implements OnInit{
       }
     );
   }
+  public deleteScheduleItem(schedule: Schedule): void {
+    const confirmation = confirm('Are you sure?');
+    if (confirmation) {
+      this.scheduleService.deleteSchedule(schedule.id).subscribe(
+        () => {
+          const index = this.schedules.indexOf(schedule);
+          if (index !== -1) {
+            this.schedules.splice(index, 1);
+          }
+          this.getSchedules();
+        },
+        (error: HttpErrorResponse) => {
+          alert('Delete schedule failed ' + error.message);
+        }
+      );
+    }
+  }
+
 }

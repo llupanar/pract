@@ -22,7 +22,11 @@ export class ClientService {
     return this.http.put<Client>(`${this.apiServerUrl}`, client);
   }
 
-  public deleteClient(clientId: number): Observable<void> {
+  public deleteClient(clientId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${clientId}`);
+  }
+
+  public searchClient(clientId: string): Observable<void> {
+    return this.http.get<void>(`${this.apiServerUrl}/${clientId}`);
   }
 }

@@ -25,4 +25,8 @@ export class LessonService {
   public deleteLesson(lessonId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/employee/delete/${lessonId}`);
   }
+
+  public searchLesson(lessonId: string): Observable<void> {
+    return this.http.get<void>(`${this.apiServerUrl}/${lessonId}`);
+  }
 }

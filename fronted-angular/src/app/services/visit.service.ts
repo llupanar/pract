@@ -25,4 +25,8 @@ export class VisitService {
   public deleteVisit(visitId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${visitId}`);
   }
+
+  public searchVisit(visitId: string): Observable<void> {
+    return this.http.get<void>(`${this.apiServerUrl}/${visitId}`);
+  }
 }

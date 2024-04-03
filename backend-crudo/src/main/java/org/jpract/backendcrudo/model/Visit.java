@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="visit")
-
 public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +34,10 @@ public class Visit {
     public String getClientPassNum() {
         return client.getPassportNumber();
     }
+    @JsonProperty("lesson_id")
+    public Integer getLessonId(){
+        return lesson.getId();
+    }
     public Visit() {super();}
 
     public Visit(Boolean attended, LocalDateTime dateTime, Client client, Employee employee, Lesson lesson) {
@@ -43,6 +46,14 @@ public class Visit {
         this.client = client;
         this.employee = employee;
         this.lesson = lesson;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Boolean getAttended() {

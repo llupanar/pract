@@ -25,4 +25,8 @@ export class PoolSubscriptionService {
   public deletePoolSubscription(poolSubscriptionId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/employee/delete/${poolSubscriptionId}`);
   }
+
+  public searchSub(poolSubscriptionId: string): Observable<void> {
+    return this.http.get<void>(`${this.apiServerUrl}/${poolSubscriptionId}`);
+  }
 }

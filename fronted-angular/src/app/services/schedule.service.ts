@@ -8,6 +8,7 @@ import {Schedule} from "../models/schedule";
 })
 export class ScheduleService {
   private apiServerUrl = "http://localhost:8080/api/v1/schedule"
+
   constructor(private http: HttpClient){}
 
   public getSchedules(): Observable<Schedule[]> {
@@ -22,7 +23,12 @@ export class ScheduleService {
     return this.http.put<Schedule>(`${this.apiServerUrl}`, schedule);
   }
 
-  public deleteVisit(visitId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/${visitId}`);
+  public deleteSchedule(scheduleId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/${scheduleId}`);
   }
+
+  public searchSchedule(scheduleId: string): Observable<void> {
+    return this.http.get<void>(`${this.apiServerUrl}/${scheduleId}`);
+  }
+
 }

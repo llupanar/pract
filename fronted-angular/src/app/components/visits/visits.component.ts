@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {VisitService} from "../../services/visit.service";
 import {Visit} from "../../models/visit";
+import {VisitsFilterPipe} from "./visits-filter.pipe";
 
 @Component({
   selector: 'app-visits',
   templateUrl: './visits.component.html',
-  styleUrl: './visits.component.css'
+  styleUrl: './visits.component.css',
+  providers:[VisitsFilterPipe]
 })
 export class VisitsComponent implements OnInit{
   public visits: Visit[]=[];
@@ -26,6 +28,8 @@ export class VisitsComponent implements OnInit{
     employee_passport_number:"",
     lesson_id:0
   };
+  public searchText:string='';
+
 
   constructor(private visitService: VisitService){}
 
@@ -43,6 +47,24 @@ export class VisitsComponent implements OnInit{
         alert(error.status);
       }
     );
+  }
+  public deleteVisitItem(visit: Visit): void {
+    const confirmation = confirm('Are you sure?');
+    if (confirmation) {
+      console.log(visit.id);
+      this.visitService.deleteVisit(visit.id).subscribe(
+        () => {
+          const index = this.visits.indexOf(visit);
+          if (index !== -1) {
+            this.visits.splice(index, 1);
+          }
+          this.getVisits();
+        },
+        (error: HttpErrorResponse) => {
+          alert('Delete visit failed: ' + error.message);
+        }
+      );
+    }
   }
 
 

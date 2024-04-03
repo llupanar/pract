@@ -1,17 +1,19 @@
-<h2>Clients</h2>
+<form class="search" action="">
+  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter passport number...">
+</form>
 <table class="table table-dark table-striped">
-  <thead>
+  <thead class="table-header">
   <tr>
     <th>Passport</th>
     <th>Name</th>
     <th>Med. cert</th>
     <th>Employee</th>
     <th>Subscription</th>
-    <th>Actions</th>
+    <th> <span id="showFormButton">➕</span></th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let client of clients">
+  <tr *ngFor="let client of clients | clientFilterPipe: searchText">
     <td>{{client.passportNumber}}</td>
     <td>{{client.fullName}}</td>
     <td>{{client.medicalCertificate}}</td>
@@ -19,8 +21,9 @@
     <td>{{client.subscription_id}}</td>
     <td>
       <span class="action-icon">&#9998;</span>
-      <span class="action-icon">&#10060;</span>
+      <span (click)="deleteClientItem(client)">&#10060;</span>
     </td>
   </tr>
   </tbody>
 </table>
+

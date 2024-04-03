@@ -2,27 +2,26 @@
   background-color: #333;
   color: #fff;
   padding: 10px;
+  font-family: "Roboto", sans-serif;
 }
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+  font-family: "Roboto", sans-serif;
 
-.logo {
-  font-size: 24px;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
 }
 
 .nav-item {
   cursor: pointer;
   transition: color 0.3s;
+  margin-left: 10px;
 }
 
 .nav-item:hover {
@@ -33,8 +32,8 @@
   color: #ffc107;
 }
 .logo {
+  font-family: "Roboto", sans-serif;
   font-size: 48px;
-  font-family: "Montserrat", sans-serif;
   margin-right: 90px; /* Добавлено смещение влево */
 }
 
