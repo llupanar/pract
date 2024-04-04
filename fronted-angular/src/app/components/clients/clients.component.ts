@@ -4,32 +4,17 @@ import {Client} from "../../models/client";
 import {ClientService} from "../../services/client.service";
 import { ClientFilterPipe } from './client-filter.pipe';
 
-
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css',
   providers: [ClientFilterPipe]
-
 })
+
 export class ClientsComponent implements OnInit{
   public clients: Client[]=[];
-  public editClient: Client={
-    passportNumber: "",
-    fullName: "",
-    medicalCertificate: false,
-    employee_passport_number:"",
-    subscription_id:0
-  };
-  public sClient: Client={
-    passportNumber: "",
-    fullName: "",
-    medicalCertificate: false,
-    employee_passport_number:"",
-    subscription_id:0
-  };
-  public searchText:string='';
 
+  public searchText:string='';
   constructor(private clientService: ClientService){}
 
   ngOnInit() {

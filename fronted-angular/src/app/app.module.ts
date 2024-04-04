@@ -22,6 +22,8 @@ import { ScheduleFilterPipe } from './components/schedules/schedule-filter.pipe'
 import { VisitsFilterPipe } from './components/visits/visits-filter.pipe';
 import { SwgroupFilterPipe } from './components/swgroups/swgroup-filter.pipe';
 import { LessonFilterPipe } from './components/lessons/lesson-filter.pipe';
+import { ClientCreatorComponent } from './components/client-creator/client-creator.component';
+import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 const routes: Routes = [
   { path: 'job-titles', component: JobTitlesComponent },
   { path: 'clients', component: ClientsComponent },
@@ -30,7 +32,9 @@ const routes: Routes = [
   { path: 'pool-subscriptions', component: PoolSubscriptionsComponent },
   { path: 'schedules', component: SchedulesComponent },
   { path: 'lessons', component: LessonsComponent },
-  { path: 'swgroup', component: SwgroupsComponent }
+  { path: 'swgroup', component: SwgroupsComponent },
+  {path:'add-client',component:ClientCreatorComponent},
+  {path:'edit-client/:id',component:ClientEditorComponent}
 
 ];
 @NgModule({
@@ -52,6 +56,8 @@ const routes: Routes = [
     VisitsFilterPipe,
     SwgroupFilterPipe,
     LessonFilterPipe,
+    ClientCreatorComponent,
+    ClientEditorComponent,
   ],
   imports: [
     BrowserModule,

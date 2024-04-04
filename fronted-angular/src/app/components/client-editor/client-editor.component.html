@@ -1,0 +1,24 @@
+<div class="form-group">
+  <h2>Passport number: {{ passportNumber }}</h2>
+  <label for="fullName">Full name</label>
+  <input [(ngModel)]="client.fullName" id="fullName" name="fullName" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="medicalCertificate">Medical Certificate</label>
+  <input [(ngModel)]="client.medicalCertificate" id="medicalCertificate" name="medicalCertificate" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="employee_passport_number">Employee passport number</label>
+  <input [(ngModel)]="client.employee_passport_number" id="employee_passport_number" name="employee_passport_number" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="sub">Subscribe ID</label>
+  <input [(ngModel)]="client.subscription_id" id="sub" name="sub" class="form-control" type="text">
+</div>
+<div class="modal-footer">
+  <button type="button" routerLink="/clients" id="add-employee-form" class="btn btn-secondary custom-btn">Close</button>
+  <button type="submit" class="btn btn-primary custom-btn" routerLink="/clients" (click)="updateStudent()">Save changes</button>
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

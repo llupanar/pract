@@ -15,15 +15,15 @@ export class LessonService {
   }
 
   public addLesson(lesson: Lesson): Observable<Lesson> {
-    return this.http.post<Lesson>(`${this.apiServerUrl}/add`, lesson);
+    return this.http.post<Lesson>(`${this.apiServerUrl}/`, lesson);
   }
 
   public updateLesson(lesson: Lesson): Observable<Lesson> {
-    return this.http.put<Lesson>(`${this.apiServerUrl}/delete`, lesson);
+    return this.http.put<Lesson>(`${this.apiServerUrl}/`, lesson);
   }
 
   public deleteLesson(lessonId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/employee/delete/${lessonId}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/${lessonId}`);
   }
 
   public searchLesson(lessonId: string): Observable<void> {

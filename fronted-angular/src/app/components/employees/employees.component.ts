@@ -4,7 +4,6 @@ import {Employee} from "../../models/employee";
 import {EmployeeService} from "../../services/employee.service";
 import { EmployeeFilterPipe } from './employee-filter.pipe';
 
-
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
@@ -26,7 +25,6 @@ export class EmployeesComponent implements OnInit{
     position:""
   };
   public searchText:string='';
-
 
   constructor(private employeeService: EmployeeService){}
 
@@ -63,5 +61,4 @@ export class EmployeesComponent implements OnInit{
       );
     }
   }
-
 }

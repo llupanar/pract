@@ -15,15 +15,15 @@ export class PoolSubscriptionService {
   }
 
   public addPoolSubscription(poolSubscription: PoolSubscription): Observable<PoolSubscription> {
-    return this.http.post<PoolSubscription>(`${this.apiServerUrl}/add`, poolSubscription);
+    return this.http.post<PoolSubscription>(`${this.apiServerUrl}/`, poolSubscription);
   }
 
   public updatePoolSubscription(poolSubscription: PoolSubscription): Observable<PoolSubscription> {
-    return this.http.put<PoolSubscription>(`${this.apiServerUrl}/delete`, poolSubscription);
+    return this.http.put<PoolSubscription>(`${this.apiServerUrl}/`, poolSubscription);
   }
 
   public deletePoolSubscription(poolSubscriptionId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/employee/delete/${poolSubscriptionId}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/${poolSubscriptionId}`);
   }
 
   public searchSub(poolSubscriptionId: string): Observable<void> {

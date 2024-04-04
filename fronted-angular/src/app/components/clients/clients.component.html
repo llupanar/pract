@@ -1,7 +1,8 @@
+
 <form class="search" action="">
   <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter passport number...">
 </form>
-<table class="table table-dark table-striped">
+<table class="table table-dark">
   <thead class="table-header">
   <tr>
     <th>Passport</th>
@@ -9,7 +10,7 @@
     <th>Med. cert</th>
     <th>Employee</th>
     <th>Subscription</th>
-    <th> <span id="showFormButton">➕</span></th>
+    <th><span class="nav-item-add" routerLink="/add-client" routerLinkActive="active">➕</span></th>
   </tr>
   </thead>
   <tbody>
@@ -20,10 +21,12 @@
     <td>{{client.employee_passport_number}}</td>
     <td>{{client.subscription_id}}</td>
     <td>
-      <span class="action-icon">&#9998;</span>
+       <span [routerLink]="['/edit-client',client.passportNumber]" routerLinkActive="active">&#9998;</span>
       <span (click)="deleteClientItem(client)">&#10060;</span>
     </td>
   </tr>
   </tbody>
 </table>
-
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
