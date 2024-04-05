@@ -35,7 +35,7 @@ public class EmployeeController {
     public Employee createEmployee(@RequestBody Employee employee){
         return this.employeeRepository.save(employee);
     }
-    @PostMapping("employee/{passport_number}")
+    @PutMapping("employee/{passport_number}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "passport_number") String employeePassNum,
                                                    @RequestBody Employee employeeDetails) throws ResourceNotFoundException {
         Employee employee = employeeRepository.findById(employeePassNum)

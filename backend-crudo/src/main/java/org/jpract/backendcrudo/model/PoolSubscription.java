@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="pool_subscription")
 public class PoolSubscription {
@@ -21,6 +23,9 @@ public class PoolSubscription {
     @JoinColumn(name = "swgroup_id")
     private SwGroup swGroup;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "subscription", cascade = CascadeType.REMOVE)
+    private List<Client> clients;
     @JsonProperty("swgroup_id")
     public Integer getSwGroupId() {
         return swGroup.getId();

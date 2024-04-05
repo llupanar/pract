@@ -20,6 +20,9 @@ public class SwGroup {
     @JsonIgnore
     @OneToMany(mappedBy = "swGroup", cascade = CascadeType.REMOVE)
     private List<PoolSubscription> subscriptions;
+    @JsonIgnore
+    @OneToMany(mappedBy = "swGroup", cascade = CascadeType.REMOVE)
+    private List<Schedule> schedules;
     public SwGroup(){
         super();
     }

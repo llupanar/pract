@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="client")
 public class Client {
@@ -14,17 +16,17 @@ public class Client {
     @Column(name="medical_certificate")
     private Boolean medicalCertificate;
     @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "employee_passport_number")
     private Employee employee;
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "subscription_id")
+    @ManyToOne(cascade = CascadeType.DETACH)
     private PoolSubscription subscription;
-    @JsonProperty("subscription_id")
+    @JsonIgnore
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
+    private List<Visit> visits;
+    @Column(name = "subscription_id")
     public Integer getSubscriptionId() {
         return subscription.getId();
     }
-    @JsonProperty("employee_passport_number")
+    @Column(name = "employee_passport_number")
     public String getEmpPassNum() {
         return employee.getPassportNumber();
     }

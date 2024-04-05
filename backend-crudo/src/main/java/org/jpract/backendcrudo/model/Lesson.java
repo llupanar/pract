@@ -15,7 +15,6 @@ public class Lesson {
     private String category;
     @Column(name = "duration")
     private Integer duration;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "employee_passport_number", referencedColumnName = "passportNumber")
     private Employee employee;
@@ -23,7 +22,7 @@ public class Lesson {
     private List<Visit> visits;
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.REMOVE)
     private List<Schedule> schedules;
-    @JsonProperty("employee_passport_number")
+    @Column(name="employee_passport_number")
     public String getEmpPassNum() {
         return employee.getPassportNumber();
     }

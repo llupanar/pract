@@ -14,7 +14,7 @@ public class JobTitle {
     private Integer salary;
     @Column(name="bonus")
     private Boolean bonus;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "jobTitle", cascade = CascadeType.REMOVE)
     private List<Employee> employees;
 

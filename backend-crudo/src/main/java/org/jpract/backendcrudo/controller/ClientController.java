@@ -35,7 +35,7 @@ public class ClientController {
     public Client createClient(@RequestBody Client client){
         return this.clientRepository.save(client);
     }
-    @PostMapping("client/{passport_number}")
+    @PutMapping("client/{passport_number}")
     public ResponseEntity<Client> updateClient(@PathVariable(value = "passport_number") String clientPasNum,
                                                    @RequestBody Client clientDetails) throws ResourceNotFoundException {
         Client client = clientRepository.findById(clientPasNum)

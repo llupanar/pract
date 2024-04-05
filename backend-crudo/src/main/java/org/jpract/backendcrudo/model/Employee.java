@@ -1,7 +1,6 @@
 package org.jpract.backendcrudo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,7 +14,6 @@ public class Employee {
     private String fullName;
     @Column(name="experience")
     private Integer experience;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "position")
     private JobTitle jobTitle;
@@ -29,8 +27,8 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private List<Visit> visits;
 
-    @JsonProperty("position")
-    public String getJobTitilePosition() {
+    @Column(name = "position")
+    public String getPosition() {
         return jobTitle.getPosition();
     }
     public Employee(){
