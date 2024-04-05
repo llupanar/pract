@@ -33,7 +33,7 @@ export default function EditUser() {
     const onSubmit = async (e) => {
         e.preventDefault();
         await axios.post(`http://localhost:8080/api/v1/job_title/${id.toString()}`, jobTitle);
-        navigate("/");
+        navigate("/job-title");
     };
 
     return (
@@ -41,7 +41,6 @@ export default function EditUser() {
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Edit Job Title</h2>
-
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
