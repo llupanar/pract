@@ -15,7 +15,7 @@
 | JDBC | 12   | 7    | +          | 
 | Backend | 18   | ~ 14 | +          | 
 | Angular | 18   | 12   | +          | 
-| React | 18   | -    | в процессе | 
+| React | 18   | 7-8  | +          | 
 
 ## Путеводитель
 
@@ -33,6 +33,16 @@
 - Backend на SpringBoot + Hibernate
 - Data JPA
 - Все разбито на соотв. packages (controller, exception, model, repository)
+
+### frontend-angular
+
+- Frontend на angular
+- Названия дирректорий соотв. хранящимся там элементам (например, в services хранятся сервисы)
+
+### frontend-react
+
+- Frontend на angular
+- Названия дирректорий соотв. хранящимся там элементам (например, в services хранятся сервисы)
 
 ### .github
 
