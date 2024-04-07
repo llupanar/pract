@@ -1,0 +1,28 @@
+<form class="search" action="">
+  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter position...">
+</form>
+<table class="table table-dark">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Cost</th>
+    <th>End Date</th>
+    <th>Type</th>
+    <th>Group ID</th>
+    <th> <button id="showFormButton">➕</button></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let poolSubscription of poolSubscriptions | subscriptionFilter:searchText">
+    <td>{{poolSubscription.id}}</td>
+    <td>{{poolSubscription.cost}}</td>
+    <td>{{poolSubscription.endDate}}</td>
+    <td>{{poolSubscription.type}}</td>
+    <td>{{poolSubscription.swGroupId}}</td>
+    <td>
+      <button class="action-icon">&#9998;</button>
+      <button (click)="deletePoolSubscriptionItem(poolSubscription)">&#10060;</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

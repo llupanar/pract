@@ -1,0 +1,31 @@
+<div class="form-group">
+  <label for="passportNumber">Passport</label>
+  <input [(ngModel)]="passportNumber" id="passportNumber" name="passportNumber" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="fullName">Full name</label>
+  <input [(ngModel)]="fullName" id="fullName" name="fullName" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="medicalCertificate">Medical Certificate</label>
+  <input [(ngModel)]="medCertificate" id="medicalCertificate" name="medicalCertificate" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="employee_passport_number">Employee passport number</label>
+  <select [(ngModel)]="employeeIndex" id="employee_passport_number" name="employee_passport_number" class="form-control">
+    <option *ngFor="let employee of employees; let i = index" [value]="i">{{ employee.passportNumber }}</option>
+  </select>
+</div>
+<div class="form-group">
+  <label for="sub">Subscribe ID</label>
+  <select [(ngModel)]="subscriptionIndex" id="sub" name="sub" class="form-control">
+    <option *ngFor="let subscription of subscriptions; let i = index" [value]="i">{{ subscription.id }}</option>
+  </select>
+</div>
+<div class="modal-footer">
+  <button type="button" routerLink="/clients" id="add-employee-form" class="btn btn-secondary custom-btn">Close</button>
+  <button type="submit" class="btn btn-primary custom-btn" routerLink="/add-client" routerLinkActive="active" (click)="saveClient()">Save changes</button>
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

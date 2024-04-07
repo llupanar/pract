@@ -15,11 +15,11 @@ export class JobTitleService {
   }
 
   public addJobTitle(jobTitle: JobTitle): Observable<JobTitle> {
-    return this.http.post<JobTitle>(`${this.apiServerUrl}/`, jobTitle);
+    return this.http.post<JobTitle>(`${this.apiServerUrl}`, jobTitle);
   }
 
   public updateJobTitle(jobTitle: JobTitle): Observable<JobTitle> {
-    return this.http.put<JobTitle>(`${this.apiServerUrl}/`, jobTitle);
+    return this.http.put<JobTitle>(`${this.apiServerUrl}/${jobTitle.position}`, jobTitle);
   }
 
   public deleteJobTitle(jobTitleId: string): Observable<void> {

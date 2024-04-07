@@ -15,18 +15,18 @@ export class SwgroupService {
   }
 
   public addSwGroup(swgroup: SwGroup): Observable<SwGroup> {
-    return this.http.post<SwGroup>(`${this.apiServerUrl}/`,swgroup);
+    return this.http.post<SwGroup>(`${this.apiServerUrl}`,swgroup);
   }
 
   public updateSwGroup(swgroup: SwGroup): Observable<SwGroup> {
-    return this.http.put<SwGroup>(`${this.apiServerUrl}/`,swgroup);
+    return this.http.put<SwGroup>(`${this.apiServerUrl}/${swgroup.id}`,swgroup);
   }
 
   public deleteSwGroup(swgroupId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${swgroupId}`);
   }
 
-  public searchSwGroup(swgroupId: string): Observable<void> {
-    return this.http.get<void>(`${this.apiServerUrl}/${swgroupId}`);
+  public searchSwGroup(swgroupId: string): Observable<SwGroup> {
+    return this.http.get<SwGroup>(`${this.apiServerUrl}/${swgroupId}`);
   }
 }

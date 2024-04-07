@@ -1,0 +1,32 @@
+
+<form class="search" action="">
+  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter passport number...">
+</form>
+<table class="table table-dark">
+  <thead class="table-header">
+  <tr>
+    <th>*Passport</th>
+    <th>Name</th>
+    <th>Med. cert</th>
+    <th>Employee</th>
+    <th>Subscription</th>
+    <th><button class="nav-item-add" routerLink="/add-client" routerLinkActive="active">➕</button></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let client of clients | clientFilterPipe: searchText">
+    <td>{{client.passportNumber}}</td>
+    <td>{{client.fullName}}</td>
+    <td>{{client.medicalCertificate}}</td>
+    <td>{{client.empPassNum}}</td>
+    <td>{{client.subscriptionId}}</td>
+    <td>
+       <button [routerLink]="['/edit-client',client.passportNumber]" routerLinkActive="active">&#9998;</button>
+      <button (click)="deleteClientItem(client)">&#10060;</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

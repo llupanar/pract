@@ -20,15 +20,15 @@ export class ScheduleService {
   }
 
   public updateSchedule(schedule: Schedule): Observable<Schedule> {
-    return this.http.put<Schedule>(`${this.apiServerUrl}`, schedule);
+    return this.http.put<Schedule>(`${this.apiServerUrl}/${schedule.id}`, schedule);
   }
 
   public deleteSchedule(scheduleId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${scheduleId}`);
   }
 
-  public searchSchedule(scheduleId: string): Observable<void> {
-    return this.http.get<void>(`${this.apiServerUrl}/${scheduleId}`);
+  public searchSchedule(scheduleId: string): Observable<Schedule> {
+    return this.http.get<Schedule>(`${this.apiServerUrl}/${scheduleId}`);
   }
 
 }

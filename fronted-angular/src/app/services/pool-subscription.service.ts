@@ -19,14 +19,14 @@ export class PoolSubscriptionService {
   }
 
   public updatePoolSubscription(poolSubscription: PoolSubscription): Observable<PoolSubscription> {
-    return this.http.put<PoolSubscription>(`${this.apiServerUrl}/`, poolSubscription);
+    return this.http.put<PoolSubscription>(`${this.apiServerUrl}/${poolSubscription.id}`, poolSubscription);
   }
 
   public deletePoolSubscription(poolSubscriptionId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${poolSubscriptionId}`);
   }
 
-  public searchSub(poolSubscriptionId: string): Observable<void> {
-    return this.http.get<void>(`${this.apiServerUrl}/${poolSubscriptionId}`);
+  public searchSub(poolSubscriptionId: string): Observable<PoolSubscription> {
+    return this.http.get<PoolSubscription>(`${this.apiServerUrl}/${poolSubscriptionId}`);
   }
 }

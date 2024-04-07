@@ -1,0 +1,19 @@
+<div class="form-group">
+  <label for="position">Position</label>
+  <input [(ngModel)]="jobTitle.position" id="position" name="position" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="salary">Salary</label>
+  <input [(ngModel)]="jobTitle.salary" id="salary" name="salary" class="form-control" type="number">
+</div>
+<div class="form-group">
+  <label for="bonus">Bonus</label>
+  <input [(ngModel)]="jobTitle.bonus" id="bonus" name="bonus" class="form-control" type="text">
+</div>
+<div class="modal-footer">
+  <button type="button" routerLink="/job-titles" id="add-employee-form" class="btn btn-secondary custom-btn">Close</button>
+  <button type="submit" class="btn btn-primary custom-btn" routerLink="/add-job-titles" routerLinkActive="active" (click)="saveJobTitle()">Save changes</button>
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

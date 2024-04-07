@@ -19,14 +19,14 @@ export class VisitService {
   }
 
   public updateVisit(visit: Visit): Observable<Visit> {
-    return this.http.put<Visit>(`${this.apiServerUrl}`, visit);
+    return this.http.put<Visit>(`${this.apiServerUrl}/${visit.id}`, visit);
   }
 
   public deleteVisit(visitId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${visitId}`);
   }
 
-  public searchVisit(visitId: string): Observable<void> {
-    return this.http.get<void>(`${this.apiServerUrl}/${visitId}`);
+  public searchVisit(visitId: string): Observable<Visit> {
+    return this.http.get<Visit>(`${this.apiServerUrl}/${visitId}`);
   }
 }

@@ -19,14 +19,14 @@ export class ClientService {
   }
 
   public updateClient(client: Client): Observable<Client> {
-    return this.http.put<Client>(`${this.apiServerUrl}`, client);
+    return this.http.put<Client>(`${this.apiServerUrl}/${client.passportNumber}`, client);
   }
 
   public deleteClient(clientId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${clientId}`);
   }
 
-  public searchClient(clientId: string): Observable<void> {
-    return this.http.get<void>(`${this.apiServerUrl}/${clientId}`);
+  public searchClient(clientId: string): Observable<Client> {
+    return this.http.get<Client>(`${this.apiServerUrl}/${clientId}`);
   }
 }

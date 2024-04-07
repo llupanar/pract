@@ -19,14 +19,14 @@ export class LessonService {
   }
 
   public updateLesson(lesson: Lesson): Observable<Lesson> {
-    return this.http.put<Lesson>(`${this.apiServerUrl}/`, lesson);
+    return this.http.put<Lesson>(`${this.apiServerUrl}/${lesson.id}`, lesson);
   }
 
   public deleteLesson(lessonId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/${lessonId}`);
   }
 
-  public searchLesson(lessonId: string): Observable<void> {
-    return this.http.get<void>(`${this.apiServerUrl}/${lessonId}`);
+  public searchLesson(lessonId: string): Observable<Lesson> {
+    return this.http.get<Lesson>(`${this.apiServerUrl}/${lessonId}`);
   }
 }

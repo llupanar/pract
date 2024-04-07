@@ -1,8 +1,14 @@
+import {Lesson} from "./lesson";
+import {SwGroup} from "./swgroup";
+
 export interface Schedule {
   id: number;
   dayOfWeek:string;
   time:string;
   track: number;
-  lesson_id:number;
-  swgroup_id:number;
+  lessonId:number;
+  swGroupId:number;
+  lesson:Lesson;
+  swgroup:SwGroup;
 }
+

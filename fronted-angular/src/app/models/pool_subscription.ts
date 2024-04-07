@@ -1,7 +1,11 @@
+import {SwGroup} from "./swgroup";
+
 export interface PoolSubscription {
   id: number;
   type:string;
   cost:number;
   endDate: string;
-  swgroup_id:number;
+  swGroupId:number;
+  swgroup:SwGroup;
 }
+

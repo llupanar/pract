@@ -1,16 +1,12 @@
-export interface Client {
+import {PoolSubscription} from "./pool_subscription";
+import {Employee} from "./employee";
+export interface Client{
   passportNumber: string;
   fullName: string;
   medicalCertificate: boolean;
-  employee_passport_number:string;
-  subscription_id:number;
+  empPassNum:string;
+  subscriptionId:number;
   employee:Employee;
-  poolSubscription:PoolSubscription;
-}
-export interface Employee {
-  passportNumber: string;
+  subscription:PoolSubscription;
 }
 
-export interface PoolSubscription {
-  id: number;
-}
