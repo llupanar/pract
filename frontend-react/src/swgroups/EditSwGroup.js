@@ -21,7 +21,6 @@ export default function EditSwGroup() {
 
 
     useEffect(() => {
-        console.log(id.toString());
         const loadLwGroup = async () => {
             const result = await axios.get(`http://localhost:8080/api/v1/swgroup/${id.toString()}`);
             setSwGroup(result.data);

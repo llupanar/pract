@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 export default function Lesson() {
     const [lessons, setLessons] = useState([]);
@@ -20,7 +21,8 @@ export default function Lesson() {
     };
 
     return (
-        <div className="container" style={{ backgroundColor: '#333', minHeight: '100vh', minWidth:'100hv'}}>
+        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+            <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
@@ -32,7 +34,7 @@ export default function Lesson() {
                         <th scope="col">
                             <Link
                                 className="btn btn-no-outline mx-1"
-                                to={`/add-job-title`}
+                                to={`/add-lesson`}
                             >
                                 ➕
                             </Link>
@@ -45,11 +47,11 @@ export default function Lesson() {
                             <td>{lesson.id}</td>
                             <td>{lesson.category}</td>
                             <td>{lesson.duration}</td>
-                            <td>{lesson.employee_passport_number}</td>
+                            <td>{lesson.empPassNum}</td>
                             <td>
                                 <Link
                                     className="btn btn-no-outline mx-2"
-                                    to={`/edit-job-title/${lesson.id}`}
+                                    to={`/edit-lesson/${lesson.id}`}
                                 >
                                     &#x270E;
                                 </Link>
@@ -65,6 +67,7 @@ export default function Lesson() {
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 }

@@ -36,7 +36,6 @@ export default function EditClient() {
     const loadClient = async () => {
         const result = await axios.get(`http://localhost:8080/api/v1/client/${id.toString()}`);
         const loadedClient = result.data;
-
         setClient({
             passportNumber: loadedClient.passportNumber,
             fullName: loadedClient.fullName,
@@ -64,12 +63,10 @@ export default function EditClient() {
             employee: selectedEmployeeObj,
             subscription: selectedSubscriptionObj
         };
-        axios.put(`http://localhost:8080/api/v1/client/${id.toString()}`, updatedClient)
-            .then(response => {
-
-            })
-            .catch(error => {
-            });
+        axios
+            .put(`http://localhost:8080/api/v1/client/${id.toString()}`, updatedClient)
+            .then(response => {})
+            .catch(error => {});
         navigate("/client");
     };
     return (
@@ -93,7 +90,7 @@ export default function EditClient() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="fullName" className="form-label">
-                                Salary
+                                Full name
                             </label>
                             <input
                                 type="text"

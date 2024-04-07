@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Employee() {
     const [employees, setEmployees] = useState([]);
@@ -20,7 +20,8 @@ export default function Employee() {
     };
 
     return (
-        <div className="container" style={{ backgroundColor: '#333', minHeight: '100vh', minWidth:'100hv'}}>
+        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+            <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
@@ -66,5 +67,6 @@ export default function Employee() {
                 </table>
             </div>
         </div>
+     </div>
     );
 }

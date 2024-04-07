@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Visit() {
     const [visits, setVisits] = useState([]);
@@ -27,7 +27,8 @@ export default function Visit() {
         return new Date(dateTime).toLocaleString('en-US', options);
     };
     return (
-        <div className="container" style={{ backgroundColor: '#333', minHeight: '100vh', minWidth:'100hv'}}>
+        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+            <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
@@ -54,9 +55,9 @@ export default function Visit() {
                             <td>{visit.id}</td>
                             <td>{renderAttended(visit.attended)}</td>
                             <td>{formatDateTime(visit.dateTime)}</td>
-                            <td>{visit.employee_passport_number}</td>
-                            <td>{visit.client_passport_number}</td>
-                            <td>{visit.lesson_id}</td>
+                            <td>{visit.empPassNum}</td>
+                            <td>{visit.clientPassNum}</td>
+                            <td>{visit.lessonId}</td>
                             <td>
                                 <Link
                                     className="btn btn-no-outline mx-2"
@@ -76,6 +77,7 @@ export default function Visit() {
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 }

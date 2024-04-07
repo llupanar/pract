@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function PoolSubscription() {
     const [subs, setSubscriptions] = useState([]);
@@ -20,7 +20,8 @@ export default function PoolSubscription() {
     };
 
     return (
-        <div className="container" style={{ backgroundColor: '#333', minHeight: '100vh', minWidth:'100hv'}}>
+        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+            <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
@@ -47,7 +48,7 @@ export default function PoolSubscription() {
                             <td>{subscription.type}</td>
                             <td>{subscription.endDate}</td>
                             <td>{subscription.cost}</td>
-                            <td>{subscription.swgroup_id}</td>
+                            <td>{subscription.swGroupId}</td>
 
                             <td>
                                 <Link
@@ -68,6 +69,7 @@ export default function PoolSubscription() {
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 }

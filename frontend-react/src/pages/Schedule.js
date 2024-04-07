@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Schedule() {
     const [schedules, setSchedules] = useState([]);
@@ -20,7 +20,8 @@ export default function Schedule() {
     };
 
     return (
-        <div className="container" style={{ backgroundColor: '#333', minHeight: '100vh', minWidth:'100hv'}}>
+        <div style={{backgroundColor: '#333', minHeight: '92vh', minWidth: '100hv'}}>
+            <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
@@ -34,7 +35,7 @@ export default function Schedule() {
                         <th scope="col">
                             <Link
                                 className="btn btn-no-outline mx-1"
-                                to={`/add-job-title`}
+                                to={`/add-schedule`}
                             >
                                 ➕
                             </Link>
@@ -48,8 +49,8 @@ export default function Schedule() {
                             <td>{schedule.dayOfWeek}</td>
                             <td>{schedule.time}</td>
                             <td>{schedule.track}</td>
-                            <td>{schedule.lesson_id}</td>
-                            <td>{schedule.swgroup_id}</td>
+                            <td>{schedule.lessonId}</td>
+                            <td>{schedule.swGroupId}</td>
                             <td>
                                 <Link
                                     className="btn btn-no-outline mx-2"
@@ -69,6 +70,7 @@ export default function Schedule() {
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 }

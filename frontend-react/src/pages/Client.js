@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Client() {
     const [clients, setClients] = useState([]);
@@ -24,7 +24,8 @@ export default function Client() {
     };
 
     return (
-        <div className="container" style={{ backgroundColor: '#333', minHeight: '100vh', padding: '20px'}}>
+        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+            <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
@@ -71,6 +72,7 @@ export default function Client() {
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 }
