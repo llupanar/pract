@@ -14,10 +14,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class ScheduleController {
-    @Autowired
-    private ScheduleRepositoty scheduleRepositoty;
+
+    private final ScheduleRepositoty scheduleRepositoty;
     private final String notFoundMessage="Not found schedule for this id: ";
 
+    @Autowired
+    public ScheduleController(ScheduleRepositoty scheduleRepositoty){
+        this.scheduleRepositoty=scheduleRepositoty;
+    }
     @GetMapping("schedule")
     public List<Schedule> getSchedule(){
         return this.scheduleRepositoty.findAll();
@@ -36,7 +40,7 @@ public class ScheduleController {
         return this.scheduleRepositoty.save(schedule);
     }
 
-    @PostMapping("schedule/{id}")
+    @PutMapping("schedule/{id}")
     public ResponseEntity<Schedule> updateSchedule(@PathVariable(value = "id") Integer scheduleId,
                                                  @RequestBody Schedule scheduleDetails) throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)

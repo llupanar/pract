@@ -9,7 +9,6 @@ import java.util.List;
 @Table(name="swgroup")
 public class SwGroup {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="level")
     private Integer level;

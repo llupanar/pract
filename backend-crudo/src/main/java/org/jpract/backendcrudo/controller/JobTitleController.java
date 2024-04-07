@@ -14,10 +14,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class JobTitleController {
-    @Autowired
-    private JobTitleRepository jobTitleRepository;
+
+    private final JobTitleRepository jobTitleRepository;
     private final String notFoundMessage="Not found job title for this position: ";
 
+    @Autowired
+    public JobTitleController(JobTitleRepository jobTitleRepository){
+        this.jobTitleRepository=jobTitleRepository;
+    }
     @GetMapping("job_title")
     public List<JobTitle> getJobTitle(){
         return this.jobTitleRepository.findAll();
@@ -36,7 +40,7 @@ public class JobTitleController {
         return this.jobTitleRepository.save(jobTitle);
     }
 
-    @PostMapping("job_title/{position}")
+    @PutMapping("job_title/{position}")
     public ResponseEntity<JobTitle> updateJobTitle(@PathVariable(value = "position") String jobTitlePos,
                                                    @RequestBody JobTitle jobTitleDetails) throws ResourceNotFoundException {
         JobTitle jobTitle = jobTitleRepository.findById(jobTitlePos)

@@ -15,8 +15,13 @@ import java.util.Map;
 @RequestMapping("/api/v1/")
 public class ClientController {
     @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
     private final String notFoundMessage="Not found client for this passport number: ";
+
+    @Autowired
+    public ClientController(ClientRepository clientRepository){
+        this.clientRepository=clientRepository;
+    }
 
     @GetMapping("client")
     public List<Client> getClient(){

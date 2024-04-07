@@ -14,9 +14,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class VisitController {
-    @Autowired
-    private VisitRepositoty visitRepositoty;
+
+    private final VisitRepositoty visitRepositoty;
+
     private final String notFoundMessage="Not found visit for this id: ";
+
+    @Autowired
+    public VisitController(VisitRepositoty visitRepository){
+        this.visitRepositoty=visitRepository;
+    }
 
     @GetMapping("visit")
     public List<Visit> getVisit(){
@@ -36,7 +42,7 @@ public class VisitController {
         return this.visitRepositoty.save(visit);
     }
 
-    @PostMapping("visit/{id}")
+    @PutMapping("visit/{id}")
     public ResponseEntity<Visit> updateVisit(@PathVariable(value = "id") Integer visitId,
                                                  @RequestBody Visit visitDetails) throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)

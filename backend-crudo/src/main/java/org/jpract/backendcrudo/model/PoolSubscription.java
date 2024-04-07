@@ -1,7 +1,6 @@
 package org.jpract.backendcrudo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.List;
 @Table(name="pool_subscription")
 public class PoolSubscription {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="type")
     private String type;
@@ -18,7 +16,6 @@ public class PoolSubscription {
     private String endDate;
     @Column(name="cost")
     private Integer cost;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "swgroup_id")
     private SwGroup swGroup;
@@ -26,7 +23,7 @@ public class PoolSubscription {
     @JsonIgnore
     @OneToMany(mappedBy = "subscription", cascade = CascadeType.REMOVE)
     private List<Client> clients;
-    @JsonProperty("swgroup_id")
+    @Column(name="swgroup_id")
     public Integer getSwGroupId() {
         return swGroup.getId();
     }

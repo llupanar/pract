@@ -1,6 +1,4 @@
 package org.jpract.backendcrudo.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,33 +6,29 @@ import java.time.LocalDateTime;
 @Table(name="visit")
 public class Visit {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="attended")
     private Boolean attended;
     @Column(name = "datetime", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE USING datetime::timestamp without time zone")
     private LocalDateTime dateTime;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "client_passport_number")
     private Client client;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "employee_passport_number")
     private Employee employee;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
-    @JsonProperty("employee_passport_number")
+    @Column(name = "employee_passport_number")
     public String getEmpPassNum() {
         return employee.getPassportNumber();
     }
-    @JsonProperty("client_passport_number")
+    @Column(name = "client_passport_number")
     public String getClientPassNum() {
         return client.getPassportNumber();
     }
-    @JsonProperty("lesson_id")
+    @Column(name = "lesson_id")
     public Integer getLessonId(){
         return lesson.getId();
     }

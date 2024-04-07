@@ -1,7 +1,5 @@
 package org.jpract.backendcrudo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -9,7 +7,6 @@ import java.util.List;
 @Table(name="lesson")
 public class Lesson {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "category")
     private String category;

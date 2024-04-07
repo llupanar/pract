@@ -14,9 +14,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class SwGroupController {
-    @Autowired
-    private SwGroupRepositoty swGroupRepository;
+
+    private final SwGroupRepositoty swGroupRepository;
     private final String notFoundMessage="Not found sqgroup for this id: ";
+
+    @Autowired
+    public SwGroupController(SwGroupRepositoty swGroupRepository){
+        this.swGroupRepository=swGroupRepository;
+    }
 
     @GetMapping("swgroup")
     public List<SwGroup> getSwGroup(){
@@ -35,7 +40,7 @@ public class SwGroupController {
     public SwGroup createSwGroup(@RequestBody SwGroup swGroup){
         return this.swGroupRepository.save(swGroup);
     }
-    @PostMapping("swgroup/{id}")
+    @PutMapping("swgroup/{id}")
     public ResponseEntity<SwGroup> updateSwGroup(@PathVariable(value = "id") Integer swGroupId,
                                                    @RequestBody SwGroup swGroupDetails) throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)

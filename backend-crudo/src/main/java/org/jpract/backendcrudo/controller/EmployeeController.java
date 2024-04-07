@@ -14,9 +14,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class EmployeeController {
-    @Autowired
-    private EmployeeRepositoty employeeRepository;
+
+    private final EmployeeRepositoty employeeRepository;
     private final String notFoundMessage="Not found employee for this passport number: ";
+
+    @Autowired
+    public EmployeeController(EmployeeRepositoty employeeRepository){
+        this.employeeRepository=employeeRepository;
+    }
 
     @GetMapping("employee")
     public List<Employee> getEmployee(){

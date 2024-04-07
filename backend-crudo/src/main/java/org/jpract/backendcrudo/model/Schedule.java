@@ -1,14 +1,11 @@
 package org.jpract.backendcrudo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="schedule")
 public class Schedule {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="day_of_week")
     private String dayOfWeek;
@@ -16,19 +13,17 @@ public class Schedule {
     private String time;
     @Column(name="track")
     private Integer track;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "swgroup_id")
     private SwGroup swGroup;
-    @JsonProperty("swgroup_id")
+    @Column(name="swgroup_id")
     public Integer getSwGroupId() {
         return swGroup.getId();
     }
-    @JsonProperty("lesson_id")
+    @Column(name="lesson_id")
     public Integer getLessonId() {
         return lesson.getId();
     }

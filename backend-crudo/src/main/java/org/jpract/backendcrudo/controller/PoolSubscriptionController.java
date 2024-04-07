@@ -14,9 +14,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class PoolSubscriptionController {
-    @Autowired
-    private PoolSubscriptionRepository poolSubscriptionRepository;
+
+    private final PoolSubscriptionRepository poolSubscriptionRepository;
     private final String notFoundMessage="Not found subscription for this id: ";
+
+    @Autowired
+    public PoolSubscriptionController(PoolSubscriptionRepository poolSubscriptionRepository){
+        this.poolSubscriptionRepository=poolSubscriptionRepository;
+    }
 
     @GetMapping("pool_subscription")
     public List<PoolSubscription> getPoolSubscription(){
@@ -35,7 +40,7 @@ public class PoolSubscriptionController {
     public PoolSubscription createPoolSubscription(@RequestBody PoolSubscription poolSubscription){
         return this.poolSubscriptionRepository.save(poolSubscription);
     }
-    @PostMapping("pool_subscription/{id}")
+    @PutMapping("pool_subscription/{id}")
     public ResponseEntity<PoolSubscription> updatePoolSubscription(@PathVariable(value = "id") Integer poolSubscriptionId,
                                                  @RequestBody PoolSubscription poolSubscriptionDetails) throws ResourceNotFoundException {
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)

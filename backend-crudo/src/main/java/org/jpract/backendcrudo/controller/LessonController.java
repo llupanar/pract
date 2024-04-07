@@ -14,10 +14,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class LessonController {
-    @Autowired
-    private LessonRepositoty lessonRepository;
+
+    private final LessonRepositoty lessonRepository;
     private final String notFoundMessage="Not found lesson for this id: ";
 
+    @Autowired
+    public LessonController(LessonRepositoty lessonRepository){
+        this.lessonRepository=lessonRepository;
+    }
     @GetMapping("lesson")
     public List<Lesson> getLesson(){
         return this.lessonRepository.findAll();
@@ -36,7 +40,7 @@ public class LessonController {
         return this.lessonRepository.save(swGroup);
     }
 
-    @PostMapping("lesson/{id}")
+    @PutMapping ("lesson/{id}")
     public ResponseEntity<Lesson> updateLesson(@PathVariable(value = "id") Integer lessonId,
                                                  @RequestBody Lesson lessonDetails) throws ResourceNotFoundException {
         Lesson lesson = lessonRepository.findById(lessonId)
