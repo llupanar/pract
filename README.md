@@ -19,7 +19,7 @@
 
 ## Путеводитель
 
-### bd_inf
+### db_inf
 
 - информация о БД (sql файл с созданием таблиц, схема)
 
@@ -33,17 +33,19 @@
 - Backend на SpringBoot + Hibernate
 - Data JPA
 - Все разбито на соотв. packages (controller, exception, model, repository)
+- Для всех таблиц: POST, PUT, GET, DELETE запросы
+
 
 ### frontend-angular
 
 - Frontend на angular
 - Названия дирректорий соотв. хранящимся там элементам (например, в services хранятся сервисы)
+- Для всех таблиц: вывод и удаление
+- Для всех, кроме PoolSubscription и  Visit: создание и редактирование
 
 ### frontend-react
 
 - Frontend на angular
 - Названия дирректорий соотв. хранящимся там элементам (например, в services хранятся сервисы)
-
-### .github
-
-- Для SonarCloud (кажется, ее можно в гитигнор, но пусть будет, пока не скажут убрать)
+- Для всех таблиц: вывод и удаление
+- Для всех, кроме PoolSubscription и  Visit: создание и редактирование
