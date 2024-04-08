@@ -16,7 +16,7 @@ import java.util.Map;
 public class PoolSubscriptionController {
 
     private final PoolSubscriptionRepository poolSubscriptionRepository;
-    private final static String notFoundMessage="Not found subscription for this id: ";
+    private static final String NOT_FOUND_MESSAGE ="Not found subscription for this id: ";
 
     @Autowired
     public PoolSubscriptionController(PoolSubscriptionRepository poolSubscriptionRepository){
@@ -32,7 +32,7 @@ public class PoolSubscriptionController {
     public ResponseEntity<PoolSubscription> getPoolSubscriptionById (@PathVariable(value="id")Integer poolSubscriptionId)
             throws ResourceNotFoundException {
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+poolSubscriptionId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +poolSubscriptionId));
         return  ResponseEntity.ok().body(poolSubscription);
     }
 
@@ -44,7 +44,7 @@ public class PoolSubscriptionController {
     public ResponseEntity<PoolSubscription> updatePoolSubscription(@PathVariable(value = "id") Integer poolSubscriptionId,
                                                  @RequestBody PoolSubscription poolSubscriptionDetails) throws ResourceNotFoundException {
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+poolSubscriptionId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +poolSubscriptionId));
         poolSubscription.setType(poolSubscriptionDetails.getType());
         poolSubscription.setCost(poolSubscriptionDetails.getCost());
         poolSubscription.setEndDate(poolSubscriptionDetails.getEndDate());
@@ -55,7 +55,7 @@ public class PoolSubscriptionController {
     @DeleteMapping("pool_subscription/{id}")
     public ResponseEntity<Map<String, Boolean>> deletePoolSubscription(@PathVariable(value = "id") Integer poolSubscriptionId)throws ResourceNotFoundException{
         PoolSubscription poolSubscription = poolSubscriptionRepository.findById(poolSubscriptionId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+poolSubscriptionId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +poolSubscriptionId));
 
         poolSubscriptionRepository.delete(poolSubscription);
         Map<String, Boolean> response = new HashMap<>();

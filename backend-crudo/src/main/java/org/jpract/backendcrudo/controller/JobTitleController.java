@@ -16,7 +16,7 @@ import java.util.Map;
 public class JobTitleController {
 
     private final JobTitleRepository jobTitleRepository;
-    private final static String notFoundMessage="Not found job title for this position: ";
+    private static final String NOT_FOUND_MESSAGE ="Not found job title for this position: ";
 
     @Autowired
     public JobTitleController(JobTitleRepository jobTitleRepository){
@@ -31,7 +31,7 @@ public class JobTitleController {
     public ResponseEntity<JobTitle> getJobTitleByPosition (@PathVariable(value="position")String jobTitlePos)
         throws ResourceNotFoundException {
         JobTitle jobTitle = jobTitleRepository.findById(jobTitlePos)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+jobTitlePos));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +jobTitlePos));
         return  ResponseEntity.ok().body(jobTitle);
     }
 
@@ -44,7 +44,7 @@ public class JobTitleController {
     public ResponseEntity<JobTitle> updateJobTitle(@PathVariable(value = "position") String jobTitlePos,
                                                    @RequestBody JobTitle jobTitleDetails) throws ResourceNotFoundException {
         JobTitle jobTitle = jobTitleRepository.findById(jobTitlePos)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+jobTitlePos));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +jobTitlePos));
         jobTitle.setBonus(jobTitleDetails.getBonus());
         jobTitle.setSalary(jobTitleDetails.getSalary());
         jobTitleRepository.save(jobTitle);
@@ -55,7 +55,7 @@ public class JobTitleController {
     @DeleteMapping("job_title/{position}")
     public ResponseEntity<Map<String, Boolean>> deleteJobTitle(@PathVariable(value = "position") String jobTitlePos)throws ResourceNotFoundException{
         JobTitle jobTitle = jobTitleRepository.findById(jobTitlePos)
-                .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage+ jobTitlePos));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + jobTitlePos));
 
         jobTitleRepository.delete(jobTitle);
         Map<String, Boolean> response = new HashMap<>();

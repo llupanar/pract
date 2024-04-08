@@ -17,7 +17,7 @@ public class VisitController {
 
     private final VisitRepositoty visitRepositoty;
 
-    private final static String notFoundMessage="Not found visit for this id: ";
+    private static final String NOT_FOUND_MESSAGE ="Not found visit for this id: ";
 
     @Autowired
     public VisitController(VisitRepositoty visitRepository){
@@ -33,7 +33,7 @@ public class VisitController {
     public ResponseEntity<Visit> getVisitById (@PathVariable(value="id")Integer visitId)
             throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+visitId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +visitId));
         return  ResponseEntity.ok().body(visit);
     }
 
@@ -46,7 +46,7 @@ public class VisitController {
     public ResponseEntity<Visit> updateVisit(@PathVariable(value = "id") Integer visitId,
                                                  @RequestBody Visit visitDetails) throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+visitId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +visitId));
         visit.setAttended(visitDetails.getAttended());
         visit.setDateTime(visitDetails.getDateTime());
         visit.setClient(visitDetails.getClient());
@@ -58,7 +58,7 @@ public class VisitController {
     @DeleteMapping("visit/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteVisit(@PathVariable(value = "id") Integer visitId)throws ResourceNotFoundException{
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage+visitId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE +visitId));
         visitRepositoty.delete(visit);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

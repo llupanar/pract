@@ -16,7 +16,7 @@ import java.util.Map;
 public class SwGroupController {
 
     private final SwGroupRepositoty swGroupRepository;
-    private final static String notFoundMessage="Not found sqgroup for this id: ";
+    private static final String NOT_FOUND_MESSAGE ="Not found sqgroup for this id: ";
 
     @Autowired
     public SwGroupController(SwGroupRepositoty swGroupRepository){
@@ -32,7 +32,7 @@ public class SwGroupController {
     public ResponseEntity<SwGroup> getSwGroupByPosition (@PathVariable(value="id")Integer swGroupId)
             throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+swGroupId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +swGroupId));
         return  ResponseEntity.ok().body(swGroup);
     }
 
@@ -44,7 +44,7 @@ public class SwGroupController {
     public ResponseEntity<SwGroup> updateSwGroup(@PathVariable(value = "id") Integer swGroupId,
                                                    @RequestBody SwGroup swGroupDetails) throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+swGroupId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +swGroupId));
         swGroup.setAgeCategory(swGroupDetails.getAgeCategory());
         swGroup.setLevel(swGroupDetails.getLevel());
         swGroup.setMemberCount(swGroupDetails.getMemberCount());
@@ -54,7 +54,7 @@ public class SwGroupController {
     @DeleteMapping("swgroup/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteSwGroup(@PathVariable(value = "id") Integer swGroupId)throws ResourceNotFoundException{
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage + swGroupId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + swGroupId));
 
         swGroupRepository.delete(swGroup);
         Map<String, Boolean> response = new HashMap<>();

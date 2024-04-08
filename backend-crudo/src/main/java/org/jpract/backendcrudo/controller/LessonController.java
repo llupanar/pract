@@ -16,7 +16,7 @@ import java.util.Map;
 public class LessonController {
 
     private final LessonRepositoty lessonRepository;
-    private final static String notFoundMessage="Not found lesson for this id: ";
+    private static final String NOT_FOUND_MESSAGE ="Not found lesson for this id: ";
 
     @Autowired
     public LessonController(LessonRepositoty lessonRepository){
@@ -31,7 +31,7 @@ public class LessonController {
     public ResponseEntity<Lesson> getLessonById(@PathVariable(value="id")Integer lessonId)
             throws ResourceNotFoundException {
         Lesson lesson = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +lessonId));
         return  ResponseEntity.ok().body(lesson);
     }
 
@@ -44,7 +44,7 @@ public class LessonController {
     public ResponseEntity<Lesson> updateLesson(@PathVariable(value = "id") Integer lessonId,
                                                  @RequestBody Lesson lessonDetails) throws ResourceNotFoundException {
         Lesson lesson = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +lessonId));
         lesson.setCategory(lessonDetails.getCategory());
         lesson.setDuration(lessonDetails.getDuration());
         lesson.setEmployee(lessonDetails.getEmployee());
@@ -54,7 +54,7 @@ public class LessonController {
     @DeleteMapping("lesson/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteLesson(@PathVariable(value = "id") Integer lessonId)throws ResourceNotFoundException{
         Lesson swGroup = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +lessonId));
 
         lessonRepository.delete(swGroup);
         Map<String, Boolean> response = new HashMap<>();

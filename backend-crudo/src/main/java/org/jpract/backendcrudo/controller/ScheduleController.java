@@ -16,7 +16,7 @@ import java.util.Map;
 public class ScheduleController {
 
     private final ScheduleRepositoty scheduleRepositoty;
-    private final static String notFoundMessage="Not found schedule for this id: ";
+    private static final String NOT_FOUND_MESSAGE ="Not found schedule for this id: ";
 
     @Autowired
     public ScheduleController(ScheduleRepositoty scheduleRepositoty){
@@ -31,7 +31,7 @@ public class ScheduleController {
     public ResponseEntity<Schedule> getSScheduleByPosition (@PathVariable(value="id")Integer scheduleId)
             throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +scheduleId));
         return  ResponseEntity.ok().body(schedule);
     }
 
@@ -44,7 +44,7 @@ public class ScheduleController {
     public ResponseEntity<Schedule> updateSchedule(@PathVariable(value = "id") Integer scheduleId,
                                                  @RequestBody Schedule scheduleDetails) throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +scheduleId));
         schedule.setDayOfWeek(scheduleDetails.getDayOfWeek());
         schedule.setTime(scheduleDetails.getTime());
         schedule.setTrack(scheduleDetails.getTrack());
@@ -56,7 +56,7 @@ public class ScheduleController {
     @DeleteMapping("schedule/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteSchedule(@PathVariable(value = "id") Integer scheduleId)throws ResourceNotFoundException{
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +scheduleId));
 
         scheduleRepositoty.delete(schedule);
         Map<String, Boolean> response = new HashMap<>();

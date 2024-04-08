@@ -16,7 +16,7 @@ import java.util.Map;
 public class EmployeeController {
 
     private final EmployeeRepositoty employeeRepository;
-    private final static String notFoundMessage="Not found employee for this passport number: ";
+    private static final String NOT_FOUND_MESSAGE ="Not found employee for this passport number: ";
 
     @Autowired
     public EmployeeController(EmployeeRepositoty employeeRepository){
@@ -32,7 +32,7 @@ public class EmployeeController {
     public ResponseEntity<Employee> getEmployeeByPassNum (@PathVariable(value="passport_number")String employeePassNum)
             throws ResourceNotFoundException {
         Employee employee = employeeRepository.findById(employeePassNum)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+employeePassNum));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +employeePassNum));
         return  ResponseEntity.ok().body(employee);
     }
 
@@ -44,7 +44,7 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "passport_number") String employeePassNum,
                                                    @RequestBody Employee employeeDetails) throws ResourceNotFoundException {
         Employee employee = employeeRepository.findById(employeePassNum)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+employeePassNum));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +employeePassNum));
         employee.setFullName(employeeDetails.getFullName());
         employee.setExperience(employeeDetails.getExperience());
         employee.setJobTitle(employeeDetails.getJobTitle());
@@ -55,7 +55,7 @@ public class EmployeeController {
     @DeleteMapping("employee/{passport_number}")
     public ResponseEntity<Map<String, Boolean>> deleteJobTitle(@PathVariable(value = "passport_number") String employeePassNum)throws ResourceNotFoundException{
         Employee employee = employeeRepository.findById(employeePassNum)
-                .orElseThrow(() -> new ResourceNotFoundException (notFoundMessage+employeePassNum));
+                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +employeePassNum));
         employeeRepository.delete(employee);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
