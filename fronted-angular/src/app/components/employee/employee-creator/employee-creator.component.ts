@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from "../../../models/employee";
-import {PoolSubscription} from "../../../models/pool_subscription";
 import {EmployeeService} from "../../../services/employee.service";
-import {Client} from "../../../models/client";
 import {JobTitleService} from "../../../services/job-title.service";
 import { Router } from '@angular/router';
 import {JobTitle} from "../../../models/job_title";

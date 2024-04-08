@@ -8,7 +8,6 @@ import {VisitsPipe} from "./visits.pipe";
 @Component({
   selector: 'app-visits',
   templateUrl: './visits.component.html',
-  styleUrl: './visits.component.css',
   providers:[VisitsFilterPipe,VisitsPipe]
 })
 export class VisitsComponent implements OnInit{

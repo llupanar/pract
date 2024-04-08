@@ -7,7 +7,6 @@ import { EmployeeFilterPipe } from './employee-filter.pipe';
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
-  styleUrl: './employees.component.css',
   providers:[EmployeeFilterPipe]
 })
 export class EmployeesComponent implements OnInit{

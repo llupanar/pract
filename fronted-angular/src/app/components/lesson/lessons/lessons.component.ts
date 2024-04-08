@@ -7,7 +7,6 @@ import {LessonFilterPipe} from "./lesson-filter.pipe";
 @Component({
   selector: 'app-lessons',
   templateUrl: './lessons.component.html',
-  styleUrl: './lessons.component.css',
   providers:[LessonFilterPipe]
 })
 export class LessonsComponent implements OnInit{

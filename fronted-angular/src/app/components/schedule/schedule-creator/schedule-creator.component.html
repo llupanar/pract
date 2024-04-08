@@ -1,0 +1,35 @@
+<div class="form-group">
+  <label for="id">ID</label>
+  <input [(ngModel)]="id" id="id" name="id" class="form-control" type="number">
+</div>
+<div class="form-group">
+  <label for="dayOfWeek">Day of week</label>
+  <input [(ngModel)]="dayOfWeek" id="dayOfWeek" name="dayOfWeek" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="time">Time</label>
+  <input [(ngModel)]="time" id="time" name="time" class="form-control" type="time">
+</div>
+<div class="form-group">
+  <label for="track">Track</label>
+  <input [(ngModel)]="track" id="track" name="track" class="form-control" type="number">
+</div>
+<div class="form-group">
+  <label for="lessonId">Lesson</label>
+  <select [(ngModel)]="lessonIndex" id="lessonId" name="lessonId" class="form-control">
+    <option *ngFor="let lesson of lessons; let i = index" [value]="i">{{ lesson.id }}</option>
+  </select>
+</div>
+<div class="form-group">
+  <label for="groupId">Group</label>
+  <select [(ngModel)]="groupIndex" id="groupId" name="groupId" class="form-control">
+    <option *ngFor="let swGroup of groups; let i = index" [value]="i">{{ swGroup.id }}</option>
+  </select>
+</div>
+<div class="modal-footer">
+  <button type="button" routerLink="/schedules" id="add-employee-form" class="btn btn-secondary custom-btn">Close</button>
+  <button type="submit" class="btn btn-primary custom-btn" routerLink="/add-schedule" routerLinkActive="active" (click)="saveSchedule()">Save changes</button>
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

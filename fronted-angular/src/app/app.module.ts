@@ -30,6 +30,10 @@ import { EmployeeCreatorComponent } from './components/employee/employee-creator
 import {ClientEditorComponent} from "./components/client/client-editor/client-editor.component";
 import { SwgroupEditorComponent } from './components/swgroup/swgroup-editor/swgroup-editor.component';
 import { EmployeeEditorComponent } from './components/employee/employee-editor/employee-editor.component';
+import {LessonCreatorComponent} from "./components/lesson/lesson-creator/lesson-creator.component";
+import {LessonEditorComponent} from "./components/lesson/lesson-editor/lesson-editor.component";
+import {ScheduleCreatorComponent} from "./components/schedule/schedule-creator/schedule-creator.component";
+import {ScheduleEditorComponent} from "./components/schedule/schedule-editor/schedule-editor.component";
 
 const routes: Routes = [
   { path: 'job-titles', component: JobTitlesComponent },
@@ -48,8 +52,10 @@ const routes: Routes = [
   {path:'edit-employee/:id',component:EmployeeEditorComponent},
   {path:'add-group',component:SwgroupCreatorComponent},
   {path:'edit-group/:id',component:SwgroupEditorComponent},
-
-
+  {path:'add-lesson',component:LessonCreatorComponent},
+  {path:'edit-lesson/:id',component:LessonEditorComponent},
+  {path:'add-schedule',component:ScheduleCreatorComponent},
+  {path:'edit-schedule/:id',component:ScheduleEditorComponent},
 ];
 @NgModule({
   declarations: [
@@ -79,6 +85,10 @@ const routes: Routes = [
     EmployeeCreatorComponent,
     SwgroupEditorComponent,
     EmployeeEditorComponent,
+    LessonCreatorComponent,
+    LessonEditorComponent,
+    ScheduleCreatorComponent,
+    ScheduleEditorComponent
   ],
   imports: [
     BrowserModule,

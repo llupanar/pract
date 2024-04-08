@@ -7,7 +7,6 @@ import {JobTitleFilterPipe} from "./job-title-filter.pipe";
 @Component({
   selector: 'app-job-titles',
   templateUrl: './job-titles.component.html',
-  styleUrl: './job-titles.component.css',
   providers:[JobTitleFilterPipe]
 })
 export class JobTitlesComponent implements OnInit{

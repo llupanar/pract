@@ -26,10 +26,6 @@ export class EmployeeEditorComponent implements OnInit{
     this.loadEmployee();
   }
 
-  isAvailable(){
-    return (this.jobTitles && this.jobTitles.length > 0 );
-  }
-
   loadJobTitles() {
     this.jobTitleService.getJobTitles().subscribe((result: any[]) => {
       this.jobTitles = result;

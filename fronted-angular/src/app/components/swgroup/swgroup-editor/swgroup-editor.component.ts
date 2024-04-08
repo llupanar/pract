@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SwGroup} from "../../../models/swgroup";
 import {SwgroupService} from "../../../services/swgroup.service";
-import {JobTitle} from "../../../models/job_title";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 

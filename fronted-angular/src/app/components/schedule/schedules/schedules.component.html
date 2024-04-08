@@ -10,7 +10,7 @@
     <th>Track</th>
     <th>Lesson ID</th>
     <th>Group ID</th>
-    <th> <button id="showFormButton">➕</button></th>
+    <th> <button id="showFormButton" routerLink="/add-schedule">➕</button></th>
   </tr>
   </thead>
   <tbody>
@@ -22,7 +22,7 @@
     <td>{{schedule.lessonId}}</td>
     <td>{{schedule.swGroupId}}</td>
     <td>
-      <button class="action-icon">&#9998;</button>
+      <button class="action-icon" [routerLink]="['/edit-schedule',schedule.id]">&#9998;</button>
       <button (click)="deleteScheduleItem(schedule)">&#10060;</button>
     </td>
   </tr>

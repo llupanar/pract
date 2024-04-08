@@ -7,7 +7,6 @@ import {ScheduleFilterPipe} from "./schedule-filter.pipe";
 @Component({
   selector: 'app-schedules',
   templateUrl: './schedules.component.html',
-  styleUrl: './schedules.component.css',
   providers:[ScheduleFilterPipe]
 })
 export class SchedulesComponent implements OnInit{

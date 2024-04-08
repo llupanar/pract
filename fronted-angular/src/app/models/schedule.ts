@@ -9,6 +9,6 @@ export interface Schedule {
   lessonId:number;
   swGroupId:number;
   lesson:Lesson;
-  swgroup:SwGroup;
+  swGroup:SwGroup;
 }
 

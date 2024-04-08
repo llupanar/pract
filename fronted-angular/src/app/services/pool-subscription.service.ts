@@ -15,7 +15,7 @@ export class PoolSubscriptionService {
   }
 
   public addPoolSubscription(poolSubscription: PoolSubscription): Observable<PoolSubscription> {
-    return this.http.post<PoolSubscription>(`${this.apiServerUrl}/`, poolSubscription);
+    return this.http.post<PoolSubscription>(`${this.apiServerUrl}`, poolSubscription);
   }
 
   public updatePoolSubscription(poolSubscription: PoolSubscription): Observable<PoolSubscription> {

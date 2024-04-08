@@ -1,0 +1,21 @@
+<div class="form-group">
+  <label for="duration">Duration</label>
+  <input [(ngModel)]="duration" id="duration" name="duration" class="form-control" type="number">
+</div>
+<div class="form-group">
+  <label for="category">Category</label>
+  <input [(ngModel)]="category" id="category" name="category" class="form-control" type="text">
+</div>
+<div class="form-group">
+  <label for="empPassNum">Position</label>
+  <select [(ngModel)]="employeeIndex" id="empPassNum" name="empPassNum" class="form-control">
+    <option *ngFor="let employee of employees; let i = index" [value]="i">{{ employee.passportNumber }}</option>
+  </select>
+</div>
+<div class="modal-footer">
+  <button type="button" routerLink="/lessons" id="add-employee-form" class="btn btn-secondary custom-btn">Close</button>
+  <button type="submit" class="btn btn-primary custom-btn" routerLink="/lessons" routerLinkActive="active" (click)="saveLessons()">Save changes</button>
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

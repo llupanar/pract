@@ -7,7 +7,6 @@ import { ClientFilterPipe } from './client-filter.pipe';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrl: './clients.component.css',
   providers: [ClientFilterPipe]
 })
 

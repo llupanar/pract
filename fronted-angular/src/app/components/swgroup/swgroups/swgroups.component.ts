@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
-import {NgForm} from "@angular/forms";
 import {SwGroup} from "../../../models/swgroup";
 import {SwgroupService} from "../../../services/swgroup.service";
 import {SwgroupFilterPipe} from "./swgroup-filter.pipe";
@@ -8,7 +7,6 @@ import {SwgroupFilterPipe} from "./swgroup-filter.pipe";
 @Component({
   selector: 'app-swgroups',
   templateUrl: './swgroups.component.html',
-  styleUrl: './swgroups.component.css',
   providers:[SwgroupFilterPipe]
 })
 export class SwgroupsComponent implements OnInit{

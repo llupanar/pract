@@ -7,7 +7,6 @@ import {SubscriptionFilterPipe} from "./subscription-filter.pipe";
 @Component({
   selector: 'app-pool-subscriptions',
   templateUrl: './pool-subscriptions.component.html',
-  styleUrl: './pool-subscriptions.component.css',
   providers:[SubscriptionFilterPipe]
 })
 export class PoolSubscriptionsComponent implements OnInit{
