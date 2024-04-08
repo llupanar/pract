@@ -16,7 +16,7 @@ import java.util.Map;
 public class SwGroupController {
 
     private final SwGroupRepositoty swGroupRepository;
-    private final String notFoundMessage="Not found sqgroup for this id: ";
+    private final static String notFoundMessage="Not found sqgroup for this id: ";
 
     @Autowired
     public SwGroupController(SwGroupRepositoty swGroupRepository){

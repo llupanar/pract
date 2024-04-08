@@ -16,7 +16,7 @@ import java.util.Map;
 public class JobTitleController {
 
     private final JobTitleRepository jobTitleRepository;
-    private final String notFoundMessage="Not found job title for this position: ";
+    private final static String notFoundMessage="Not found job title for this position: ";
 
     @Autowired
     public JobTitleController(JobTitleRepository jobTitleRepository){

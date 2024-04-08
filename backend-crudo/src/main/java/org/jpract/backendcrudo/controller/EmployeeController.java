@@ -16,7 +16,7 @@ import java.util.Map;
 public class EmployeeController {
 
     private final EmployeeRepositoty employeeRepository;
-    private final String notFoundMessage="Not found employee for this passport number: ";
+    private final static String notFoundMessage="Not found employee for this passport number: ";
 
     @Autowired
     public EmployeeController(EmployeeRepositoty employeeRepository){

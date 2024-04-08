@@ -16,7 +16,7 @@ import java.util.Map;
 public class ScheduleController {
 
     private final ScheduleRepositoty scheduleRepositoty;
-    private final String notFoundMessage="Not found schedule for this id: ";
+    private final static String notFoundMessage="Not found schedule for this id: ";
 
     @Autowired
     public ScheduleController(ScheduleRepositoty scheduleRepositoty){

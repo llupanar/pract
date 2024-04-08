@@ -14,9 +14,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class ClientController {
-    @Autowired
-    private final ClientRepository clientRepository;
-    private final String notFoundMessage="Not found client for this passport number: ";
+
+    private final  ClientRepository clientRepository;
+    private final static String notFoundMessage="Not found client for this passport number: ";
 
     @Autowired
     public ClientController(ClientRepository clientRepository){

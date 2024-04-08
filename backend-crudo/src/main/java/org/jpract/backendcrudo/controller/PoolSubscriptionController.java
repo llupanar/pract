@@ -16,7 +16,7 @@ import java.util.Map;
 public class PoolSubscriptionController {
 
     private final PoolSubscriptionRepository poolSubscriptionRepository;
-    private final String notFoundMessage="Not found subscription for this id: ";
+    private final static String notFoundMessage="Not found subscription for this id: ";
 
     @Autowired
     public PoolSubscriptionController(PoolSubscriptionRepository poolSubscriptionRepository){

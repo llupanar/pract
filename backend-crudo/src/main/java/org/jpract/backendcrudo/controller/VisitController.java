@@ -17,7 +17,7 @@ public class VisitController {
 
     private final VisitRepositoty visitRepositoty;
 
-    private final String notFoundMessage="Not found visit for this id: ";
+    private final static String notFoundMessage="Not found visit for this id: ";
 
     @Autowired
     public VisitController(VisitRepositoty visitRepository){

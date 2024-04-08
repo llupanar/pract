@@ -16,7 +16,7 @@ import java.util.Map;
 public class LessonController {
 
     private final LessonRepositoty lessonRepository;
-    private final String notFoundMessage="Not found lesson for this id: ";
+    private final static String notFoundMessage="Not found lesson for this id: ";
 
     @Autowired
     public LessonController(LessonRepositoty lessonRepository){
