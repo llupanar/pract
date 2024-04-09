@@ -9,7 +9,7 @@
 <div class="form-group">
   <label for="empPassNum">Position</label>
   <select [(ngModel)]="employeeIndex" id="empPassNum" name="empPassNum" class="form-control">
-    <option *ngFor="let employee of employees; let i = index" [value]="i">{{ employee.passportNumber }}</option>
+    <option *ngFor="let employee of employees; let i = index" [value]="i">{{ employee.fullName }} (exp.: {{employee.experience}})</option>
   </select>
 </div>
 <div class="modal-footer">

@@ -13,7 +13,7 @@ export class LessonFilterPipe implements PipeTransform {
     const searchNumber = Number(searchText);
 
     return items.filter(item => {
-      return item.id === searchNumber;
+      return item.duration === searchNumber;
     });
     return items;
   }

@@ -4,23 +4,21 @@
 <table class="table table-dark">
   <thead>
   <tr>
-    <th>ID</th>
     <th>Day of Week</th>
     <th>Time</th>
     <th>Track</th>
-    <th>Lesson ID</th>
-    <th>Group ID</th>
+    <th>Lesson</th>
+    <th>Group</th>
     <th> <button id="showFormButton" routerLink="/add-schedule">➕</button></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let schedule of schedules | scheduleFilter:searchText">
-    <td>{{schedule.id}}</td>
     <td>{{schedule.dayOfWeek}}</td>
     <td>{{schedule.time}}</td>
     <td>{{schedule.track}}</td>
-    <td>{{schedule.lessonId}}</td>
-    <td>{{schedule.swGroupId}}</td>
+    <td>{{schedule.lesson.category}}</td>
+    <td>{{schedule.swGroup.ageCategory}}</td>
     <td>
       <button class="action-icon" [routerLink]="['/edit-schedule',schedule.id]">&#9998;</button>
       <button (click)="deleteScheduleItem(schedule)">&#10060;</button>

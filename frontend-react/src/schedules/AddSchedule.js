@@ -22,6 +22,7 @@ export default function AddSchedule() {
     useEffect(() => {
         loadLessons();
         loadGroups();
+        generateUniqueId();
     }, []);
 
     const loadLessons = async () => {
@@ -55,26 +56,23 @@ export default function AddSchedule() {
         await axios.post("http://localhost:8080/api/v1/schedule", updatedSchedule);
         navigate("/schedule");
     };
-
+    const generateUniqueId = async () => {
+        const result = await axios.get("http://localhost:8080/api/v1/schedule");
+        let uniqueId = 1;
+        if (Array.isArray(result)) {
+            const idSet = new Set(result.map(item => item.id));
+            while (idSet.has(uniqueId)) {
+                uniqueId++;
+            }
+        }
+        schedule.id= uniqueId;
+    };
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Register User</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
-                        <div className="mb-3">
-                            <label htmlFor="id" className="form-label">
-                                ID
-                            </label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                placeholder="Enter id"
-                                name="id"
-                                value={id}
-                                onChange={(e) => onInputChange(e)}
-                            />
-                        </div>
                         <div className="mb-3">
                             <label htmlFor="time" className="form-label">
                                 TIME
@@ -123,34 +121,34 @@ export default function AddSchedule() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="lessonId" className="form-label">
-                                Lesson ID
+                                Lesson
                             </label>
                             <select
                                 className="form-control"
                                 name="lessonId"
                                 value={selectedLesson}
                                 onChange={(e) => setSelectedLesson(e.target.value)}>
-                                <option value="">Select lesson id</option>
+                                <option value="">Select lesson</option>
                                 {lessons.map((lesson) => (
                                     <option key={lesson.id} value={lesson.id}>
-                                        {lesson.id}
+                                        {lesson.category}, {lesson.duration} min
                                     </option>
                                 ))}
                             </select>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="swGroupId" className="form-label">
-                                Lesson ID
+                                Group
                             </label>
                             <select
                                 className="form-control"
                                 name="swGroupId"
                                 value={selectedGroup}
                                 onChange={(e) => setSelectedGroup(e.target.value)}>
-                                <option value="">Select group id</option>
+                                <option value="">Select group</option>
                                 {groups.map((group) => (
                                     <option key={group.id} value={group.id}>
-                                        {group.id}
+                                        {group.ageCategory}, level: {group.level}
                                     </option>
                                 ))}
                             </select>

@@ -62,7 +62,6 @@ export default function AddClient() {
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Register Client</h2>
-
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="passportNumber" className="form-label">
@@ -103,37 +102,19 @@ export default function AddClient() {
                             </div>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="empPassNum" className="form-label">
-                                Employee passport number
-                            </label>
-                            <select
-                                className="form-control"
-                                name="empPassNum"
-                                value={selectedEmployee}
-                                onChange={(e) => setSelectedEmployee(e.target.value)}
-                            >
-                                <option value="">Select employee passport number</option>
-                                {employees.map((employee) => (
-                                    <option key={employee.passportNumber} value={employee.passportNumber}>
-                                        {employee.passportNumber}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-3">
                             <label htmlFor="subscriptionId" className="form-label">
-                                Subscription ID
+                                Subscription
                             </label>
                             <select
                                 className="form-control"
-                                name="subscriptionId"
+                                name="subscription"
                                 value={selectedSubscription}
                                 onChange={(e) => setSelectedSubscription(e.target.value)}
                             >
-                                <option value="">Select subscription ID</option>
+                                <option value="">Select subscription</option>
                                 {subscriptions.map((subscription) => (
                                     <option key={subscription.id} value={subscription.id}>
-                                        {subscription.id}
+                                        {subscription.type} to {subscription.endDate}
                                     </option>
                                 ))}
                             </select>

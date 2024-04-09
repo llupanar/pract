@@ -13,8 +13,6 @@ export class PoolSubscriptionsComponent implements OnInit{
   public poolSubscriptions: PoolSubscription[]=[];
 
   public searchText:string='';
-
-
   constructor(private poolSubscriptionService: PoolSubscriptionService){}
 
   ngOnInit() {

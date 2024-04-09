@@ -13,9 +13,16 @@ export class SwgroupCreatorComponent {
   constructor(private swGroupService: SwgroupService) {}
 
   public swveSwGroup(){
+    this.swGroupService.getSwGroups().subscribe((result: any[]) => {
+      let uniqueId = 1;
+      const idSet = new Set(result.map(item => item.id));
+      while (idSet.has(uniqueId)) {
+        uniqueId++;
+      }
+      this.swgroup.id = uniqueId;
+    });
     this.swGroupService.addSwGroup(this.swgroup).subscribe((response) => {
       console.log(response);
     });
   }
-
 }

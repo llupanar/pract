@@ -92,7 +92,7 @@ export default function EditLesson() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="empPassNum" className="form-label">
-                                Employee passport number
+                                Teacher
                             </label>
                             <select
                                 className="form-control"
@@ -100,13 +100,13 @@ export default function EditLesson() {
                                 value={selectedEmployee ? selectedEmployee.passportNumber : ""}
                                 onChange={(e) => setSelectedEmployee(e.target.value)}
                             >
-                                <option value="">Select employee passport number</option>
+                                <option value="">Select teacher</option>
                                 {employees.map((employee) => (
                                     <option
                                         key={employee.passportNumber}
                                         value={employee.passportNumber}
                                     >
-                                        {employee.passportNumber}
+                                        {employee.fullName}, exp. {employee.experience}
                                     </option>
                                 ))}
                             </select>

@@ -23,13 +23,22 @@ export default function AddSwGroup() {
         await axios.post("http://localhost:8080/api/v1/swgroup", swgroup);
         navigate("/");
     };
-
+    const generateUniqueId = async () => {
+        const result = await axios.get("http://localhost:8080/api/v1/swgroup");
+        let uniqueId = 1;
+        if (Array.isArray(result)) {
+            const idSet = new Set(result.map(item => item.id));
+            while (idSet.has(uniqueId)) {
+                uniqueId++;
+            }
+        }
+        swgroup.id= uniqueId;
+    };
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Register Group</h2>
-
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="level" className="form-label">

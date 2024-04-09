@@ -22,6 +22,7 @@ import EditEmloyee from "./employees/EditEmloyee";
 import AddLesson from "./lessons/AddLesson";
 import EditLesson from "./lessons/EditLesson";
 import AddSchedule from "./schedules/AddSchedule";
+import EditSchedule from "./schedules/EditSchedule";
 
 function App() {
     return (
@@ -55,6 +56,8 @@ function App() {
 
                     <Route exact path="/schedule" element={<Schedule />} />
                     <Route exact path="/add-schedule" element={<AddSchedule />} />
+                    <Route exact path="/edit-schedule/:id" element={<EditSchedule />} />
+
                     <Route exact path="/subs" element={<PoolSubscription />} />
                 </Routes>
             </Router>

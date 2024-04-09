@@ -20,14 +20,14 @@ export default function JobTitle() {
     };
 
     const renderBonus = (bonus) => {
-        return bonus ? "true" : "false";
+        return bonus ? "yes" : "no";
     };
 
     return (
-        <div style={{backgroundColor: '#333', minHeight: '92vh', minWidth: '100hv'}}>
+        <div style={{backgroundColor: '#333', color: '#fff', minHeight: '92vh', padding: '20px'}}>
             <div className="container">
-            <div className="py-4">
-                <table className="table border shadow">
+                <div className="py-4">
+                    <table className="table border shadow">
                     <thead>
                     <tr>
                         <th scope="col">Position</th>

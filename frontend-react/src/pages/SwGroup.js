@@ -20,16 +20,15 @@ export default function SwGroup() {
     };
 
     return (
-        <div style={{backgroundColor: '#333', minHeight: '92vh', minWidth: '100hv'}}>
+        <div style={{ backgroundColor: '#333', color: '#fff', minHeight: '92vh', padding: '20px'}}>
             <div className="container">
-            <div className="py-4">
+                <div className="py-4">
                 <table className="table border shadow">
                     <thead>
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">Age category</th>
                         <th scope="col">Level</th>
                         <th scope="col">Member</th>
-                        <th scope="col">Age category</th>
                         <th scope="col">
                             <Link
                                 className="btn btn-no-outline mx-1"
@@ -43,10 +42,9 @@ export default function SwGroup() {
                     <tbody>
                     {swgroups.map((swgroup, index) => (
                         <tr key={index}>
-                            <td>{swgroup.id}</td>
+                            <td>{swgroup.ageCategory}</td>
                             <td>{swgroup.level}</td>
                             <td>{swgroup.memberCount}</td>
-                            <td>{swgroup.ageCategory}</td>
                             <td>
                                 <Link
                                     className="btn btn-no-outline mx-2"

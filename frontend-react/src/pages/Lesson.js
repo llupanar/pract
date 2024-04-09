@@ -21,13 +21,12 @@ export default function Lesson() {
     };
 
     return (
-        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+        <div style={{ backgroundColor: '#333', color: '#fff', minHeight: '92vh', padding: '20px' }}>
             <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Category</th>
                         <th scope="col">Duration</th>
                         <th scope="col">Employee</th>
@@ -44,10 +43,9 @@ export default function Lesson() {
                     <tbody>
                     {lessons.map((lesson, index) => (
                         <tr key={index}>
-                            <td>{lesson.id}</td>
                             <td>{lesson.category}</td>
                             <td>{lesson.duration}</td>
-                            <td>{lesson.empPassNum}</td>
+                            <td>{lesson.employee.fullName}</td>
                             <td>
                                 <Link
                                     className="btn btn-no-outline mx-2"

@@ -63,19 +63,6 @@ export default function EditEmloyee() {
                     <h2 className="text-center m-4">Edit Employee</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
-                            <label htmlFor="passportNumber" className="form-label">
-                                Passport Number
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter passport number"
-                                name="passportNumber"
-                                value={passportNumber}
-                                onChange={(e) => onInputChange(e)}
-                            />
-                        </div>
-                        <div className="mb-3">
                             <label htmlFor="fullName" className="form-label">
                                 Full name
                             </label>
@@ -111,7 +98,7 @@ export default function EditEmloyee() {
                                 value={selectedJobTitle}
                                 onChange={(e) => setSelectedJobTitile(e.target.value)}
                             >
-                                <option value="">Select employee passport number</option>
+                                <option value="">Select position</option>
                                 {jobTitles.map((jobTitle) => (
                                     <option key={jobTitle.position} value={jobTitle.position}>
                                         {jobTitle.position}</option>

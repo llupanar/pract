@@ -76,19 +76,6 @@ export default function EditClient() {
                     <h2 className="text-center m-4">Edit Client</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
-                            <label htmlFor="passportNumber" className="form-label">
-                                Passport Number
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter passport number"
-                                name="passportNumber"
-                                value={passportNumber}
-                                onChange={(e) => onInputChange(e)}
-                            />
-                        </div>
-                        <div className="mb-3">
                             <label htmlFor="fullName" className="form-label">
                                 Full name
                             </label>
@@ -114,25 +101,29 @@ export default function EditClient() {
                             </div>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="empPassNum" className="form-label">
-                                Employee passport number
+                            <label htmlFor="employee" className="form-label">
+                                Employee
                             </label>
                             <select
                                 className="form-control"
-                                name="empPassNum"
+                                name="employee"
                                 value={selectedEmployee}
                                 onChange={(e) => setSelectedEmployee(e.target.value)}
                             >
-                                <option value="">Select employee passport number</option>
+                                <option value="">Select employee</option>
                                 {employees.map((employee) => (
-                                    <option key={employee.passportNumber} value={employee.passportNumber}>
-                                        {employee.passportNumber}</option>
+                                    <option
+                                        key={employee.passportNumber}
+                                        value={employee.passportNumber}
+                                    >
+                                        {employee.fullName}, exp. {employee.experience}
+                                    </option>
                                 ))}
                             </select>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="subscriptionId" className="form-label">
-                                Subscription ID
+                                Subscription
                             </label>
                             <select
                                 className="form-control"
@@ -140,10 +131,10 @@ export default function EditClient() {
                                 value={selectedSubscription}
                                 onChange={(e) => setSelectedSubscription(e.target.value)}
                             >
-                                <option value="">Select subscription ID</option>
+                                <option value="">Select subscription</option>
                                 {subscriptions.map((subscription) => (
                                     <option key={subscription.id} value={subscription.id}>
-                                        {subscription.id}
+                                        {subscription.type} to {subscription.endDate}
                                     </option>
                                 ))}
                             </select>

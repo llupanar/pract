@@ -33,6 +33,14 @@ export class ScheduleCreatorComponent implements OnInit{
       alert('You cant create schedule without groups and lessons. Create them');
       this.router.navigate(['/schedules']);
     }
+    this.scheduleService.getSchedules().subscribe((result: any[]) => {
+      let uniqueId = 1;
+      const idSet = new Set(result.map(item => item.id));
+      while (idSet.has(uniqueId)) {
+        uniqueId++;
+      }
+      this.id = uniqueId;
+    });
   }
 
   isAvailable(){

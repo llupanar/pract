@@ -26,6 +26,14 @@ export class LessonCreatorComponent implements OnInit{
       alert('You cant create lesson without employees. Create them');
       this.router.navigate(['/lessons']);
     }
+    this.lessonService.getLessons().subscribe((result: any[]) => {
+      let uniqueId = 1;
+      const idSet = new Set(result.map(item => item.id));
+      while (idSet.has(uniqueId)) {
+        uniqueId++;
+      }
+      this.id = uniqueId;
+    });
   }
 
   isAvailable(){

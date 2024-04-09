@@ -89,16 +89,15 @@ export default function AddEmployee() {
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="empPassNum" className="form-label">
-                                Employee passport number
+                            <label htmlFor="position" className="form-label">
+                                Position
                             </label>
                             <select
                                 className="form-control"
-                                name="empPassNum"
+                                name="position"
                                 value={selectedJobTitle}
-                                onChange={(e) => setSelectedJobTitile(e.target.value)}
-                            >
-                                <option value="">Select employee passport number</option>
+                                onChange={(e) => setSelectedJobTitile(e.target.value)}>
+                                <option value="">Select position</option>
                                 {jobTitles.map((jobTitle) => (
                                     <option key={jobTitle.position} value={jobTitle.position}>
                                         {jobTitle.position}

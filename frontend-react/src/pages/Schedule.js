@@ -20,13 +20,12 @@ export default function Schedule() {
     };
 
     return (
-        <div style={{backgroundColor: '#333', minHeight: '92vh', minWidth: '100hv'}}>
+        <div style={{ backgroundColor: '#333', color: '#fff', minHeight: '92vh', padding: '20px'}}>
             <div className="container">
-            <div className="py-4">
+                <div className="py-4">
                 <table className="table border shadow">
                     <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Day</th>
                         <th scope="col">Time</th>
                         <th scope="col">Track</th>
@@ -45,16 +44,15 @@ export default function Schedule() {
                     <tbody>
                     {schedules.map((schedule, index) => (
                         <tr key={index}>
-                            <td>{schedule.id}</td>
                             <td>{schedule.dayOfWeek}</td>
                             <td>{schedule.time}</td>
                             <td>{schedule.track}</td>
-                            <td>{schedule.lessonId}</td>
-                            <td>{schedule.swGroupId}</td>
+                            <td>{schedule.lesson.category} {schedule.lesson.duration} min</td>
+                            <td>{schedule.swGroup.ageCategory}, level: {schedule.swGroup.level}</td>
                             <td>
                                 <Link
                                     className="btn btn-no-outline mx-2"
-                                    to={`/edit-job-title/${schedule.id}`}
+                                    to={`/edit-schedule/${schedule.id}`}
                                 >
                                     &#x270E;
                                 </Link>

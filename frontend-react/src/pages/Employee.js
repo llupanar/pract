@@ -20,13 +20,12 @@ export default function Employee() {
     };
 
     return (
-        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+        <div style={{backgroundColor: '#333', color: '#fff', minHeight: '92vh', padding: '20px'}}>
             <div className="container">
             <div className="py-4">
                 <table className="table border shadow">
                     <thead>
                     <tr>
-                        <th scope="col">Passport number</th>
                         <th scope="col">Full name</th>
                         <th scope="col">Experience</th>
                         <th scope="col">Position</th>
@@ -43,7 +42,6 @@ export default function Employee() {
                     <tbody>
                     {employees.map((employee, index) => (
                         <tr key={index}>
-                            <td>{employee.passportNumber}</td>
                             <td>{employee.fullName}</td>
                             <td>{employee.experience}</td>
                             <td>{employee.position}</td>

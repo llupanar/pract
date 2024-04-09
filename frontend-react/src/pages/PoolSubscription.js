@@ -20,43 +20,29 @@ export default function PoolSubscription() {
     };
 
     return (
-        <div style={{ backgroundColor: '#333', minHeight: '92vh', minWidth:'100hv'}}>
+        <div style={{backgroundColor: '#333', color: '#fff', minHeight: '92vh', padding: '20px'}}>
             <div className="container">
-            <div className="py-4">
-                <table className="table border shadow">
+                <div className="py-4">
+                    <table className="table border shadow">
                     <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Type</th>
                         <th scope="col">End Date</th>
                         <th scope="col">Cost</th>
                         <th scope="col">Group</th>
-                        <th scope="col">
-                            <Link
-                                className="btn btn-no-outline mx-1"
-                                to={`/add-job-title`}
-                            >
-                                ➕
-                            </Link>
-                        </th>
+                        <th scope="col">➕</th>
                     </tr>
                     </thead>
                     <tbody>
                     {subs.map((subscription, index) => (
                         <tr key={index}>
-                            <td>{subscription.id}</td>
                             <td>{subscription.type}</td>
                             <td>{subscription.endDate}</td>
                             <td>{subscription.cost}</td>
-                            <td>{subscription.swGroupId}</td>
+                            <td>{subscription.swGroup.ageCategory}, level: {subscription.swGroup.level}</td>
 
                             <td>
-                                <Link
-                                    className="btn btn-no-outline mx-2"
-                                    to={`/edit-job-title/${subscription.id}`}
-                                >
                                     &#x270E;
-                                </Link>
                                 <button
                                     className="btn btn-no-outline mx-2"
                                     onClick={() => deleteUser(subscription.id)}

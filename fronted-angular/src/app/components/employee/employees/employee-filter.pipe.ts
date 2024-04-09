@@ -14,7 +14,7 @@ export class EmployeeFilterPipe implements PipeTransform {
     searchText = searchText.toLocaleLowerCase();
 
     list = list.filter(s => {
-      return s.passportNumber.toLocaleLowerCase().includes(searchText);
+      return s.fullName.toLocaleLowerCase().includes(searchText);
     });
     return list;
 
