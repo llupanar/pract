@@ -6,15 +6,15 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="swgroup")
+@Table(name = "swgroup")
 public class SwGroup {
     @Id
     private Integer id;
-    @Column(name="level")
+    @Column(name = "level")
     private Integer level;
-    @Column(name="member_count")
+    @Column(name = "member_count")
     private Integer memberCount;
-    @Column(name="age_category")
+    @Column(name = "age_category")
     private String ageCategory;
     @JsonIgnore
     @OneToMany(mappedBy = "swGroup", cascade = CascadeType.REMOVE)
@@ -22,14 +22,17 @@ public class SwGroup {
     @JsonIgnore
     @OneToMany(mappedBy = "swGroup", cascade = CascadeType.REMOVE)
     private List<Schedule> schedules;
-    public SwGroup(){
+
+    public SwGroup() {
         super();
     }
+
     public SwGroup(Integer level, Integer memberCount, String ageCategory) {
         this.level = level;
         this.memberCount = memberCount;
         this.ageCategory = ageCategory;
     }
+
     public Integer getId() {
         return id;
     }

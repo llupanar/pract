@@ -1,13 +1,15 @@
 package org.jpract.backendcrudo.model;
+
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="visit")
+@Table(name = "visit")
 public class Visit {
     @Id
     private Integer id;
-    @Column(name="attended")
+    @Column(name = "attended")
     private Boolean attended;
     @Column(name = "datetime", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE USING datetime::timestamp without time zone")
     private LocalDateTime dateTime;
@@ -20,19 +22,25 @@ public class Visit {
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+
     @Column(name = "employee_passport_number")
     public String getEmpPassNum() {
         return employee.getPassportNumber();
     }
+
     @Column(name = "client_passport_number")
     public String getClientPassNum() {
         return client.getPassportNumber();
     }
+
     @Column(name = "lesson_id")
-    public Integer getLessonId(){
+    public Integer getLessonId() {
         return lesson.getId();
     }
-    public Visit() {super();}
+
+    public Visit() {
+        super();
+    }
 
     public Visit(Boolean attended, LocalDateTime dateTime, Client client, Employee employee, Lesson lesson) {
         this.attended = attended;

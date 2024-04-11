@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="client")
+@Table(name = "client")
 public class Client {
     @Id
     private String passportNumber;
-    @Column(name="full_name")
+    @Column(name = "full_name")
     private String fullName;
-    @Column(name="medical_certificate")
+    @Column(name = "medical_certificate")
     private Boolean medicalCertificate;
     @ManyToOne(cascade = CascadeType.DETACH)
     private Employee employee;
@@ -21,15 +21,20 @@ public class Client {
     @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Visit> visits;
+
     @Column(name = "subscription_id")
     public Integer getSubscriptionId() {
         return subscription.getId();
     }
+
     @Column(name = "employee_passport_number")
     public String getEmpPassNum() {
         return employee.getPassportNumber();
     }
-    public Client(){super();}
+
+    public Client() {
+        super();
+    }
 
     public Client(String passportNumber, String fullName, Boolean medicalCertificate,
                   Employee employee, PoolSubscription subscription) {

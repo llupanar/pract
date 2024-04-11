@@ -1,10 +1,11 @@
 package org.jpract.backendcrudo.model;
 
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
-@Table(name="lesson")
+@Table(name = "lesson")
 public class Lesson {
     @Id
     private Integer id;
@@ -19,7 +20,8 @@ public class Lesson {
     private List<Visit> visits;
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.REMOVE)
     private List<Schedule> schedules;
-    @Column(name="employee_passport_number")
+
+    @Column(name = "employee_passport_number")
     public String getEmpPassNum() {
         return employee.getPassportNumber();
     }

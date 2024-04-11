@@ -12,53 +12,53 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/visit")
 public class VisitController {
 
     private final VisitRepositoty visitRepositoty;
 
-    private static final String NOT_FOUND_MESSAGE ="Not found visit for this id: ";
+    private static final String NOT_FOUND_MESSAGE = "Not found visit for this id: ";
 
-    @Autowired
-    public VisitController(VisitRepositoty visitRepository){
-        this.visitRepositoty=visitRepository;
+    public VisitController(VisitRepositoty visitRepository) {
+        this.visitRepositoty = visitRepository;
     }
 
-    @GetMapping("visit")
-    public List<Visit> getVisit(){
+    @GetMapping
+    public List<Visit> getVisit() {
         return this.visitRepositoty.findAll();
     }
 
-    @GetMapping("/visit/{id}")
-    public ResponseEntity<Visit> getVisitById (@PathVariable(value="id")Integer visitId)
+    @GetMapping("/{id}")
+    public ResponseEntity<Visit> getVisitById(@PathVariable(value = "id") Integer visitId)
             throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +visitId));
-        return  ResponseEntity.ok().body(visit);
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + visitId));
+        return ResponseEntity.ok().body(visit);
     }
 
-    @PostMapping("visit")
-    public Visit createVisit(@RequestBody Visit visit){
+    @PostMapping
+    public Visit createVisit(@RequestBody Visit visit) {
         return this.visitRepositoty.save(visit);
     }
 
-    @PutMapping("visit/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Visit> updateVisit(@PathVariable(value = "id") Integer visitId,
-                                                 @RequestBody Visit visitDetails) throws ResourceNotFoundException {
+                                             @RequestBody Visit visitDetails) throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +visitId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + visitId));
         visit.setAttended(visitDetails.getAttended());
         visit.setDateTime(visitDetails.getDateTime());
         visit.setClient(visitDetails.getClient());
         visit.setEmployee(visitDetails.getEmployee());
         visit.setLesson(visitDetails.getLesson());
         visitRepositoty.save(visit);
-        return  ResponseEntity.ok((this.visitRepositoty.save(visit)));
+        return ResponseEntity.ok((this.visitRepositoty.save(visit)));
     }
-    @DeleteMapping("visit/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteVisit(@PathVariable(value = "id") Integer visitId)throws ResourceNotFoundException{
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteVisit(@PathVariable(value = "id") Integer visitId) throws ResourceNotFoundException {
         Visit visit = visitRepositoty.findById(visitId)
-                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE +visitId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + visitId));
         visitRepositoty.delete(visit);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

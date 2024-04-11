@@ -12,51 +12,52 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/schedule")
 public class ScheduleController {
 
     private final ScheduleRepositoty scheduleRepositoty;
-    private static final String NOT_FOUND_MESSAGE ="Not found schedule for this id: ";
+    private static final String NOT_FOUND_MESSAGE = "Not found schedule for this id: ";
 
-    @Autowired
-    public ScheduleController(ScheduleRepositoty scheduleRepositoty){
-        this.scheduleRepositoty=scheduleRepositoty;
+    public ScheduleController(ScheduleRepositoty scheduleRepositoty) {
+        this.scheduleRepositoty = scheduleRepositoty;
     }
-    @GetMapping("schedule")
-    public List<Schedule> getSchedule(){
+
+    @GetMapping
+    public List<Schedule> getSchedule() {
         return this.scheduleRepositoty.findAll();
     }
 
-    @GetMapping("/schedule/{id}")
-    public ResponseEntity<Schedule> getSScheduleByPosition (@PathVariable(value="id")Integer scheduleId)
+    @GetMapping("/{id}")
+    public ResponseEntity<Schedule> getSScheduleByPosition(@PathVariable(value = "id") Integer scheduleId)
             throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +scheduleId));
-        return  ResponseEntity.ok().body(schedule);
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + scheduleId));
+        return ResponseEntity.ok().body(schedule);
     }
 
-    @PostMapping("schedule")
-    public Schedule createSchedule(@RequestBody Schedule schedule){
+    @PostMapping
+    public Schedule createSchedule(@RequestBody Schedule schedule) {
         return this.scheduleRepositoty.save(schedule);
     }
 
-    @PutMapping("schedule/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Schedule> updateSchedule(@PathVariable(value = "id") Integer scheduleId,
-                                                 @RequestBody Schedule scheduleDetails) throws ResourceNotFoundException {
+                                                   @RequestBody Schedule scheduleDetails) throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + scheduleId));
         schedule.setDayOfWeek(scheduleDetails.getDayOfWeek());
         schedule.setTime(scheduleDetails.getTime());
         schedule.setTrack(scheduleDetails.getTrack());
         schedule.setSwGroup(scheduleDetails.getSwGroup());
         schedule.setLesson(scheduleDetails.getLesson());
         scheduleRepositoty.save(schedule);
-        return  ResponseEntity.ok((this.scheduleRepositoty.save(schedule)));
+        return ResponseEntity.ok((this.scheduleRepositoty.save(schedule)));
     }
-    @DeleteMapping("schedule/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteSchedule(@PathVariable(value = "id") Integer scheduleId)throws ResourceNotFoundException{
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteSchedule(@PathVariable(value = "id") Integer scheduleId) throws ResourceNotFoundException {
         Schedule schedule = scheduleRepositoty.findById(scheduleId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +scheduleId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + scheduleId));
 
         scheduleRepositoty.delete(schedule);
         Map<String, Boolean> response = new HashMap<>();

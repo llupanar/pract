@@ -12,47 +12,48 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/swgroup")
 public class SwGroupController {
 
     private final SwGroupRepositoty swGroupRepository;
-    private static final String NOT_FOUND_MESSAGE ="Not found sqgroup for this id: ";
+    private static final String NOT_FOUND_MESSAGE = "Not found sqgroup for this id: ";
 
-    @Autowired
-    public SwGroupController(SwGroupRepositoty swGroupRepository){
-        this.swGroupRepository=swGroupRepository;
+    public SwGroupController(SwGroupRepositoty swGroupRepository) {
+        this.swGroupRepository = swGroupRepository;
     }
 
-    @GetMapping("swgroup")
-    public List<SwGroup> getSwGroup(){
+    @GetMapping
+    public List<SwGroup> getSwGroup() {
         return this.swGroupRepository.findAll();
     }
 
-    @GetMapping("/swgroup/{id}")
-    public ResponseEntity<SwGroup> getSwGroupByPosition (@PathVariable(value="id")Integer swGroupId)
+    @GetMapping("/{id}")
+    public ResponseEntity<SwGroup> getSwGroupByPosition(@PathVariable(value = "id") Integer swGroupId)
             throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +swGroupId));
-        return  ResponseEntity.ok().body(swGroup);
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + swGroupId));
+        return ResponseEntity.ok().body(swGroup);
     }
 
-    @PostMapping("swgroup")
-    public SwGroup createSwGroup(@RequestBody SwGroup swGroup){
+    @PostMapping
+    public SwGroup createSwGroup(@RequestBody SwGroup swGroup) {
         return this.swGroupRepository.save(swGroup);
     }
-    @PutMapping("swgroup/{id}")
+
+    @PutMapping("/{id}")
     public ResponseEntity<SwGroup> updateSwGroup(@PathVariable(value = "id") Integer swGroupId,
-                                                   @RequestBody SwGroup swGroupDetails) throws ResourceNotFoundException {
+                                                 @RequestBody SwGroup swGroupDetails) throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +swGroupId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + swGroupId));
         swGroup.setAgeCategory(swGroupDetails.getAgeCategory());
         swGroup.setLevel(swGroupDetails.getLevel());
         swGroup.setMemberCount(swGroupDetails.getMemberCount());
         swGroupRepository.save(swGroup);
-        return  ResponseEntity.ok((this.swGroupRepository.save(swGroup)));
+        return ResponseEntity.ok((this.swGroupRepository.save(swGroup)));
     }
-    @DeleteMapping("swgroup/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteSwGroup(@PathVariable(value = "id") Integer swGroupId)throws ResourceNotFoundException{
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteSwGroup(@PathVariable(value = "id") Integer swGroupId) throws ResourceNotFoundException {
         SwGroup swGroup = swGroupRepository.findById(swGroupId)
                 .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + swGroupId));
 

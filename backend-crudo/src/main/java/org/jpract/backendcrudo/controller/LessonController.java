@@ -12,49 +12,50 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/lesson")
 public class LessonController {
 
     private final LessonRepositoty lessonRepository;
-    private static final String NOT_FOUND_MESSAGE ="Not found lesson for this id: ";
+    private static final String NOT_FOUND_MESSAGE = "Not found lesson for this id: ";
 
-    @Autowired
-    public LessonController(LessonRepositoty lessonRepository){
-        this.lessonRepository=lessonRepository;
+    public LessonController(LessonRepositoty lessonRepository) {
+        this.lessonRepository = lessonRepository;
     }
-    @GetMapping("lesson")
-    public List<Lesson> getLesson(){
+
+    @GetMapping
+    public List<Lesson> getLesson() {
         return this.lessonRepository.findAll();
     }
 
-    @GetMapping("/lesson/{id}")
-    public ResponseEntity<Lesson> getLessonById(@PathVariable(value="id")Integer lessonId)
+    @GetMapping("/{id}")
+    public ResponseEntity<Lesson> getLessonById(@PathVariable(value = "id") Integer lessonId)
             throws ResourceNotFoundException {
         Lesson lesson = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +lessonId));
-        return  ResponseEntity.ok().body(lesson);
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + lessonId));
+        return ResponseEntity.ok().body(lesson);
     }
 
-    @PostMapping("lesson")
-    public Lesson createLesson(@RequestBody Lesson swGroup){
+    @PostMapping
+    public Lesson createLesson(@RequestBody Lesson swGroup) {
         return this.lessonRepository.save(swGroup);
     }
 
-    @PutMapping ("lesson/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Lesson> updateLesson(@PathVariable(value = "id") Integer lessonId,
-                                                 @RequestBody Lesson lessonDetails) throws ResourceNotFoundException {
+                                               @RequestBody Lesson lessonDetails) throws ResourceNotFoundException {
         Lesson lesson = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + lessonId));
         lesson.setCategory(lessonDetails.getCategory());
         lesson.setDuration(lessonDetails.getDuration());
         lesson.setEmployee(lessonDetails.getEmployee());
         lessonRepository.save(lesson);
-        return  ResponseEntity.ok((this.lessonRepository.save(lesson)));
+        return ResponseEntity.ok((this.lessonRepository.save(lesson)));
     }
-    @DeleteMapping("lesson/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteLesson(@PathVariable(value = "id") Integer lessonId)throws ResourceNotFoundException{
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteLesson(@PathVariable(value = "id") Integer lessonId) throws ResourceNotFoundException {
         Lesson swGroup = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new ResourceNotFoundException (NOT_FOUND_MESSAGE +lessonId));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE + lessonId));
 
         lessonRepository.delete(swGroup);
         Map<String, Boolean> response = new HashMap<>();

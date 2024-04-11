@@ -6,15 +6,15 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="pool_subscription")
+@Table(name = "pool_subscription")
 public class PoolSubscription {
     @Id
     private Integer id;
-    @Column(name="type")
+    @Column(name = "type")
     private String type;
-    @Column(name="end_date")
+    @Column(name = "end_date")
     private String endDate;
-    @Column(name="cost")
+    @Column(name = "cost")
     private Integer cost;
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "swgroup_id")
@@ -23,12 +23,13 @@ public class PoolSubscription {
     @JsonIgnore
     @OneToMany(mappedBy = "subscription", cascade = CascadeType.REMOVE)
     private List<Client> clients;
-    @Column(name="swgroup_id")
+
+    @Column(name = "swgroup_id")
     public Integer getSwGroupId() {
         return swGroup.getId();
     }
 
-    public PoolSubscription(){
+    public PoolSubscription() {
         super();
     }
 

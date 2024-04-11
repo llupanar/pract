@@ -3,15 +3,15 @@ package org.jpract.backendcrudo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="schedule")
+@Table(name = "schedule")
 public class Schedule {
     @Id
     private Integer id;
-    @Column(name="day_of_week")
+    @Column(name = "day_of_week")
     private String dayOfWeek;
-    @Column(name="time")
+    @Column(name = "time")
     private String time;
-    @Column(name="track")
+    @Column(name = "track")
     private Integer track;
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "lesson_id")
@@ -19,15 +19,18 @@ public class Schedule {
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "swgroup_id")
     private SwGroup swGroup;
-    @Column(name="swgroup_id")
+
+    @Column(name = "swgroup_id")
     public Integer getSwGroupId() {
         return swGroup.getId();
     }
-    @Column(name="lesson_id")
+
+    @Column(name = "lesson_id")
     public Integer getLessonId() {
         return lesson.getId();
     }
-    public Schedule(){
+
+    public Schedule() {
         super();
     }
 

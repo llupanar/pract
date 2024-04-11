@@ -7,14 +7,15 @@ import {LessonFilterPipe} from "./lesson-filter.pipe";
 @Component({
   selector: 'app-lessons',
   templateUrl: './lessons.component.html',
-  providers:[LessonFilterPipe]
+  providers: [LessonFilterPipe]
 })
-export class LessonsComponent implements OnInit{
-  public lessons: Lesson[]=[];
+export class LessonsComponent implements OnInit {
+  public lessons: Lesson[] = [];
 
-  public searchText:string='';
+  public searchText: string = '';
 
-  constructor(private lessonService: LessonService){}
+  constructor(private lessonService: LessonService) {
+  }
 
   ngOnInit() {
     this.getLessons();

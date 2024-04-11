@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="job_title")
+@Table(name = "job_title")
 public class JobTitle {
     @Id
     private String position;
-    @Column(name="salary")
+    @Column(name = "salary")
     private Integer salary;
-    @Column(name="bonus")
+    @Column(name = "bonus")
     private Boolean bonus;
 
     @OneToMany(mappedBy = "jobTitle", cascade = CascadeType.REMOVE)
@@ -22,7 +22,8 @@ public class JobTitle {
         this.salary = salary;
         this.bonus = bonus;
     }
-    public JobTitle(){
+
+    public JobTitle() {
         super();
     }
 
