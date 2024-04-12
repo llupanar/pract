@@ -7,22 +7,23 @@ import {ScheduleFilterPipe} from "./schedule-filter.pipe";
 @Component({
   selector: 'app-schedules',
   templateUrl: './schedules.component.html',
-  providers:[ScheduleFilterPipe]
+  providers: [ScheduleFilterPipe]
 })
-export class SchedulesComponent implements OnInit{
-  public schedules: Schedule[]=[];
+export class SchedulesComponent implements OnInit {
+  public schedules: Schedule[] = [];
 
-  public searchText:string='';
+  public searchText: string = '';
 
 
-  constructor(private scheduleService: ScheduleService){}
+  constructor(private scheduleService: ScheduleService) {
+  }
 
   ngOnInit() {
     this.getSchedules();
   }
 
   public getSchedules(): void {
-    this.scheduleService.getSchedules().subscribe(
+    this.scheduleService.getAll().subscribe(
       (response: Schedule[]) => {
         this.schedules = response;
         console.log(this.schedules);
@@ -32,10 +33,11 @@ export class SchedulesComponent implements OnInit{
       }
     );
   }
+
   public deleteScheduleItem(schedule: Schedule): void {
     const confirmation = confirm('Are you sure?');
     if (confirmation) {
-      this.scheduleService.deleteSchedule(schedule.id).subscribe(
+      this.scheduleService.delete(schedule.id.toString()).subscribe(
         () => {
           const index = this.schedules.indexOf(schedule);
           if (index !== -1) {

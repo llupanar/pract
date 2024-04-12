@@ -13,7 +13,7 @@ export class SwgroupCreatorComponent {
   constructor(private swGroupService: SwgroupService) {}
 
   public swveSwGroup(){
-    this.swGroupService.getSwGroups().subscribe((result: any[]) => {
+    this.swGroupService.getAll().subscribe((result: any[]) => {
       let uniqueId = 1;
       const idSet = new Set(result.map(item => item.id));
       while (idSet.has(uniqueId)) {
@@ -21,7 +21,7 @@ export class SwgroupCreatorComponent {
       }
       this.swgroup.id = uniqueId;
     });
-    this.swGroupService.addSwGroup(this.swgroup).subscribe((response) => {
+    this.swGroupService.create(this.swgroup).subscribe((response) => {
       console.log(response);
     });
   }

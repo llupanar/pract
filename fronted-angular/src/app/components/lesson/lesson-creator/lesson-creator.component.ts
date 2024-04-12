@@ -11,22 +11,24 @@ import {Lesson} from "../../../models/lesson";
   templateUrl: './lesson-creator.component.html',
   styleUrl: './lesson-creator.component.css'
 })
-export class LessonCreatorComponent implements OnInit{
+export class LessonCreatorComponent implements OnInit {
 
-  public id:number=0;
-  public category:string="";
-  public duration:number=0;
-  public employeeIndex:number=0;
-  public employees: Employee[]=[];
-  constructor(private employeeService:EmployeeService, private lessonService: LessonService,private router: Router) { }
+  public id: number = 0;
+  public category: string = "";
+  public duration: number = 0;
+  public employeeIndex: number = 0;
+  public employees: Employee[] = [];
+
+  constructor(private employeeService: EmployeeService, private lessonService: LessonService, private router: Router) {
+  }
 
   ngOnInit() {
     this.loadEmployees();
-    if(this.isAvailable()){
+    if (this.isAvailable()) {
       alert('You cant create lesson without employees. Create them');
       this.router.navigate(['/lessons']);
     }
-    this.lessonService.getLessons().subscribe((result: any[]) => {
+    this.lessonService.getAll().subscribe((result: any[]) => {
       let uniqueId = 1;
       const idSet = new Set(result.map(item => item.id));
       while (idSet.has(uniqueId)) {
@@ -36,25 +38,25 @@ export class LessonCreatorComponent implements OnInit{
     });
   }
 
-  isAvailable(){
-    return (this.employees && this.employees.length > 0 );
+  isAvailable() {
+    return (this.employees && this.employees.length > 0);
   }
 
   loadEmployees() {
-    this.employeeService.getEmployees().subscribe((result: any[]) => {
+    this.employeeService.getAll().subscribe((result: any[]) => {
       this.employees = result;
     });
   }
 
   public saveLessons() {
-    const lesson:Lesson={
-      id:this.id,
-      duration:this.duration,
-      category:this.category,
-      empPassNum:this.employees[this.employeeIndex].passportNumber,
-      employee:this.employees[this.employeeIndex]
+    const lesson: Lesson = {
+      id: this.id,
+      duration: this.duration,
+      category: this.category,
+      empPassNum: this.employees[this.employeeIndex].passportNumber,
+      employee: this.employees[this.employeeIndex]
     }
-    this.lessonService.addLesson(lesson).subscribe((response) => {
+    this.lessonService.create(lesson).subscribe((response) => {
       console.log(response);
     });
   }

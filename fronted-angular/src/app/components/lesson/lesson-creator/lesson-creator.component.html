@@ -9,12 +9,16 @@
 <div class="form-group">
   <label for="empPassNum">Position</label>
   <select [(ngModel)]="employeeIndex" id="empPassNum" name="empPassNum" class="form-control">
-    <option *ngFor="let employee of employees; let i = index" [value]="i">{{ employee.fullName }} (exp.: {{employee.experience}})</option>
+    <option *ngFor="let employee of employees; let i = index" [value]="i">{{ employee.fullName }}
+      (exp.: {{ employee.experience }})
+    </option>
   </select>
 </div>
 <div class="modal-footer">
   <button type="button" routerLink="/lessons" id="add-employee-form" class="btn btn-secondary custom-btn">Close</button>
-  <button type="submit" class="btn btn-primary custom-btn" routerLink="/add-lesson" routerLinkActive="active" (click)="saveLessons()">Save changes</button>
+  <button type="submit" class="btn btn-primary custom-btn" routerLink="/add-lesson" routerLinkActive="active"
+          (click)="saveLessons()">Save changes
+  </button>
 </div>
 <div class="content">
   <router-outlet></router-outlet>

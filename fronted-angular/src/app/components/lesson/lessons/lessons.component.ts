@@ -22,7 +22,7 @@ export class LessonsComponent implements OnInit {
   }
 
   public getLessons(): void {
-    this.lessonService.getLessons().subscribe(
+    this.lessonService.getAll().subscribe(
       (response: Lesson[]) => {
         this.lessons = response;
         console.log(this.lessons);
@@ -36,7 +36,7 @@ export class LessonsComponent implements OnInit {
   public deleteLessonItem(lesson: Lesson): void {
     const confirmation = confirm('Are you sure?');
     if (confirmation) {
-      this.lessonService.deleteLesson(lesson.id).subscribe(
+      this.lessonService.delete(lesson.id.toString()).subscribe(
         () => {
           const index = this.lessons.indexOf(lesson);
           if (index !== -1) {

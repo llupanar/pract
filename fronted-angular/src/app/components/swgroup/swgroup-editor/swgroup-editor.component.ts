@@ -9,27 +9,32 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './swgroup-editor.component.html',
   styleUrl: './swgroup-editor.component.css'
 })
-export class SwgroupEditorComponent implements OnInit{
+export class SwgroupEditorComponent implements OnInit {
 
-  public swgroup:SwGroup={id:0,level:0,memberCount:0,ageCategory:""};
-  constructor(private swGroupService: SwgroupService, private route: ActivatedRoute) {}
+  public swgroup: SwGroup = {id: 0, level: 0, memberCount: 0, ageCategory: ""};
+
+  constructor(private swGroupService: SwgroupService, private route: ActivatedRoute) {
+  }
+
   ngOnInit() {
     this.loadSwGroup();
   }
-  loadSwGroup(){
+
+  loadSwGroup() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.swGroupService.searchSwGroup(id).subscribe(
+      this.swGroupService.getById(id).subscribe(
         (response: SwGroup) => {
           this.swgroup = response;
         },
         (error: HttpErrorResponse) => {
-          alert(error.status+" Oops");
+          alert(error.status + " Oops");
         });
     });
   }
-  public saveSwGroup(){
-    this.swGroupService.addSwGroup(this.swgroup).subscribe((response) => {
+
+  public saveSwGroup() {
+    this.swGroupService.update(this.swgroup.id.toString(), this.swgroup).subscribe((response) => {
       console.log(response);
     });
   }

@@ -36,7 +36,7 @@ export class ScheduleEditorComponent implements OnInit{
   loadSchedule(){
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.scheduleService.searchSchedule(id).subscribe(
+      this.scheduleService.getById(id).subscribe(
         (response: Schedule) => {
           this.id=response.id;
           this.dayOfWeek=response.dayOfWeek;
@@ -49,13 +49,13 @@ export class ScheduleEditorComponent implements OnInit{
     });
   }
   loadLessons() {
-    this.lessonService.getLessons().subscribe((result: any[]) => {
+    this.lessonService.getAll().subscribe((result: any[]) => {
       this.lessons = result;
     });
   }
 
   loadGroups() {
-    this.groupService.getSwGroups().subscribe((result: any[]) => {
+    this.groupService.getAll().subscribe((result: any[]) => {
       this.groups = result;
     });
   }
@@ -71,7 +71,7 @@ export class ScheduleEditorComponent implements OnInit{
       swGroupId:this.groups[this.groupIndex].id,
       swGroup:this.groups[this.groupIndex]
     }
-    this.scheduleService.updateSchedule(schedule).subscribe((response) => {
+    this.scheduleService.update(schedule.id.toString(), schedule).subscribe((response) => {
       console.log(response);
     });
   }

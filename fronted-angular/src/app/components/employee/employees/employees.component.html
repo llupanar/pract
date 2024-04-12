@@ -1,5 +1,5 @@
 <form class="search" action="">
-  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter passport number...">
+  <input [(ngModel)]="searchText" type="search" name="searchText" placeholder="Enter passport number...">
 </form>
 <table class="table table-dark">
   <thead>
@@ -7,14 +7,16 @@
     <th>Name</th>
     <th>Experience</th>
     <th>Position</th>
-    <th> <button id="showFormButton " routerLink="/add-employee">➕</button></th>
+    <th>
+      <button id="showFormButton " routerLink="/add-employee">➕</button>
+    </th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let employee of employees|employeeFilter: searchText">
-    <td>{{employee.fullName}}</td>
-    <td>{{employee.experience}}</td>
-    <td>{{employee.position}}</td>
+    <td>{{ employee.fullName }}</td>
+    <td>{{ employee.experience }}</td>
+    <td>{{ employee.position }}</td>
     <td>
       <button class="action-icon" [routerLink]="['/edit-employee',employee.passportNumber]">&#9998;</button>
       <button (click)="deleteEmployeeItem(employee)">&#10060;</button>

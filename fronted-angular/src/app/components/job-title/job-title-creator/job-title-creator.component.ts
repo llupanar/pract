@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {JobTitle} from "../../../models/job_title";
 import {JobTitleService} from "../../../services/job-title.service";
 
@@ -9,12 +9,13 @@ import {JobTitleService} from "../../../services/job-title.service";
 })
 export class JobTitleCreatorComponent {
 
-  public jobTitle: JobTitle={position: "",salary:0,bonus:false};
+  public jobTitle: JobTitle = {position: "", salary: 0, bonus: false};
 
-  constructor(private jobTitleService: JobTitleService) {}
+  constructor(private jobTitleService: JobTitleService) {
+  }
 
-  public saveJobTitle(){
-    this.jobTitleService.addJobTitle(this.jobTitle).subscribe((response) => {
+  public saveJobTitle() {
+    this.jobTitleService.create(this.jobTitle).subscribe((response) => {
       console.log(response);
     });
   }

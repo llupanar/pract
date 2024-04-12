@@ -1,5 +1,5 @@
 <form class="search" action="">
-  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter position...">
+  <input [(ngModel)]="searchText" type="search" name="searchText" placeholder="Enter position...">
 </form>
 <table class="table table-dark">
   <thead>
@@ -7,14 +7,16 @@
     <th>Level</th>
     <th>Memb. count</th>
     <th>Age Category</th>
-    <th> <button id="showFormButton" routerLink="/add-group" routerLinkActive="active">➕</button></th>
+    <th>
+      <button id="showFormButton" routerLink="/add-group" routerLinkActive="active">➕</button>
+    </th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let swGroup of swGroups | swgroupFilter:searchText">
-    <td>{{swGroup.level}}</td>
-    <td>{{swGroup.memberCount}}</td>
-    <td>{{swGroup.ageCategory}}</td>
+    <td>{{ swGroup.level }}</td>
+    <td>{{ swGroup.memberCount }}</td>
+    <td>{{ swGroup.ageCategory }}</td>
     <td>
       <button class="action-icon" [routerLink]="['/edit-group',swGroup.id]">&#9998;</button>
       <button (click)="deleteSwGroupItem(swGroup)">&#10060;</button>

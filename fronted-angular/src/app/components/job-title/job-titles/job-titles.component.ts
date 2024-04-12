@@ -7,21 +7,22 @@ import {JobTitleFilterPipe} from "./job-title-filter.pipe";
 @Component({
   selector: 'app-job-titles',
   templateUrl: './job-titles.component.html',
-  providers:[JobTitleFilterPipe]
+  providers: [JobTitleFilterPipe]
 })
-export class JobTitlesComponent implements OnInit{
-  public jobTitles: JobTitle[]=[];
-  public jobTitleSearch: JobTitle={position: "",salary:0,bonus:false};
-  public searchText:string="";
+export class JobTitlesComponent implements OnInit {
+  public jobTitles: JobTitle[] = [];
+  public jobTitleSearch: JobTitle = {position: "", salary: 0, bonus: false};
+  public searchText: string = "";
 
-  constructor(private jobTitleService: JobTitleService){}
+  constructor(private jobTitleService: JobTitleService) {
+  }
 
   ngOnInit() {
     this.getJobTitles();
   }
 
   public getJobTitles(): void {
-    this.jobTitleService.getJobTitles().subscribe(
+    this.jobTitleService.getAll().subscribe(
       (response: JobTitle[]) => {
         this.jobTitles = response;
         console.log(this.jobTitles);
@@ -35,7 +36,7 @@ export class JobTitlesComponent implements OnInit{
   public deleteJobTitleItem(jobTitle: JobTitle): void {
     const confirmation = confirm('Are you sure?');
     if (confirmation) {
-      this.jobTitleService.deleteJobTitle(jobTitle.position).subscribe(
+      this.jobTitleService.delete(jobTitle.position).subscribe(
         () => {
           const index = this.jobTitles.indexOf(jobTitle);
           if (index !== -1) {
@@ -51,7 +52,7 @@ export class JobTitlesComponent implements OnInit{
   }
 
   public searchJobTitle(): void {
-    this.jobTitleService.searchJobTitle(this.searchText).subscribe(
+    this.jobTitleService.getById(this.searchText).subscribe(
       (response: JobTitle) => {
         this.jobTitleSearch = response;
         console.log(this.jobTitles);

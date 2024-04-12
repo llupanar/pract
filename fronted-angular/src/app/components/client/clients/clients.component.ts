@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {Client} from "../../../models/client";
 import {ClientService} from "../../../services/client.service";
-import { ClientFilterPipe } from './client-filter.pipe';
+import {ClientFilterPipe} from './client-filter.pipe';
 
 @Component({
   selector: 'app-clients',
@@ -10,17 +10,20 @@ import { ClientFilterPipe } from './client-filter.pipe';
   providers: [ClientFilterPipe]
 })
 
-export class ClientsComponent implements OnInit{
-  public clients: Client[]=[];
+export class ClientsComponent implements OnInit {
+  public clients: Client[] = [];
 
-  public searchText:string='';
-  constructor(private clientService: ClientService){}
+  public searchText: string = '';
+
+  constructor(private clientService: ClientService) {
+  }
 
   ngOnInit() {
     this.getClients();
   }
+
   public getClients(): void {
-    this.clientService.getClients().subscribe(
+    this.clientService.getAll().subscribe(
       (response: Client[]) => {
         this.clients = response;
         console.log(this.clients);
@@ -34,7 +37,7 @@ export class ClientsComponent implements OnInit{
   public deleteClientItem(client: Client): void {
     const confirmation = confirm('Are you sure?');
     if (confirmation) {
-      this.clientService.deleteClient(client.passportNumber).subscribe(
+      this.clientService.delete(client.passportNumber).subscribe(
         () => {
           const index = this.clients.indexOf(client);
           if (index !== -1) {

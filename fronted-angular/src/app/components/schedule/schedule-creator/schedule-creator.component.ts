@@ -12,28 +12,29 @@ import {Schedule} from "../../../models/schedule";
   templateUrl: './schedule-creator.component.html',
   styleUrl: './schedule-creator.component.css'
 })
-export class ScheduleCreatorComponent implements OnInit{
+export class ScheduleCreatorComponent implements OnInit {
 
-  public id:number=0;
-  public dayOfWeek:string="";
-  public time:string="";
-  public track:number=0;
-  public lessons: Lesson[]=[];
-  public groups: SwGroup[]=[];
-  public lessonIndex:number=0;
-  public groupIndex:number=0;
+  public id: number = 0;
+  public dayOfWeek: string = "";
+  public time: string = "";
+  public track: number = 0;
+  public lessons: Lesson[] = [];
+  public groups: SwGroup[] = [];
+  public lessonIndex: number = 0;
+  public groupIndex: number = 0;
 
-  constructor(private lessonService:LessonService, private groupService: SwgroupService,
-              private scheduleService:ScheduleService,private router: Router) { }
+  constructor(private lessonService: LessonService, private groupService: SwgroupService,
+              private scheduleService: ScheduleService, private router: Router) {
+  }
 
   ngOnInit() {
     this.loadLessons();
     this.loadGroups();
-    if(this.isAvailable()){
+    if (this.isAvailable()) {
       alert('You cant create schedule without groups and lessons. Create them');
       this.router.navigate(['/schedules']);
     }
-    this.scheduleService.getSchedules().subscribe((result: any[]) => {
+    this.scheduleService.getAll().subscribe((result: any[]) => {
       let uniqueId = 1;
       const idSet = new Set(result.map(item => item.id));
       while (idSet.has(uniqueId)) {
@@ -43,34 +44,34 @@ export class ScheduleCreatorComponent implements OnInit{
     });
   }
 
-  isAvailable(){
-    return (this.lessons && this.lessons.length > 0 &&this.groups&&this.groups.length>0);
+  isAvailable() {
+    return (this.lessons && this.lessons.length > 0 && this.groups && this.groups.length > 0);
   }
 
   loadLessons() {
-    this.lessonService.getLessons().subscribe((result: any[]) => {
+    this.lessonService.getAll().subscribe((result: any[]) => {
       this.lessons = result;
     });
   }
 
   loadGroups() {
-    this.groupService.getSwGroups().subscribe((result: any[]) => {
+    this.groupService.getAll().subscribe((result: any[]) => {
       this.groups = result;
     });
   }
 
   public saveSchedule() {
-    const schedule:Schedule={
-      id:this.id,
-      dayOfWeek:this.dayOfWeek,
-      time:this.time,
-      track:this.track,
-      lessonId:this.lessons[this.lessonIndex].id,
-      lesson:this.lessons[this.lessonIndex],
-      swGroupId:this.groups[this.groupIndex].id,
-      swGroup:this.groups[this.groupIndex]
+    const schedule: Schedule = {
+      id: this.id,
+      dayOfWeek: this.dayOfWeek,
+      time: this.time,
+      track: this.track,
+      lessonId: this.lessons[this.lessonIndex].id,
+      lesson: this.lessons[this.lessonIndex],
+      swGroupId: this.groups[this.groupIndex].id,
+      swGroup: this.groups[this.groupIndex]
     }
-    this.scheduleService.addSchedule(schedule).subscribe((response) => {
+    this.scheduleService.create(schedule).subscribe((response) => {
       console.log(response);
     });
   }

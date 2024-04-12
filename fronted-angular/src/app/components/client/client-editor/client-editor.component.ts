@@ -13,62 +13,64 @@ import {Client} from "../../../models/client";
   templateUrl: './client-editor.component.html',
   styleUrl: './client-editor.component.css'
 })
-export class ClientEditorComponent implements OnInit{
+export class ClientEditorComponent implements OnInit {
 
-  public passportNumber:string="";
-  public fullName:string="";
-  public medCertificate:boolean=false;
-  public employees:Employee[]=[];
-  public subscriptions:PoolSubscription[]=[];
-  public employeeIndex:number=0;
-  public subscriptionIndex:number=0;
+  public passportNumber: string = "";
+  public fullName: string = "";
+  public medCertificate: boolean = false;
+  public employees: Employee[] = [];
+  public subscriptions: PoolSubscription[] = [];
+  public employeeIndex: number = 0;
+  public subscriptionIndex: number = 0;
 
-  constructor(private clientService: ClientService, private subscriptionService:PoolSubscriptionService,
-              private employeeService:EmployeeService, private route: ActivatedRoute) {}
+  constructor(private clientService: ClientService, private subscriptionService: PoolSubscriptionService,
+              private employeeService: EmployeeService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.loadEmployees();
     this.loadSubscriptions();
     this.loadClient();
   }
+
   loadEmployees() {
-    this.employeeService.getEmployees().subscribe((result: any[]) => {
+    this.employeeService.getAll().subscribe((result: any[]) => {
       this.employees = result;
     });
   }
 
   loadSubscriptions() {
-    this.subscriptionService.getPoolSubscriptions().subscribe((result: any[]) => {
+    this.subscriptionService.getAll().subscribe((result: any[]) => {
       this.subscriptions = result;
     });
   }
 
-  loadClient(){
+  loadClient() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.clientService.searchClient(id).subscribe(
+      this.clientService.getById(id).subscribe(
         (response: Client) => {
-          this.passportNumber=response.passportNumber;
-          this.fullName=response.fullName;
-          this.medCertificate=response.medicalCertificate;
+          this.passportNumber = response.passportNumber;
+          this.fullName = response.fullName;
+          this.medCertificate = response.medicalCertificate;
         },
         (error: HttpErrorResponse) => {
-          alert(error.status+" Oops");
+          alert(error.status + " Oops");
         });
     });
   }
 
-  saveClient(){
-    const client:Client={
-      passportNumber:this.passportNumber,
-      fullName:this.fullName,
-      medicalCertificate:this.medCertificate,
-      subscriptionId:this.subscriptions[this.subscriptionIndex].id,
-      empPassNum:this.employees[this.employeeIndex].passportNumber,
-      employee:this.employees[this.employeeIndex],
-      subscription:this.subscriptions[this.subscriptionIndex]
+  saveClient() {
+    const client: Client = {
+      passportNumber: this.passportNumber,
+      fullName: this.fullName,
+      medicalCertificate: this.medCertificate,
+      subscriptionId: this.subscriptions[this.subscriptionIndex].id,
+      empPassNum: this.employees[this.employeeIndex].passportNumber,
+      employee: this.employees[this.employeeIndex],
+      subscription: this.subscriptions[this.subscriptionIndex]
     }
-    this.clientService.updateClient(client).subscribe((response) => {
+    this.clientService.update(client.passportNumber, client).subscribe((response) => {
       console.log(response);
     });
   }

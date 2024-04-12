@@ -7,21 +7,22 @@ import {SwgroupFilterPipe} from "./swgroup-filter.pipe";
 @Component({
   selector: 'app-swgroups',
   templateUrl: './swgroups.component.html',
-  providers:[SwgroupFilterPipe]
+  providers: [SwgroupFilterPipe]
 })
-export class SwgroupsComponent implements OnInit{
-  public swGroups: SwGroup[]=[];
+export class SwgroupsComponent implements OnInit {
+  public swGroups: SwGroup[] = [];
 
-  public searchText:string='';
+  public searchText: string = '';
 
-  constructor(private swgroupService: SwgroupService){}
+  constructor(private swgroupService: SwgroupService) {
+  }
 
   ngOnInit() {
     this.getSwGroups();
   }
 
   public getSwGroups(): void {
-    this.swgroupService.getSwGroups().subscribe(
+    this.swgroupService.getAll().subscribe(
       (response: SwGroup[]) => {
         this.swGroups = response;
         console.log(this.swGroups);
@@ -35,7 +36,7 @@ export class SwgroupsComponent implements OnInit{
   public deleteSwGroupItem(swGroup: SwGroup): void {
     const confirmation = confirm('Are you sure?');
     if (confirmation) {
-      this.swgroupService.deleteSwGroup(swGroup.id).subscribe(
+      this.swgroupService.delete(swGroup.id.toString()).subscribe(
         () => {
           const index = this.swGroups.indexOf(swGroup);
           if (index !== -1) {

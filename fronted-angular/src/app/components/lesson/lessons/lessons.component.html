@@ -1,5 +1,5 @@
 <form class="search" action="">
-  <input [(ngModel)]="searchText" type="search" name="searchText"  placeholder="Enter position...">
+  <input [(ngModel)]="searchText" type="search" name="searchText" placeholder="Enter position...">
 </form>
 <table class="table table-dark">
   <thead>
@@ -7,14 +7,16 @@
     <th>Category</th>
     <th>Duration</th>
     <th>Teacher</th>
-    <th> <button id="showFormButton" routerLink="/add-lesson">➕</button></th>
+    <th>
+      <button id="showFormButton" routerLink="/add-lesson">➕</button>
+    </th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let lesson of lessons |lessonFilter:searchText">
-    <td>{{lesson.category}}</td>
-    <td>{{lesson.duration}}</td>
-    <td>{{lesson.employee.fullName}}</td>
+    <td>{{ lesson.category }}</td>
+    <td>{{ lesson.duration }}</td>
+    <td>{{ lesson.employee.fullName }}</td>
     <td>
       <button class="action-icon" [routerLink]="['/edit-lesson',lesson.id]">&#9998;</button>
       <button (click)="deleteLessonItem(lesson)">&#10060;</button>

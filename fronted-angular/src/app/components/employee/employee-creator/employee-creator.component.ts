@@ -31,7 +31,7 @@ export class EmployeeCreatorComponent implements OnInit{
   }
 
   loadJobTitles() {
-    this.jobTitleService.getJobTitles().subscribe((result: any[]) => {
+    this.jobTitleService.getAll().subscribe((result: any[]) => {
       this.jobTitles = result;
     });
   }
@@ -44,7 +44,7 @@ export class EmployeeCreatorComponent implements OnInit{
       position:this.jobTitles[this.jobTitleIndex].position,
       jobTitle:this.jobTitles[this.jobTitleIndex]
     }
-    this.employeeService.addEmployee(employee).subscribe((response) => {
+    this.employeeService.create(employee).subscribe((response) => {
       console.log(response);
     });
   }
