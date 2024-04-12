@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,9 +10,9 @@ const NavBar = () => {
     };
 
     return (
-        <nav style={{ backgroundColor: '#ffc107', padding: '20px', fontSize: '24px', fontFamily: 'Roboto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ position: 'relative' }}>
+        <nav style={{backgroundColor: '#ffc107', padding: '20px', fontSize: '24px', fontFamily: 'Roboto'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <div style={{position: 'relative'}}>
                     <button
                         onClick={toggleMenu}
                         style={{

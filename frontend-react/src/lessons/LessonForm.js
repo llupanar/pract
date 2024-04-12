@@ -1,12 +1,14 @@
+import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-export default function AddLesson() {
+export default function LessonForm({isEditing = false}) {
+
     let navigate = useNavigate();
+    let baseUrl = process.env.REACT_APP_BASE_URL;
 
     const [lesson, setLesson] = useState({
-        id:0,
+        id: 0,
         category: "",
         duration: 0,
         empPassNum: ""
@@ -14,36 +16,55 @@ export default function AddLesson() {
 
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const {id} = useParams();
 
     useEffect(() => {
         loadEmployees();
-        generateUniqueId();
-    }, []);
+        if (isEditing) {
+            loadLesson()
+        } else {
+            generateUniqueId();
+        }
+    }, [isEditing, id]);
 
     const loadEmployees = async () => {
-        const result = await axios.get("http://localhost:8080/api/v1/employee");
+        const result = await axios.get(`${baseUrl}/employee`);
         setEmployees(result.data);
     };
 
+    const loadLesson = async () => {
+        const result = await axios.get(`${baseUrl}/lesson/${id.toString()}`);
+        const loadedLesson = result.data;
+        setLesson({
+            id: loadedLesson.id,
+            category: loadedLesson.category,
+            duration: loadedLesson.duration,
+        });
+
+        setSelectedEmployee(loadedLesson.employee.passportNumber);
+    };
     const onInputChange = (e) => {
-        setLesson({ ...lesson, [e.target.name]: e.target.value });
+        setLesson({...lesson, [e.target.name]: e.target.value});
     };
 
     const onSubmit = async (e) => {
         e.preventDefault();
         lesson.empPassNum = selectedEmployee;
         const selectedEmployeeObj = employees.find((employee) => employee.passportNumber === selectedEmployee);
-        const updatedLesson = {
+        const sendLesson = {
             ...lesson,
             employee: selectedEmployeeObj
         };
 
-        await axios.post("http://localhost:8080/api/v1/lesson", updatedLesson);
-        navigate("/lesson");
+        const url = isEditing ? `${baseUrl}/lesson/${id.toString()}` : `${baseUrl}/lesson`;
+        const method = isEditing ? "put" : "post";
+        await axios[method](url, sendLesson);
+        navigate(isEditing ? "/lesson" : "/");
     };
 
     const generateUniqueId = async () => {
-        const result = await axios.get("http://localhost:8080/api/v1/lesson");
+        const response = await axios.get(`${baseUrl}/lesson`);
+        const result = response.data;
         let uniqueId = 1;
         if (Array.isArray(result)) {
             const idSet = new Set(result.map(item => item.id));
@@ -51,14 +72,14 @@ export default function AddLesson() {
                 uniqueId++;
             }
         }
-        lesson.id= uniqueId;
+        lesson.id = uniqueId;
     };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Register Client</h2>
+                    <h2 className="text-center m-4">{isEditing ? "Edit" : "Register"} Lesson </h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="category" className="form-label">

@@ -1,9 +1,11 @@
+import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate,useParams } from "react-router-dom";
 
-export default function EditSwGroup() {
+export default function SwGroupForm({isEditing = false}) {
+
     let navigate = useNavigate();
+    let baseUrl = process.env.REACT_APP_BASE_URL;
 
     const [swgroup, setSwGroup] = useState({
         id: 0,
@@ -12,41 +14,58 @@ export default function EditSwGroup() {
         ageCategory: ""
     });
 
-    const { level, memberCount,ageCategory } = swgroup;
-    const { id } = useParams();
+
+    const {level, memberCount, ageCategory} = swgroup;
+    const {id} = useParams();
 
     const onInputChange = (e) => {
-        setSwGroup({ ...swgroup, [e.target.name]: e.target.value });
+        setSwGroup({...swgroup, [e.target.name]: e.target.value});
     };
 
-
     useEffect(() => {
-        const loadLwGroup = async () => {
-            const result = await axios.get(`http://localhost:8080/api/v1/swgroup/${id.toString()}`);
-            setSwGroup(result.data);
-        };
-
-        loadLwGroup();
-    }, []);
+        if (isEditing) {
+            const loadLwGroup = async () => {
+                const result = await axios.get(`${baseUrl}/swgroup/${id.toString()}`);
+                setSwGroup(result.data);
+            };
+            loadLwGroup();
+        } else {
+            generateUniqueId();
+        }
+    }, [isEditing, id]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(`http://localhost:8080/api/v1/swgroup/${id.toString()}`, swgroup);
-        navigate("/swgroup");
+        const url = isEditing ? `${baseUrl}/swgroup/${id.toString()}` : `${baseUrl}/swgroup`;
+        const method = isEditing ? "put" : "post";
+        await axios[method](url, swgroup);
+        navigate(isEditing ? "/swgroup" : "/");
+    };
+    const generateUniqueId = async () => {
+        const response = await axios.get(`${baseUrl}/swgroup`);
+        const result = response.data;
+        let uniqueId = 1;
+        if (Array.isArray(result)) {
+            const idSet = new Set(result.map(item => item.id));
+            while (idSet.has(uniqueId)) {
+                uniqueId++;
+            }
+        }
+        swgroup.id = uniqueId;
     };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Edit Group</h2>
+                    <h2 className="text-center m-4">{isEditing ? "Edit" : "Register"} Group </h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="level" className="form-label">
-                                level
+                                Level
                             </label>
                             <input
-                                type={"text"}
+                                type="number"
                                 className="form-control"
                                 placeholder="Enter level"
                                 name="level"
@@ -56,10 +75,10 @@ export default function EditSwGroup() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="memberCount" className="form-label">
-                                Member count
+                                Member Count
                             </label>
                             <input
-                                type={"number"}
+                                type="number"
                                 className="form-control"
                                 placeholder="Enter member count"
                                 name="memberCount"
@@ -72,7 +91,7 @@ export default function EditSwGroup() {
                                 Age category
                             </label>
                             <input
-                                type={"text"}
+                                type="text"
                                 className="form-control"
                                 placeholder="Enter age category"
                                 name="ageCategory"

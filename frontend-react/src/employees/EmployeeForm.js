@@ -1,31 +1,35 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
-export default function EditEmloyee() {
+export default function EmployeeForm({isEditing = false}) {
+
+    let baseUrl = process.env.REACT_APP_BASE_URL;
     let navigate = useNavigate();
 
     const [employee, setEmployee] = useState({
         passportNumber: "",
         fullName: "",
-        experience: 0
+        experience: false,
+        position: "",
     });
+
     const [jobTitles, setJobTitle] = useState([]);
     const [selectedJobTitle, setSelectedJobTitile] = useState(null);
-    const { id } = useParams();
+    const {id} = useParams();
+    const {passportNumber, fullName, experience, position} = employee;
+
 
     useEffect(() => {
         loadJobTitles();
-        loadEmployee()
-    }, []);
+        if (isEditing) {
+            loadEmployee()
 
-    const loadJobTitles = async () => {
-        const result = await axios.get("http://localhost:8080/api/v1/job_title");
-        setJobTitle(result.data);
-    };
+        }
+    }, [isEditing, id]);
 
     const loadEmployee = async () => {
-        const result = await axios.get(`http://localhost:8080/api/v1/employee/${id.toString()}`);
+        const result = await axios.get(`${baseUrl}/employee/${id.toString()}`);
         const loadedEmployee = result.data;
         setEmployee({
             passportNumber: loadedEmployee.passportNumber,
@@ -35,33 +39,50 @@ export default function EditEmloyee() {
         setSelectedJobTitile(loadedEmployee.position);
     };
 
-    const { passportNumber, fullName, experience } = employee;
+    const loadJobTitles = async () => {
+        const result = await axios.get(`${baseUrl}/job_title`);
+        setJobTitle(result.data);
+    };
 
     const onInputChange = (e) => {
-        setEmployee({ ...employee, [e.target.name]: e.target.value });
+        setEmployee({...employee, [e.target.name]: e.target.value});
     };
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        employee.position = selectedJobTitle;
         const selectedJobTitleObj = jobTitles.find((jobTitle) => jobTitle.position.toString() === selectedJobTitle);
-        const updatedEmployee = {
+        const sendEmployee = {
             ...employee,
             jobTitle: selectedJobTitleObj,
         };
-        axios.put(`http://localhost:8080/api/v1/employee/${id.toString()}`, updatedEmployee)
-            .then(response => {
-
-            })
-            .catch(error => {
-            });
-        navigate("/employee");
+        const url = isEditing ? `${baseUrl}/employee/${id.toString()}` : `${baseUrl}/employee`;
+        const method = isEditing ? "put" : "post";
+        await axios[method](url, sendEmployee);
+        navigate(isEditing ? "/employee" : "/");
     };
+
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Edit Employee</h2>
+                    <h2 className="text-center m-4">{isEditing ? "Edit" : "Register"} Employee </h2>
                     <form onSubmit={(e) => onSubmit(e)}>
+                        {!isEditing && (
+                            <div className="mb-3">
+                                <label htmlFor="passportNumber" className="form-label">
+                                    Passport Number
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter passport number"
+                                    name="passportNumber"
+                                    value={passportNumber}
+                                    onChange={(e) => onInputChange(e)}
+                                />
+                            </div>
+                        )}
                         <div className="mb-3">
                             <label htmlFor="fullName" className="form-label">
                                 Full name
@@ -96,19 +117,20 @@ export default function EditEmloyee() {
                                 className="form-control"
                                 name="position"
                                 value={selectedJobTitle}
-                                onChange={(e) => setSelectedJobTitile(e.target.value)}
-                            >
+                                onChange={(e) => setSelectedJobTitile(e.target.value)}>
                                 <option value="">Select position</option>
                                 {jobTitles.map((jobTitle) => (
                                     <option key={jobTitle.position} value={jobTitle.position}>
-                                        {jobTitle.position}</option>
+                                        {jobTitle.position}
+                                    </option>
                                 ))}
                             </select>
                         </div>
-                        <button type="submit" className="btn btn-primary w-100">
-                            Update Client
+
+                        <button type="submit" className="btn btn-outline-primary">
+                            Submit
                         </button>
-                        <Link to="/client" className="btn btn-secondary mt-2 w-100">
+                        <Link className="btn btn-outline-danger mx-2" to="/employee">
                             Cancel
                         </Link>
                     </form>

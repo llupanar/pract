@@ -1,63 +1,82 @@
+import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-export default function AddSchedule() {
+export default function ScheduleForm({isEditing = false}) {
+
     let navigate = useNavigate();
+    let baseUrl = process.env.REACT_APP_BASE_URL;
 
     const [schedule, setSchedule] = useState({
         id: 0,
         dayOfWeek: "",
         time: "",
         track: 0,
-        lessonId:0,
-        swGroupId:0
+        lessonId: 0,
+        swGroupId: 0
     });
 
     const [lessons, setLessons] = useState([]);
     const [selectedLesson, setSelectedLesson] = useState(null);
     const [groups, setGroups] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState(null);
+    const {dayOfWeek, time, track} = schedule;
+    const {id} = useParams();
 
     useEffect(() => {
         loadLessons();
         loadGroups();
-        generateUniqueId();
-    }, []);
+        if (isEditing) {
+            loadSchedule();
+        } else {
+            generateUniqueId();
+        }
+    }, [isEditing, id]);
 
     const loadLessons = async () => {
-        const result = await axios.get("http://localhost:8080/api/v1/lesson");
+        const result = await axios.get(`${baseUrl}/lesson`);
         setLessons(result.data);
     };
     const loadGroups = async () => {
-        const result = await axios.get("http://localhost:8080/api/v1/swgroup");
+        const result = await axios.get(`${baseUrl}/swgroup`);
         setGroups(result.data);
     };
 
-
-    const { id, dayOfWeek, time, track } = schedule;
+    const loadSchedule = async () => {
+        const result = await axios.get(`${baseUrl}/schedule/${id.toString()}`);
+        const loadedSchedule = result.data;
+        setSchedule({
+            id: loadedSchedule.id,
+            time: loadedSchedule.time,
+            track: loadedSchedule.track
+        });
+        setSelectedLesson(loadedSchedule.lessonId);
+        setSelectedGroup(loadedSchedule.swGroup.id);
+    }
 
     const onInputChange = (e) => {
-        setSchedule({ ...schedule, [e.target.name]: e.target.value });
+        setSchedule({...schedule, [e.target.name]: e.target.value});
     };
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        schedule.lessonId=selectedLesson;
-        schedule.swGroupId=selectedGroup;
+        schedule.lessonId = selectedLesson;
+        schedule.swGroupId = selectedGroup;
         const selectedLessonObj = lessons.find((lesson) => lesson.id.toString() === selectedLesson);
         const selectedGroupObj = groups.find((group) => group.id.toString() === selectedGroup);
-        const updatedSchedule = {
+        const sendSchedule = {
             ...schedule,
             lesson: selectedLessonObj,
-            swGroup:selectedGroupObj
+            swGroup: selectedGroupObj
         };
-
-        await axios.post("http://localhost:8080/api/v1/schedule", updatedSchedule);
-        navigate("/schedule");
+        const url = isEditing ? `${baseUrl}/schedule/${id.toString()}` : `${baseUrl}/schedule`;
+        const method = isEditing ? "put" : "post";
+        await axios[method](url, sendSchedule);
+        navigate(isEditing ? "/schedule" : "/");
     };
     const generateUniqueId = async () => {
-        const result = await axios.get("http://localhost:8080/api/v1/schedule");
+        const response = await axios.get(`${baseUrl}/schedule`);
+        const result = response.data;
         let uniqueId = 1;
         if (Array.isArray(result)) {
             const idSet = new Set(result.map(item => item.id));
@@ -65,13 +84,14 @@ export default function AddSchedule() {
                 uniqueId++;
             }
         }
-        schedule.id= uniqueId;
+        schedule.id = uniqueId;
     };
+
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Register User</h2>
+                    <h2 className="text-center m-4">{isEditing ? "Edit" : "Register"} Schedule </h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="time" className="form-label">

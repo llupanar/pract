@@ -1,9 +1,11 @@
+import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-export default function AddJobTitle() {
+export default function JobTitleForm({isEditing = false}) {
+
     let navigate = useNavigate();
+    let baseUrl = process.env.REACT_APP_BASE_URL;
 
     const [jobTitle, setJobTitle] = useState({
         position: "",
@@ -11,24 +13,37 @@ export default function AddJobTitle() {
         bonus: false,
     });
 
-    const { position, salary, bonus } = jobTitle;
+    const {position, salary, bonus} = jobTitle;
+    const {id} = useParams();
 
     const onInputChange = (e) => {
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
-        setJobTitle({ ...jobTitle, [e.target.name]: value });
+        setJobTitle({...jobTitle, [e.target.name]: value});
     };
+
+    useEffect(() => {
+        if (isEditing) {
+            const loadUser = async () => {
+                const result = await axios.get(`${baseUrl}/job_title/${id.toString()}`);
+                setJobTitle(result.data);
+            };
+            loadUser();
+        }
+    }, [isEditing, id]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/api/v1/job_title", jobTitle);
-        navigate("/");
+        const url = isEditing ? `${baseUrl}/job_title/${id.toString()}` : `${baseUrl}/job_title`;
+        const method = isEditing ? "put" : "post";
+        await axios[method](url, jobTitle);
+        navigate(isEditing ? "/job-title" : "/");
     };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Register Job Title</h2>
+                    <h2 className="text-center m-4">{isEditing ? "Edit" : "Register"} Job Title</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
